@@ -26,7 +26,7 @@ var Player = Component.extend({
       this.rigidbody.velocity.x += 100;
     } 
 
-    if (Input.GetKeyDown(KeyCode.Space) && this.grounded) {
+    if (Input.GetKeyDown(KeyCode.Space) && this.grounded || Input.GetKeyDown(KeyCode.UpArrow) && this.grounded) {
       this.rigidbody.velocity.y = 0;
       this.rigidbody.AddForce(Vector2.up.Mul(200 * this.rigidbody.mass));
     }
