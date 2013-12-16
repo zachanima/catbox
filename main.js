@@ -4,12 +4,13 @@ window.onload = function() {
   var width = document.getElementsByClassName('game')[0].offsetWidth - 2;
   var height = (width * 9) / 16;
 
+  var camera = new GameObject('camera', Camera);
   var player = new GameObject('player', Player);
   var ground = new GameObject('ground');
   Physics.gravity.y = 5;
   ground.Add(BoxCollider);
   ground.transform.position = new Vector2(width / 2, 1.5 * height);
-  ground.collider.width = width;
+  ground.collider.width = 10 * width;
   ground.collider.height = height;
 
   // TODO: Work when using CTRL+R.

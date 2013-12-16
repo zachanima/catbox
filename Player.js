@@ -17,6 +17,8 @@ var Player = Component.extend({
 
 
   Update: function() {
+    Camera.main.transform.position = this.transform.position;
+
     this.rigidbody.velocity.x = 0;
 
     if (Input.GetKey(KeyCode.LeftArrow)) {
