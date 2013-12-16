@@ -116,9 +116,9 @@ var GameObject = Class.extend({
 
 
 
-  OnCollisionStay: function() {
+  OnCollisionStay: function(collider) {
     this.components.forEach(function(component) {
-      component.OnCollisionStay();
+      component.OnCollisionStay(collider);
     });
   },
 });
