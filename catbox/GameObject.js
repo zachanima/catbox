@@ -95,6 +95,14 @@ var GameObject = Class.extend({
 
 
 
+  LateUpdate: function() {
+    this.components.forEach(function(component) {
+      component.LateUpdate();
+    });
+  },
+
+
+
   Render: function() {
     context.save();
     context.translate(parseInt(this.transform.position.x), parseInt(this.transform.position.y));
