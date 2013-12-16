@@ -16,7 +16,7 @@ window.onload = function() {
   var image = new Image();
   image.src = 'res/box.png';
 
-  for (var i = 0; i < 512; ++i) {
+  for (var i = 0; i < 32; ++i) {
     var box = new GameObject('box', Rigidbody);
     box.transform.position = new Vector2(Math.random() * width, Math.random() * height);
     box.Add(Sprite);
