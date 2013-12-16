@@ -26,23 +26,20 @@ var BoxCollider = Collider.extend({
       this.width, this.height
     );
 
-    for (var i in Engine.gameObjects) {
-      // Discard self.
-      var gameObject = Engine.gameObjects[i];
-      if (gameObject === this.gameObject) {
-        continue;
-      }
+    var colliders = GameObject.FindObjectsOfType(BoxCollider);
 
-      // Discard non-box-box collision.
-      var collider = gameObject.collider;
-      if (!(collider instanceof BoxCollider)) {
+    for (var i in colliders) {
+      var collider = colliders[i];
+
+      // Discard self.
+      if (this.gameObject === collider.gameObject) {
         continue;
       }
 
       // Discard on axis separation.
       var b = new Rect(
-        gameObject.transform.position.x - collider.width  / 2,
-        gameObject.transform.position.y - collider.height / 2,
+        collider.transform.position.x - collider.width  / 2,
+        collider.transform.position.y - collider.height / 2,
         collider.width, collider.height
       );
       if (a.max.x < b.min.x || 
@@ -63,7 +60,7 @@ var BoxCollider = Collider.extend({
       // Correct collision.
       if (Math.abs(x) < Math.abs(y)) {
         this.rigidbody.velocity.x *= 0.875;
-        if (gameObject.rigidbody) {
+        if (collider.rigidbody) {
           x /= 2;
           this.rigidbody.AddForce(Vector2.left.Mul(x * 16));
         }
@@ -71,7 +68,7 @@ var BoxCollider = Collider.extend({
 
       } else {
         this.rigidbody.velocity.y *= 0.875;
-        if (gameObject.rigidbody) {
+        if (collider.rigidbody) {
           y /= 2;
           this.rigidbody.AddForce(Vector2.up.Mul(y * 16));
         }

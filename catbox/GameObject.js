@@ -18,7 +18,7 @@ var GameObject = Class.extend({
     });
 
     if (Class) {
-      return this.Add(Class);
+      this.Add(Class);
     }
   },
 
@@ -122,3 +122,21 @@ var GameObject = Class.extend({
     });
   },
 });
+
+
+
+GameObject.FindObjectsOfType = function(Class) {
+  var result = [];
+
+  for (var i in Engine.gameObjects) {
+    var gameObject = Engine.gameObjects[i];
+    for (var j in gameObject.components) {
+      var component = gameObject.components[j];
+      if (component instanceof Class) {
+        result.push(component);
+      }
+    }
+  }
+
+  return result;
+};
