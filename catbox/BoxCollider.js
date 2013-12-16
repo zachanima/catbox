@@ -55,19 +55,21 @@ var BoxCollider = Collider.extend({
 
       if (Math.abs(x) < Math.abs(y)) {
         if (rigidbody) {
-          a.x -= x / 4;
-          this.rigidbody.AddForce(Vector2.left.Mul(x * 4));
+          a.x -= x / 2;
+          this.rigidbody.velocity.x *= 0.875;
+          this.rigidbody.AddForce(Vector2.left.Mul(x * 8));
         } else {
           a.x -= x;
-          this.rigidbody.velocity.x *= 0.9375;
+          this.rigidbody.velocity.x *= 0.875;
         }
       } else {
         if (rigidbody) {
-          a.y -= y / 4;
-          this.rigidbody.AddForce(Vector2.up.Mul(y * 4));
+          a.y -= y / 2;
+          this.rigidbody.velocity.y *= 0.875;
+          this.rigidbody.AddForce(Vector2.up.Mul(y * 8));
         } else {
           a.y -= y;
-          this.rigidbody.velocity.y *= 0.9375;
+          this.rigidbody.velocity.y *= 0.875;
         }
       }
 
