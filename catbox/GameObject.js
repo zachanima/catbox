@@ -38,14 +38,14 @@ var GameObject = Class.extend({
     if (Class === Rigidbody) {
       this.rigidbody = component;
       this.components.forEach(function(_component) {
-        _component.rigidbody = component
+        _component.rigidbody = component;
       });
     }
 
     if (Class === Sprite) {
       this.sprite = component;
       this.components.forEach(function(_component) {
-        _component.sprite = component
+        _component.sprite = component;
       });
     }
 

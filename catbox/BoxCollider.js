@@ -1,11 +1,8 @@
 "use strict";
 
 var BoxCollider = Collider.extend({
-  init: function() {
-    this._super();
-    this.width = 1;
-    this.height = 1;
-  },
+  width: 1,
+  height: 1,
 
 
 

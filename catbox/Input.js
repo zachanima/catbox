@@ -5,7 +5,11 @@ var KeyCode = {
   A: 65,
   B: 66,
   C: 67,
-  D: 68
+  D: 68,
+  LeftArrow: 37,
+  UpArrow: 38,
+  RightArrow: 39,
+  DownArrow: 40,
 }
 
 
