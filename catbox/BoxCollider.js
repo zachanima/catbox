@@ -65,7 +65,7 @@ var BoxCollider = Collider.extend({
                   position.x -= depth.x * Math.sign(delta.x);
                 } else {
                   position.y -= depth.y * Math.sign(delta.y);
-                  _this.rigidbody.velocity.y = 0;
+                  _this.rigidbody.velocity.y = Math.min(0, _this.rigidbody.velocity.y);
                 }
               }
             }

@@ -1,6 +1,7 @@
 "use strict";
 
 var Player = Component.extend({ 
+  grounded: false,
   Awake: function() {
     this.Add(Sprite).Load('res/mario.png');
     this.sprite.image;
@@ -12,16 +13,27 @@ var Player = Component.extend({
 
 
   Update: function() {
+    this.rigidbody.velocity.x = 0;
     if (Input.GetKey(KeyCode.LeftArrow)) {
       this.transform.scale.x = -1;
-      this.rigidbody.velocity.x = -100;
+      this.rigidbody.velocity.x -= 100;
     }
-    else if (Input.GetKey(KeyCode.RightArrow)) {
+    
+    if (Input.GetKey(KeyCode.RightArrow)) {
       this.transform.scale.x = 1;
-      this.rigidbody.velocity.x = 100;
+      this.rigidbody.velocity.x += 100;
+    } 
+
+    if (Input.GetKeyDown(KeyCode.Space) && this.grounded) {
+      this.rigidbody.AddForce(Vector2.up.Mul(100));
     }
-    else {
-    this.rigidbody.velocity.x = 0;
-    }
+
+    this.grounded = false;
+  },
+
+
+
+  OnCollisionStay: function() {
+    this.grounded = true;
   },
 });
