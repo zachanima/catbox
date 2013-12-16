@@ -23,12 +23,12 @@ var BoxCollider = Collider.extend({
     for (var i in Engine.gameObjects) {
       var gameObject = Engine.gameObjects[i];
       var collider = gameObject.collider;
+      var rigidbody = gameObject.rigidbody;
       
       // Discard non-box-box collision.
       if (gameObject === this.gameObject || !(collider instanceof BoxCollider)) {
         continue;
       }
-
 
       // Discard on axis separation.
       var a = this.transform.position;
@@ -40,23 +40,38 @@ var BoxCollider = Collider.extend({
         continue;
       }
 
-      var delta = new Vector2(
-        Math.min(0, Math.abs(a.x - b.x) - (this.width  + collider.width ) / 2),
-        Math.min(0, Math.abs(a.y - b.y) - (this.height + collider.height) / 2)
-      );
+      var amin = new Vector2(a.x - this.width / 2, a.y - this.height / 2);
+      var amax = new Vector2(a.x + this.width / 2, a.y + this.height / 2);
+      var bmin = new Vector2(b.x - collider.width / 2, b.y - collider.height / 2);
+      var bmax = new Vector2(b.x + collider.width / 2, b.y + collider.height / 2);
 
-      if (delta.x > delta.y) {
-        a.x += delta.x;
-        if (Math.sign(this.rigidbody.velocity.x) != Math.sign(delta.x)) {
-          this.rigidbody.velocity.x = 0;
+      var bottom = amax.y - bmin.y;
+      var top = amin.y - bmax.y;
+      var left = amin.x - bmax.x;
+      var right = amax.x - bmin.x;
+
+      var x = Math.abs(left) < Math.abs(right) ? left : right;
+      var y = Math.abs(bottom) < Math.abs(top) ? bottom : top;
+
+      if (Math.abs(x) < Math.abs(y)) {
+        if (rigidbody) {
+          a.x -= x / 4;
+          this.rigidbody.AddForce(Vector2.left.Mul(x * 4));
+        } else {
+          a.x -= x;
+          this.rigidbody.velocity.x *= 0.9375;
         }
       } else {
-        a.y += delta.y;
-        if (Math.sign(this.rigidbody.velocity.y) != Math.sign(delta.y)) {
-          this.rigidbody.velocity.y = 0;
+        if (rigidbody) {
+          a.y -= y / 4;
+          this.rigidbody.AddForce(Vector2.up.Mul(y * 4));
+        } else {
+          a.y -= y;
+          this.rigidbody.velocity.y *= 0.9375;
         }
       }
-      
+
+
       this.gameObject.OnCollisionStay(collider);
     }
   },

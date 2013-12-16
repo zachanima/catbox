@@ -8,6 +8,7 @@ var Player = Component.extend({
     this.transform.position = new Vector2(300, 180);
     this.Add(Rigidbody);
     this.Add(BoxCollider);
+    this.rigidbody.mass = 1;
   },
 
 
@@ -26,7 +27,7 @@ var Player = Component.extend({
     } 
 
     if (Input.GetKeyDown(KeyCode.Space) && this.grounded) {
-      this.rigidbody.AddForce(Vector2.up.Mul(200));
+      this.rigidbody.AddForce(Vector2.up.Mul(200 * this.rigidbody.mass));
     }
 
     this.grounded = false;
