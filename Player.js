@@ -2,6 +2,9 @@
 
 var Player = Component.extend({ 
   grounded: false,
+
+
+
   Awake: function() {
     this.Add(Sprite).Load('res/botwalk.png', 6);
     this.transform.position = new Vector2(300, 180);
@@ -13,6 +16,8 @@ var Player = Component.extend({
 
 
   Update: function() {
+    Camera.main.transform.position = this.transform.position;
+
     this.rigidbody.velocity.x = 0;
 
     if (Input.GetKey(KeyCode.LeftArrow)) {
@@ -25,7 +30,8 @@ var Player = Component.extend({
       this.rigidbody.velocity.x += 100;
     } 
 
-    if (Input.GetKeyDown(KeyCode.Space) && this.grounded || Input.GetKeyDown(KeyCode.UpArrow) && this.grounded) {
+    if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow)) &&
+      this.grounded) {
       this.rigidbody.velocity.y = 0;
       this.rigidbody.AddForce(Vector2.up.Mul(200 * this.rigidbody.mass));
     }

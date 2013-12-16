@@ -64,10 +64,18 @@ var Engine = {
 
 
   Render: function() {
+    var transform = Camera.main.transform;
+
     context.clearRect(0, 0, canvas.width, canvas.height);
+    context.save();
+    context.translate(parseInt(-transform.position.x + canvas.width / 2), parseInt(-transform.position.y + canvas.height / 2));
+    context.rotate(transform.rotation);
+    context.scale(transform.scale.x, transform.scale.y);
 
     Engine.gameObjects.forEach(function(gameObject) {
       gameObject.Render();
     });
+
+    context.restore();
   }
 };
