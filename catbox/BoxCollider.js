@@ -6,10 +6,10 @@ var BoxCollider = Collider.extend({
 
 
 
-  Awake: function() { 
-    if (this.sprite) {
-      this.width = this.sprite.image.width;
-      this.height = this.sprite.image.height;
+  Update: function() { 
+    if (this.sprite && this.sprite.images[0]) {
+      this.width = this.sprite.images[0].width;
+      this.height = this.sprite.images[0].height;
     }
   },
 

@@ -3,8 +3,7 @@
 var Player = Component.extend({ 
   grounded: false,
   Awake: function() {
-    this.Add(Sprite).Load('res/mario.png');
-    this.sprite.image;
+    this.Add(Sprite).Load('res/botwalk.png', 6);
     this.transform.position = new Vector2(300, 180);
     this.Add(Rigidbody);
     this.Add(BoxCollider);
