@@ -2,6 +2,9 @@
 
 var Player = Component.extend({ 
   grounded: false,
+
+
+
   Awake: function() {
     this.Add(Sprite).Load('res/mario.png');
     this.sprite.image;
