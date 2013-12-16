@@ -3,6 +3,7 @@
 window.onload = function() {
   var player = new GameObject('player', Player);
   var ground = new GameObject('ground');
+  Physics.gravity.y = 5;
   ground.Add(BoxCollider);
   ground.transform.position = new Vector2(300, 350);
   ground.collider.width = 600;

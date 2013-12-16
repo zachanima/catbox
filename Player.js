@@ -25,7 +25,7 @@ var Player = Component.extend({
     } 
 
     if (Input.GetKeyDown(KeyCode.Space) && this.grounded) {
-      this.rigidbody.AddForce(Vector2.up.Mul(100));
+      this.rigidbody.AddForce(Vector2.up.Mul(200));
     }
 
     this.grounded = false;
