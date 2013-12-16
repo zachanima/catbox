@@ -108,9 +108,11 @@ var GameObject = Class.extend({
     context.translate(parseInt(this.transform.position.x), parseInt(this.transform.position.y));
     context.rotate(this.transform.rotation);
     context.scale(this.transform.scale.x, this.transform.scale.y);
+
     this.components.forEach(function(component) {
       component.Render();
     });
+
     context.restore();
   },
 

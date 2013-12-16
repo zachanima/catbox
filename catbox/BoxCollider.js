@@ -79,4 +79,11 @@ var BoxCollider = Collider.extend({
       this.gameObject.OnCollisionStay(collider);
     }
   },
+
+
+
+  // FIXME: Debug.
+  Render: function() {
+    context.strokeRect(parseInt(-this.width / 2) - 0.5, parseInt(-this.height / 2) - 0.5, this.width, this.height);
+  },
 });

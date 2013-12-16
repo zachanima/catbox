@@ -20,6 +20,7 @@ window.onload = function() {
   for (var i = 0; i < 32; ++i) {
     var box = new GameObject('box', Rigidbody);
     box.transform.position = new Vector2(Math.random() * width, Math.random() * height);
+    box.transform.rotation = 0.5 * Math.PI * parseInt(Math.random() * 4);
     box.Add(Sprite);
     box.sprite.image = image;
     box.Add(BoxCollider);
