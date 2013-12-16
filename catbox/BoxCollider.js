@@ -95,7 +95,8 @@ var BoxCollider = Collider.extend({
       this.Contains(new Vector2(position.x + width / 2, position.y - height / 2)) ||
       this.Contains(new Vector2(position.x + width / 2, position.y + height / 2)) ||
       boxCollider.Contains(new Vector2(this.transform.position.x - this.width / 2, this.transform.position.y - this.height / 2)) ||
-      boxCollider.Contains(new Vector2(this.transform.position.x - this.width / 2, this.transform.position.y + this.height / 2)) || boxCollider.Contains(new Vector2(this.transform.position.x + this.width / 2, this.transform.position.y - this.height / 2)) ||
+      boxCollider.Contains(new Vector2(this.transform.position.x - this.width / 2, this.transform.position.y + this.height / 2)) ||
+      boxCollider.Contains(new Vector2(this.transform.position.x + this.width / 2, this.transform.position.y - this.height / 2)) ||
       boxCollider.Contains(new Vector2(this.transform.position.x + this.width / 2, this.transform.position.y + this.height / 2))
     ) {
       return true;

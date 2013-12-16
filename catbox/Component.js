@@ -11,6 +11,12 @@ var Component = Class.extend({
     return this.gameObject.Get(Class);
   },
 
+ 
+
+  Awake: function() { 
+    // Dummy.
+  },
+
 
 
   PhysicsUpdate: function() {

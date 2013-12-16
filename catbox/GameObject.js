@@ -57,6 +57,9 @@ var GameObject = Class.extend({
     component.transform = this.transform || component;
 
     this.components.push(component);
+
+    component.Awake();
+
     return component;
   },
 
