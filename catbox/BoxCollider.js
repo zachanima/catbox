@@ -9,6 +9,15 @@ var BoxCollider = Collider.extend({
 
 
 
+  Awake: function() { 
+    if (this.sprite) {
+      this.width = this.sprite.image.width;
+      this.height = this.sprite.image.height;
+    }
+  },
+
+
+
   Update: function() {
     // Only check for collision when a rigidbody is also attached.
     if (this.rigidbody) {
@@ -59,6 +68,7 @@ var BoxCollider = Collider.extend({
                   position.x -= depth.x * Math.sign(delta.x);
                 } else {
                   position.y -= depth.y * Math.sign(delta.y);
+                  _this.rigidbody.velocity.y = 0;
                 }
               }
             }
