@@ -31,6 +31,12 @@ var Component = Class.extend({
 
 
 
+  LateUpdate: function() {
+    // Dummy.
+  },
+
+
+
   Render: function() {
     // Dummy.
   },

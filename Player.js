@@ -14,6 +14,7 @@ var Player = Component.extend({
 
   Update: function() {
     this.rigidbody.velocity.x = 0;
+
     if (Input.GetKey(KeyCode.LeftArrow)) {
       this.transform.scale.x = -1;
       this.rigidbody.velocity.x -= 100;
@@ -33,7 +34,9 @@ var Player = Component.extend({
 
 
 
-  OnCollisionStay: function() {
-    this.grounded = true;
+  OnCollisionStay: function(collider) {
+    if (collider.transform.position.y >= this.transform.position.y) {
+      this.grounded = true;
+    }
   },
 });

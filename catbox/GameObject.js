@@ -95,6 +95,14 @@ var GameObject = Class.extend({
 
 
 
+  LateUpdate: function() {
+    this.components.forEach(function(component) {
+      component.LateUpdate();
+    });
+  },
+
+
+
   Render: function() {
     context.save();
     context.translate(parseInt(this.transform.position.x), parseInt(this.transform.position.y));
@@ -108,9 +116,9 @@ var GameObject = Class.extend({
 
 
 
-  OnCollisionStay: function() {
+  OnCollisionStay: function(collider) {
     this.components.forEach(function(component) {
-      component.OnCollisionStay();
+      component.OnCollisionStay(collider);
     });
   },
 });
