@@ -43,7 +43,7 @@ var Player = Component.extend({
 
 
   OnCollisionStay: function(collider) {
-    if (collider.transform.position.y >= this.transform.position.y) {
+    if (collider.transform.position.y + collider.height >= this.transform.position.y) {
       this.grounded = true;
     }
   },
