@@ -7,6 +7,8 @@ var Player = Component.extend({
 
   Awake: function() {
     this.Add(Sprite).Load('res/botwalk.png', 6);
+    this.sprite.Animate(0,5);
+    this.sprite.period = 0.7;
     this.transform.position = new Vector2(300, 180);
     this.Add(Rigidbody);
     this.Add(BoxCollider);

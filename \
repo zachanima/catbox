@@ -1,7 +1,7 @@
 "use strict";
 
 var Sprite = Component.extend({
-  period: 1,
+  period: 6,
   delay: 1,
   start: 0,
   end: 0,
@@ -11,14 +11,14 @@ var Sprite = Component.extend({
 
 
   Update: function() {
-    this.delay -= Time.deltaTime;
-    if (this.delay < 0) {
-      ++this.current;
-      this.delay += this.period/(this.end-this.start + 1);
+    delay -= Time.deltaTime;
+    if (delay < 0) {
+      ++current;
+      delay += period/(end-start + 1);
     }
 
-    if (this.current > this.end) {
-      this.current -= this.end - this.start + 1;
+    if (current > end) {
+      current -= end - start + 1;
     }
   },
 
@@ -57,8 +57,7 @@ var Sprite = Component.extend({
 
     for (var row = 0; row < rows; ++row) {
       for (var column = 0; column < columns; ++column) {
-        context.clearRect(0, 0, canvas.width, canvas.height);
-        context.drawImage(this.image, -column*canvas.width, -row*canvas.height);
+        context.drawImage(this.image, column*canvas.width, row*canvas.height);
         var image = new Image();
         image.src = canvas.toDataURL();
         this.images.push(image);
@@ -69,7 +68,7 @@ var Sprite = Component.extend({
 
 
   Animate: function(start, end, runonce) {
-    this.start = this.current = start; 
+    this.start = start; 
     this.end = end;
     this.runonce = runonce;
   } 
