@@ -6,8 +6,7 @@ var Player = Component.extend({
 
 
   Awake: function() {
-    this.Add(Sprite).Load('res/botwalk.png', 6);
-    this.sprite.Animate(0,5);
+    this.Add(Sprite).Load('res/mario.png');
     this.sprite.period = 0.7;
     this.transform.position = new Vector2(300, 180);
     this.Add(Rigidbody);
@@ -18,7 +17,7 @@ var Player = Component.extend({
 
 
   Update: function() {
-    Camera.main.transform.position = this.transform.position;
+    // Camera.main.transform.position = this.transform.position;
 
     this.rigidbody.velocity.x = 0;
 

@@ -4,7 +4,7 @@ window.onload = function() {
   var width = document.getElementsByClassName('game')[0].offsetWidth - 2;
   var height = (width * 9) / 16;
 
-  var camera = new GameObject('camera', Camera);
+  (new GameObject('camera', Camera)).transform.position = new Vector2(width / 2, height / 2);
   var player = new GameObject('player', Player);
   var ground = new GameObject('ground');
   Physics.gravity.y = 5;
@@ -21,6 +21,11 @@ window.onload = function() {
     box.transform.rotation = 0.5 * Math.PI * parseInt(Math.random() * 4);
     box.Add(BoxCollider);
   }
+
+  new GameObject("platform", Platform);
+  var plat = new GameObject("platform2", Platform);
+  plat.collider.width = 10;
+  plat.collider.height = 100;
 
   Engine.Start(width, height);
 };
