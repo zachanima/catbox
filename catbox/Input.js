@@ -26,7 +26,7 @@ var Input = {
       Input.keyUps[event.keyCode] = true;
     });
 
-    canvas.addEventListener('mousemove' function(event) {
+    canvas.addEventListener('mousemove', function(event) {
       var rect = canvas.getBoundingClientRect();
       Input.mousePosition.x = event.clientX - rect.left;
       Input.mousePosition.y = event.clientY - rect.top;
