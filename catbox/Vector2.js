@@ -4,18 +4,6 @@ var Vector2 = Class.extend({
   init: function(x, y) {
     this.x = x || 0;
     this.y = y || 0;
-
-    this.__defineGetter__('sqrMagnitude', function() {
-      return this.Dot(this);
-    });
-
-    this.__defineGetter__('magnitude', function() {
-      return Math.sqrt(this.sqrMagnitude); 
-    });
-
-    this.__defineGetter__('normalized', function() {
-      return this.Div(this.magnitude);
-    });
   },
 
 
