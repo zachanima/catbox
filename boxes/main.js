@@ -27,5 +27,11 @@ window.onload = function() {
   plat.collider.width = 10;
   plat.collider.height = 100;
 
+  var terrain = new GameObject("terrain", Sprite);
+  terrain.sprite.Load('res/terrain.png');
+  terrain.transform.position = new Vector2(width / 2, height - 100);
+  var pc = terrain.Add(PixelCollider);
+  pc.Load('res/terrain.png');
+
   Engine.Start(width, height);
 };
