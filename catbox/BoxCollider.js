@@ -78,6 +78,84 @@ var BoxCollider = Collider.extend({
 
       this.gameObject.OnCollisionStay(collider);
     }
+
+    colliders = GameObject.FindObjectsOfType(PixelCollider);
+
+    for (var i in colliders) {
+      var collider = colliders[i];
+
+      var b = new Rect(
+        collider.transform.position.x - collider.canvas.width / 2,
+        collider.transform.position.y - collider.canvas.height / 2,
+        collider.canvas.width, collider.canvas.height
+      );
+      if (a.max.x < b.min.x || 
+          a.min.x > b.max.x ||
+          a.max.y < b.min.y || 
+          a.min.y > b.max.y) {
+        continue;
+      }
+
+      // Correct collision. TODO: Other ways than upwards.
+      var iteration = 0; // Solver iterations.
+      var overlap = 0;
+      var canvas = document.createElement('canvas');
+      canvas.width = this.width;
+      canvas.height = this.height;
+      var context = canvas.getContext('2d');
+      var collision = false;
+      var offsets = [Vector2.up, Vector2.down, Vector2.left, Vector2.right];
+
+      context.globalCompositeOperation = 'copy';
+      context.drawImage(collider.canvas, collider.transform.position.x - collider.canvas.width / 2 - this.transform.position.x + this.width / 2, collider.transform.position.y - collider.canvas.height / 2 - this.transform.position.y + this.height / 2);
+      context.globalCompositeOperation = 'destination-in';
+      context.fillRect(0, 0, this.width, this.height);
+
+      var data = context.getImageData(0, 0, canvas.width, canvas.height).data;
+      for (var j = 3; j < data.length; j += 4) {
+        if (data[j] > 0) {
+          overlap++;
+        }
+      }
+
+      while (overlap > 0 && iteration < 16) {
+        var offset = Vector2.zero;
+        overlap = this.width * this.height;
+
+        for (var j = 0; j < 4; ++j) {
+          context.globalCompositeOperation = 'copy';
+          context.drawImage(
+            collider.canvas,
+            -offsets[j].x + collider.transform.position.x - collider.canvas.width / 2 - this.transform.position.x + this.width / 2,
+            -offsets[j].y + collider.transform.position.y - collider.canvas.height / 2 - this.transform.position.y + this.height / 2
+          );
+          context.globalCompositeOperation = 'destination-in';
+          context.fillRect(0, 0, this.width, this.height);
+
+          var data = context.getImageData(0, 0, canvas.width, canvas.height).data;
+          var thisOverlap = 0;
+          for (var k = 3; k < data.length; k += 4) {
+            if (data[k] > 0) {
+              thisOverlap++;
+            }
+          }
+
+          if (thisOverlap < overlap) {
+            overlap = thisOverlap;
+            offset = offsets[j];
+          }
+        }
+
+        this.transform.position = this.transform.position.Add(offset);
+
+        if (overlap == 0) {
+          this.rigidbody.velocity = Vector2.zero;
+          break;
+        }
+
+        ++iteration;
+      }
+    }
   },
 
 

@@ -1,49 +1,39 @@
 "use strict";
 
 var PixelCollider = Collider.extend({
-    /*
   Render: function() {
-    if (this.image) {
-      context.drawImage(this.image, -this.image.width / 2, -this.image.height / 2);
+    if (this.canvas) {
+      context.drawImage(this.canvas, -this.canvas.width / 2, -this.canvas.height / 2);
     }
   },
-    */
 
 
 
   Load: function(src) {
-    this.image = new Image();
-    this.image.src = src;
-    this.image.onload = this.Mask();
+    var image = new Image();
+    image.src = src;
+    image.onload = this.Mask(image);
   },
 
 
 
-  Mask: function() {
-    var canvas = document.createElement('canvas');
-    var context = canvas.getContext('2d');
-    canvas.width = this.image.width;
-    canvas.height = this.image.height;
-    context.drawImage(this.image, 0, 0);
+  Mask: function(image) {
+    this.canvas = document.createElement('canvas');
+    this.context = this.canvas.getContext('2d');
+    this.canvas.width = image.width;
+    this.canvas.height = image.height;
+    this.context.drawImage(image, 0, 0);
+  },
 
-    this.width = canvas.width;
-    this.height = canvas.height;
 
-    var pixels = context.getImageData(0, 0, canvas.width, canvas.height);
 
-    for (var y = 0; y < canvas.height; ++y) {
-      for (var x = 0; x < canvas.width; ++x) {
-        var i = (x + y * canvas.width) * 4;
-        var value = pixels.data[i+3] == 0 ? 0 : 255;
-        
-        for (var n = 0; n < 4; ++n) {
-          pixels.data[i+n] = value;
-        }
-      }
+  SubtractMask: function(src, x, y) {
+    var _this = this;
+    var image = new Image();
+    image.onload = function() {
+      _this.context.globalCompositeOperation = 'destination-out';
+      _this.context.drawImage(image, x - image.width / 2, y - image.height / 2);
     }
-
-    context.putImageData(pixels, 0, 0);
-
-    this.image.src = canvas.toDataURL();
+    image.src = src;
   },
 });
