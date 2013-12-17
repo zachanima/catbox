@@ -17,6 +17,13 @@ var Vector2 = Class.extend({
   Mul: function(scalar) {
     return new Vector2(this.x * scalar, this.y * scalar);
   },
+
+
+
+
+  Dot: function(vector2) { 
+    return this.x * vector2.x + this.y * vector2.y;
+  }
 });
 
 
