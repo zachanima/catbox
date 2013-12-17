@@ -14,8 +14,26 @@ var Vector2 = Class.extend({
 
 
 
+  Sub: function(vector2) {
+    return new Vector2(this.x - vector2.x, this.y - vector2.y);
+  },
+
+
+
   Mul: function(scalar) {
     return new Vector2(this.x * scalar, this.y * scalar);
+  },
+
+
+
+  Dot: function(vector2) { 
+    return this.x * vector2.x + this.y * vector2.y;
+  },
+  
+  
+  
+  Div: function(scalar) {
+    return new Vector2(this.x / scalar, this.y / scalar);
   },
 });
 
