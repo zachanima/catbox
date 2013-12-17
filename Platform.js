@@ -11,8 +11,8 @@ var Platform = Component.extend({
 
 
   Update: function() {
-    this.transform.position.x = 400 + 400 * Math.cos(this.lifetime);
-    this.transform.position.y = 520 + 50 * Math.sin(this.lifetime);
+    this.transform.position.x = 400;
+    this.transform.position.y = 480 + 120 * Math.sin(this.lifetime);
     this.lifetime += Time.deltaTime;
   },
 });
