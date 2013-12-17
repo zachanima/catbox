@@ -78,62 +78,7 @@ var BoxCollider = Collider.extend({
 
       this.gameObject.OnCollisionStay(collider);
     }
-
-    colliders = GameObject.FindObjectsOfType(PixelCollider);
-
-    for (var i in colliders) {
-      var collider = colliders[i];
-
-      // Discard on axis separation.
-      var b = new Rect(
-        collider.transform.position.x - collider.width  / 2,
-        collider.transform.position.y - collider.height / 2,
-        collider.width, collider.height
-      );
-      if (a.max.x < b.min.x || 
-          a.min.x > b.max.x ||
-          a.max.y < b.min.y || 
-          a.min.y > b.max.y) {
-        continue;
-      }
-
-      // Correct collision. TODO: Other ways than upwards.
-      var iteration = 0; // Solver iterations.
-      var overlap = 0;
-      var canvas = document.createElement('canvas');
-      canvas.width = this.width;
-      canvas.height = this.height;
-      var context = canvas.getContext('2d');
-      var collision = false;
-      do {
-        context.globalCompositeOperation = 'copy';
-        context.drawImage(collider.image, collider.transform.position.x - collider.image.width / 2 - this.transform.position.x + this.width / 2, collider.transform.position.y - collider.image.height / 2 - this.transform.position.y + this.height / 2);
-        context.globalCompositeOperation = 'destination-in';
-        context.fillRect(0, 0, this.width, this.height);
-
-        var data = context.getImageData(0, 0, canvas.width, canvas.height).data;
-        overlap = 0;
-        for (var i = 3; i < data.length; i += 4) {
-          if (data[i] > 0) {
-            overlap++;
-          }
-        }
-
-        if (overlap > 0) {
-          this.transform.position.y -= 0.1;
-          this.rigidbody.velocity.y = 0;
-          collision = true;
-        }
-
-        ++i;
-      } while (overlap > 0 && iteration < 16);
-
-      if (collision) {
-        this.gameObject.OnCollisionStay(collider);
-      }
-    }
   },
-
 
 
 
