@@ -29,6 +29,7 @@ var Engine = {
     // Update.
     // Engine.FixedUpdate(); // Fixed-time update.
     Engine.PhysicsUpdate(); // Engine physics step.
+    // Engine.PreUpdate();
     Engine.Update();
     // Engine.LateUpdate();
     // Engine.PostUpdate(); // Engine frame cleanup (input, etc.).
