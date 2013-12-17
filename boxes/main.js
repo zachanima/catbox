@@ -33,6 +33,5 @@ window.onload = function() {
   plat.collider.width = 10;
   plat.collider.height = 100;
 
-
   Engine.Start(width, height);
 };
