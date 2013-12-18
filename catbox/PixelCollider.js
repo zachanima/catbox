@@ -27,13 +27,9 @@ var PixelCollider = Collider.extend({
 
 
 
-  SubtractMask: function(src, x, y) {
+  SubtractMask: function(shape, x, y) {
     var _this = this;
-    var image = new Image();
-    image.onload = function() {
-      _this.context.globalCompositeOperation = 'destination-out';
-      _this.context.drawImage(image, x - image.width / 2, y - image.height / 2);
-    }
-    image.src = src;
+    _this.context.globalCompositeOperation = 'destination-out';
+    _this.context.drawImage(shape.canvas, x - shape.canvas.width / 2, y - shape.canvas.height / 2);
   },
 });
