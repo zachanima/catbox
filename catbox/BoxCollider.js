@@ -136,8 +136,8 @@ var BoxCollider = Collider.extend({
             context.globalCompositeOperation = 'copy';
             context.drawImage(
               collider.canvas,
-              -offsets[j].x + collider.transform.position.x - collider.canvas.width / 2 - this.transform.position.x + this.width / 2,
-              -offsets[j].y + collider.transform.position.y - collider.canvas.height / 2 - this.transform.position.y + this.height / 2
+              -offsets[j].x * 0.5 + collider.transform.position.x - collider.canvas.width / 2 - this.transform.position.x + this.width / 2,
+              -offsets[j].y * 0.5 + collider.transform.position.y - collider.canvas.height / 2 - this.transform.position.y + this.height / 2
             );
             context.globalCompositeOperation = 'destination-in';
             context.fillRect(0, 0, this.width, this.height);
@@ -152,7 +152,7 @@ var BoxCollider = Collider.extend({
 
             if (thisOverlap < overlap) {
               overlap = thisOverlap;
-              offset = offsets[j];
+              offset = offsets[j].Mul(0.5);
             }
           }
 
