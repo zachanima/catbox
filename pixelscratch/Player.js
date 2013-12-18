@@ -36,11 +36,11 @@ var Player = Component.extend({
     }
 
     if (Input.GetKey(KeyCode.LeftArrow)) {
-      this.rigidbody.AddForce(Vector2.left.Mul(2));
+      this.rigidbody.AddForce(Vector2.left.Mul(30));
     }
 
     if (Input.GetKey(KeyCode.RightArrow)) {
-      this.rigidbody.AddForce(Vector2.right.Mul(2));
+      this.rigidbody.AddForce(Vector2.right.Mul(30));
     }
   },
 });
