@@ -132,6 +132,15 @@ var GameObject = Class.extend({
       component.OnCollisionStay(collider);
     });
   },
+
+
+
+  Editor: function() {
+    var div = document.createElement('div');
+    div.innerHTML = parseInt(this.transform.position.x);
+
+    return div;
+  },
 });
 
 

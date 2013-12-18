@@ -44,6 +44,9 @@ var Engine = {
     // Engine.OnPostRender();
     // Engine.OnGUI();
 
+    document.getElementById('inspector').innerHTML = '';
+    document.getElementById('inspector').appendChild(Engine.gameObjects[0].Editor());
+
     // Request main loop.
     window.requestAnimationFrame(Engine.Run);
   },
