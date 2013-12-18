@@ -26,11 +26,7 @@ var BoxCollider = Collider.extend({
       return;
     }
 
-    var a = new Rect(
-      this.transform.position.x - this.width  / 2,
-      this.transform.position.y - this.height / 2,
-      this.width, this.height
-    );
+    var a = this.GetBounds();
 
     for (var i = Engine.colliders.length; i--;) {
       var collider = Engine.colliders[i];
@@ -41,11 +37,7 @@ var BoxCollider = Collider.extend({
       }
 
       // Discard on axis separation.
-      var b = new Rect(
-        collider.transform.position.x - collider.width  / 2,
-        collider.transform.position.y - collider.height / 2,
-        collider.width, collider.height
-      );
+      var b = collider.GetBounds();
       if (a.max.x < b.min.x || 
           a.min.x > b.max.x ||
           a.max.y < b.min.y || 
