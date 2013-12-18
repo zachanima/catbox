@@ -88,9 +88,9 @@ var GameObject = Class.extend({
 
 
 
-  PhysicsUpdate: function() {
+  SimulatePhysics: function() {
     this.components.forEach(function(component) {
-      component.PhysicsUpdate();
+      component.SimulatePhysics();
     });
   },
 

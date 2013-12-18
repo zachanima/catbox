@@ -1,8 +1,6 @@
 "use strict";
 
 var BoxCollider = Collider.extend({
-  width: 1,
-  height: 1,
   colliders: [],
 
 
@@ -16,7 +14,14 @@ var BoxCollider = Collider.extend({
 
 
 
-  PhysicsUpdate: function() {
+  // FIXME: Debug.
+  Render: function() {
+    context.strokeRect(parseInt(-this.width / 2) - 0.5, parseInt(-this.height / 2) - 0.5, this.width, this.height);
+  },
+
+
+
+  SimulatePhysics: function() {
     if (!this.rigidbody) {
       return;
     }
@@ -27,9 +32,7 @@ var BoxCollider = Collider.extend({
       this.width, this.height
     );
 
-    // var colliders = GameObject.FindObjectsOfType(BoxCollider);
-
-    for (var i in Engine.colliders) {
+    for (var i = Engine.colliders.length; i--;) {
       var collider = Engine.colliders[i];
 
       // Discard self.
@@ -37,20 +40,20 @@ var BoxCollider = Collider.extend({
         continue;
       }
 
-      if (collider instanceof BoxCollider) {
+      // Discard on axis separation.
+      var b = new Rect(
+        collider.transform.position.x - collider.width  / 2,
+        collider.transform.position.y - collider.height / 2,
+        collider.width, collider.height
+      );
+      if (a.max.x < b.min.x || 
+          a.min.x > b.max.x ||
+          a.max.y < b.min.y || 
+          a.min.y > b.max.y) {
+        continue;
+      }
 
-        // Discard on axis separation.
-        var b = new Rect(
-          collider.transform.position.x - collider.width  / 2,
-          collider.transform.position.y - collider.height / 2,
-          collider.width, collider.height
-        );
-        if (a.max.x < b.min.x || 
-            a.min.x > b.max.x ||
-            a.max.y < b.min.y || 
-            a.min.y > b.max.y) {
-          continue;
-        }
+      if (collider instanceof BoxCollider) {
 
         // Determine overlap.
         var top    = a.min.y - b.max.y;
@@ -81,25 +84,14 @@ var BoxCollider = Collider.extend({
 
         this.gameObject.OnCollisionStay(collider);
 
+
       } else if (collider instanceof PixelCollider) {
 
         if (!collider.canvas || collider.canvas.width == 0) {
           continue;
         }
 
-        var b = new Rect(
-          collider.transform.position.x - collider.canvas.width / 2,
-          collider.transform.position.y - collider.canvas.height / 2,
-          collider.canvas.width, collider.canvas.height
-        );
-        if (a.max.x < b.min.x || 
-            a.min.x > b.max.x ||
-            a.max.y < b.min.y || 
-            a.min.y > b.max.y) {
-          continue;
-        }
-
-        // Correct collision. TODO: Other ways than upwards.
+        // Correct collision.
         var iteration = 0; // Solver iterations.
         var overlap = 0;
         var canvas = document.createElement('canvas');
@@ -125,7 +117,13 @@ var BoxCollider = Collider.extend({
           }
         }
 
-        var index = this.colliders.indexOf(collider);
+        var index = -1;
+        for (var j = this.colliders.length; j--;) {
+          if (this.colliders[j] === collider) {
+            index = j;
+            break;
+          }
+        }
 
         if (overlap > 0) {
           this.gameObject.OnCollisionStay(collider);
@@ -179,12 +177,5 @@ var BoxCollider = Collider.extend({
         }
       }
     }
-  },
-
-
-
-  // FIXME: Debug.
-  Render: function() {
-    context.strokeRect(parseInt(-this.width / 2) - 0.5, parseInt(-this.height / 2) - 0.5, this.width, this.height);
   },
 });

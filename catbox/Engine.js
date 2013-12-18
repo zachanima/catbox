@@ -32,7 +32,7 @@ var Engine = {
 
     // Update.
     // Engine.FixedUpdate(); // Fixed-time update.
-    Engine.PhysicsUpdate(); // Engine physics step.
+    Engine.SimulatePhysics(); // Engine physics step.
     // Engine.PreUpdate();
     Engine.Update();
     // Engine.LateUpdate();
@@ -61,9 +61,9 @@ var Engine = {
 
 
 
-  PhysicsUpdate: function() {
+  SimulatePhysics: function() {
     Engine.gameObjects.forEach(function(gameObject) {
-      gameObject.PhysicsUpdate();
+      gameObject.SimulatePhysics();
     });
   },
 

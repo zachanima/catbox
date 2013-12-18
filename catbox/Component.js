@@ -25,7 +25,7 @@ var Component = Class.extend({
 
 
 
-  PhysicsUpdate: function() {
+  SimulatePhysics: function() {
     // Dummy.
   },
 

@@ -10,7 +10,7 @@ var Rigidbody = Component.extend({
 
 
 
-  PhysicsUpdate: function() {
+  SimulatePhysics: function() {
     this.transform.position =
       this.transform.position.Add(this.velocity.Mul(Time.deltaTime));
   },

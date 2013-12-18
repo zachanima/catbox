@@ -26,6 +26,8 @@ var PixelCollider = Collider.extend({
     this.canvas.width = image.width;
     this.canvas.height = image.height;
     this.context.drawImage(image, 0, 0);
+    this.width = this.canvas.width;
+    this.height = this.canvas.height;
   },
 
 
