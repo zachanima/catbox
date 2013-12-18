@@ -13,6 +13,7 @@ var Grenade = Component.extend({
   },
 
 
+
   OnCollisionStay: function() {
     var pc = GameObject.FindObjectsOfType(PixelCollider)[0];
     pc.SubtractMask(
