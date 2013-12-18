@@ -134,7 +134,6 @@ var BoxCollider = Collider.extend({
             this.gameObject.OnCollisionEnter(collider);
           }
         } else {
-          index = this.colliders.indexOf(collider);
           if (index > -1) {
             this.colliders.splice(index, 1);
             this.gameObject.OnCollisionExit(collider);

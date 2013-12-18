@@ -4,6 +4,7 @@ window.onload = function() {
   var width = 800;
   var height = 480;
 
+  var camera = new GameObject('Camera', Camera);
   var player = new GameObject('Player', Player);
   player.Add(Sprite).Load('res/mario.png');
   player.Add(BoxCollider);

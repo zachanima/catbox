@@ -8,6 +8,7 @@ var Player = Component.extend({
 
 
   Update: function() {
+    Camera.main.transform.position = this.transform.position;
     if (Input.GetKeyDown(KeyCode.Q)) {
       var grenade = new GameObject('Grenade', Grenade);
       grenade.rigidbody.AddForce(Vector2.left.Mul(100));
