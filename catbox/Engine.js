@@ -89,3 +89,12 @@ var Engine = {
     }
   }
 };
+
+
+
+var Destroy = function(gameObject) {
+  var index = Engine.gameObjects.indexOf(gameObject);
+  if (index > -1) {
+    Engine.gameObjects.splice(index, 1);
+  }
+}
