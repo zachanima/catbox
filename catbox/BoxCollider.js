@@ -5,6 +5,14 @@ var BoxCollider = Collider.extend({
 
 
 
+  Awake: function() {
+    // Canvas and context for collision.
+    this.canvas = document.createElement('canvas');
+    this.context = this.canvas.getContext('2d');
+  },
+
+
+
   Update: function() { 
     if (this.sprite && this.sprite.images[0] && this.width == 1 && this.height == 1) {
       this.width = this.sprite.images[0].width;
@@ -73,99 +81,31 @@ var BoxCollider = Collider.extend({
           this.transform.position.y -= y;
         }
 
-
+        // TODO: Fire OnCollisionEnter/Exit events.
         this.gameObject.OnCollisionStay(collider);
 
 
       } else if (collider instanceof PixelCollider) {
 
-        if (!collider.canvas || collider.canvas.width == 0) {
-          continue;
-        }
+        this.canvas.width = this.width;
+        this.canvas.height = this.height;
 
-        // Correct collision.
-        var iteration = 0; // Solver iterations.
-        var overlap = 0;
-        var canvas = document.createElement('canvas');
-        canvas.width = this.width;
-        canvas.height = this.height;
-        var context = canvas.getContext('2d');
-        var collision = false;
-        var offsets = [Vector2.up, Vector2.down, Vector2.left, Vector2.right];
-
-        context.globalCompositeOperation = 'copy';
-        context.drawImage(
+        this.context.globalCompositeOperation = 'copy';
+        this.context.drawImage(
           collider.canvas,
           collider.transform.position.x - collider.canvas.width / 2 - this.transform.position.x + this.width / 2,
           collider.transform.position.y - collider.canvas.height / 2 - this.transform.position.y + this.height / 2
         );
-        context.globalCompositeOperation = 'destination-in';
-        context.fillRect(0, 0, this.width, this.height);
+        this.context.globalCompositeOperation = 'destination-in';
+        this.context.fillRect(0, 0, this.width, this.height);
 
-        var data = context.getImageData(0, 0, canvas.width, canvas.height).data;
-        for (var j = 3; j < data.length; j += 4) {
+        var data = this.context.getImageData(0, 0, this.canvas.width, this.canvas.height).data;
+        for (var j = data.length - 1; j >= 0; j -= 4) {
           if (data[j] > 0) {
-            overlap++;
-          }
-        }
-
-        var index = -1;
-        for (var j = this.colliders.length; j--;) {
-          if (this.colliders[j] === collider) {
-            index = j;
+            this.transform.position.y -= 1;
+            this.rigidbody.velocity.y = 0;
             break;
           }
-        }
-
-        if (overlap > 0) {
-          this.gameObject.OnCollisionStay(collider);
-          if (index == -1) {
-            this.colliders.push(collider);
-            this.gameObject.OnCollisionEnter(collider);
-          }
-        } else {
-          if (index > -1) {
-            this.colliders.splice(index, 1);
-            this.gameObject.OnCollisionExit(collider);
-          }
-        }
-
-        while (overlap > 0 && iteration < 16) {
-          var offset = Vector2.zero;
-          overlap = this.width * this.height;
-
-          for (var j = 0; j < 4; ++j) {
-            context.globalCompositeOperation = 'copy';
-            context.drawImage(
-              collider.canvas,
-              -offsets[j].x * 0.5 + collider.transform.position.x - collider.canvas.width / 2 - this.transform.position.x + this.width / 2,
-              -offsets[j].y * 0.5 + collider.transform.position.y - collider.canvas.height / 2 - this.transform.position.y + this.height / 2
-            );
-            context.globalCompositeOperation = 'destination-in';
-            context.fillRect(0, 0, this.width, this.height);
-
-            var data = context.getImageData(0, 0, canvas.width, canvas.height).data;
-            var thisOverlap = 0;
-            for (var k = 3; k < data.length; k += 4) {
-              if (data[k] > 0) {
-                thisOverlap++;
-              }
-            }
-
-            if (thisOverlap < overlap) {
-              overlap = thisOverlap;
-              offset = offsets[j].Mul(0.5);
-            }
-          }
-
-          this.transform.position = this.transform.position.Add(offset);
-
-          if (overlap == 0) {
-            this.rigidbody.velocity.y *= 1 - Math.abs(offset.y);
-            break;
-          }
-
-          ++iteration;
         }
       }
     }
