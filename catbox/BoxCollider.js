@@ -118,6 +118,10 @@ var BoxCollider = Collider.extend({
         }
       }
 
+      if (overlap > 0) {
+        this.gameObject.OnCollisionStay();
+      }
+
       while (overlap > 0 && iteration < 16) {
         var offset = Vector2.zero;
         overlap = this.width * this.height;
