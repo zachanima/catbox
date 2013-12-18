@@ -2,6 +2,7 @@
 
 var Engine = {
   gameObjects: new Array(),
+  colliders: new Array(),
   lastTimestamp: 0,
 
 

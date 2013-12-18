@@ -8,7 +8,7 @@ var Player = Component.extend({
 
 
   Update: function() {
-    if (Input.GetKeyDown(KeyCode.Q)) {
+    if (Input.GetKey(KeyCode.Q)) {
       var grenade = new GameObject('Grenade', Grenade);
       grenade.rigidbody.AddForce(Vector2.left.Mul(100));
       grenade.rigidbody.AddForce(Vector2.up.Mul(50));
@@ -20,7 +20,7 @@ var Player = Component.extend({
     if (Input.GetKeyDown(KeyCode.E)) {
       var pc = GameObject.FindObjectsOfType(PixelCollider)[0];
       pc.SubtractMask(
-        'res/32circle.png',
+        this.shovel,
         this.transform.position.x - pc.transform.position.x + pc.canvas.width / 2 + 20,
         this.transform.position.y - pc.transform.position.y + pc.canvas.height / 2  
       );

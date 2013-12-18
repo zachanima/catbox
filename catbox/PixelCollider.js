@@ -2,7 +2,7 @@
 
 var PixelCollider = Collider.extend({
   Render: function() {
-    if (this.canvas) {
+    if (this.canvas && this.canvas.width > 0) {
       context.drawImage(this.canvas, -this.canvas.width / 2, -this.canvas.height / 2);
     }
   },
@@ -11,8 +11,11 @@ var PixelCollider = Collider.extend({
 
   Load: function(src) {
     var image = new Image();
+    var _this = this;
+    image.onload = function() {
+      _this.Mask(image);
+    }
     image.src = src;
-    image.onload = this.Mask(image);
   },
 
 

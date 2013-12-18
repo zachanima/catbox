@@ -6,8 +6,8 @@ var Grenade = Component.extend({
     this.Add(Sprite).Load('res/32circle.png');
     this.Add(BoxCollider);
     this.Add(Rigidbody);
-    this.collider.width = 4;
-    this.collider.height = 4;
-    this.transform.scale = Vector2.one.Mul(0.1);
+    this.collider.width = 8;
+    this.collider.height = 8;
+    this.transform.scale = Vector2.one.Mul(0.25);
   },
 });

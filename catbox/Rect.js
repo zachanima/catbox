@@ -8,12 +8,8 @@ var Rect = Class.extend({
 
     var _this = this;
 
-    this.__defineGetter__('min', function() { 
-      return _this.position; 
-    });
-
-    this.__defineGetter__('max', function() {
-      return new Vector2(x + width, y + height);
-    });
+    // TODO: Make mutable *or* freeze Rect object.
+    this.min = _this.position; 
+    this.max = new Vector2(x + width, y + height);
   }
 });
