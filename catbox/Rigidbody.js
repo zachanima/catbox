@@ -20,7 +20,7 @@ var Rigidbody = Component.extend({
   Update: function() {
     this.velocity = this.velocity.Mul(1 - this.drag * Time.deltaTime);
     if (this.useGravity) {
-      this.AddForce(Physics.gravity.Mul(this.mass));
+      this.AddForce(Physics.gravity.Mul(this.mass*Time.deltaTime*100));
     }
   },
 
