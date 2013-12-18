@@ -171,7 +171,7 @@ var BoxCollider = Collider.extend({
           this.transform.position = this.transform.position.Add(offset);
 
           if (overlap == 0) {
-            this.rigidbody.velocity = Vector2.zero;
+            this.rigidbody.velocity.y *= 1 - Math.abs(offset.y);
             break;
           }
 
