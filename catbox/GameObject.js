@@ -80,6 +80,14 @@ var GameObject = Class.extend({
 
 
 
+  FixedUpdate: function() {
+    this.components.forEach(function(component) {
+      component.FixedUpdate();
+    });
+  },
+
+
+
   PhysicsUpdate: function() {
     this.components.forEach(function(component) {
       component.PhysicsUpdate();
@@ -123,6 +131,15 @@ var GameObject = Class.extend({
     this.components.forEach(function(component) {
       component.OnCollisionStay(collider);
     });
+  },
+
+
+
+  Editor: function() {
+    var div = document.createElement('div');
+    div.innerHTML = parseInt(this.transform.position.x);
+
+    return div;
   },
 
 

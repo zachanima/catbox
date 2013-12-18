@@ -37,6 +37,7 @@ Not yet implemented:
   * Shapes
   * Particle system
   * GUI
+* Resource management
 
 
 
@@ -45,6 +46,7 @@ Not yet implemented:
 Additions:
 
 * Transform parenting
+* FixedUpdate
 * Event callbacks
   * Awake
   * OnEnable

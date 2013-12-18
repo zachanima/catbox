@@ -19,6 +19,12 @@ var Component = Class.extend({
 
 
 
+  FixedUpdate: function() {
+    // Dummy.
+  },
+
+
+
   PhysicsUpdate: function() {
     // Dummy.
   },

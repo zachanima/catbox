@@ -17,6 +17,9 @@ var Engine = {
 
     Input.init();
 
+    // Request fixed loop.
+    setInterval(Engine.FixedUpdate, 20);
+
     // Request main loop.
     window.requestAnimationFrame(Engine.Run);
   },
@@ -41,8 +44,19 @@ var Engine = {
     // Engine.OnPostRender();
     // Engine.OnGUI();
 
+    document.getElementById('inspector').innerHTML = '';
+    document.getElementById('inspector').appendChild(Engine.gameObjects[0].Editor());
+
     // Request main loop.
     window.requestAnimationFrame(Engine.Run);
+  },
+
+
+
+  FixedUpdate: function() {
+    Engine.gameObjects.forEach(function(gameObject) {
+      gameObject.FixedUpdate();
+    });
   },
 
 

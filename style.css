@@ -20,9 +20,10 @@ div.hierarchy, div.inspector {
 }
 
 div.hierarchy {
-  display: none;
-  float: left;
+  overflow: auto;
+  position: absolute;
   width: 22.5%;
+  height: calc(100% - 2px);
 }
 
 div.hierarchy ul {
