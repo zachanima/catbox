@@ -18,7 +18,7 @@ var Engine = {
     Input.init();
 
     // Request fixed loop.
-    setInterval(Engine.FixedUpdate, 20);
+    setInterval(Engine.FixedUpdate, parseInt(1000 * Time.fixedDeltaTime));
 
     // Request main loop.
     window.requestAnimationFrame(Engine.Run);
@@ -31,8 +31,6 @@ var Engine = {
     Engine.lastTimestamp = timestamp;
 
     // Update.
-    // Engine.FixedUpdate(); // Fixed-time update.
-    Engine.SimulatePhysics(); // Engine physics step.
     // Engine.PreUpdate();
     Engine.Update();
     // Engine.LateUpdate();
@@ -57,6 +55,8 @@ var Engine = {
     Engine.gameObjects.forEach(function(gameObject) {
       gameObject.FixedUpdate();
     });
+
+    Engine.SimulatePhysics();
   },
 
 

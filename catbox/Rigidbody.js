@@ -12,15 +12,12 @@ var Rigidbody = Component.extend({
 
   SimulatePhysics: function() {
     this.transform.position =
-      this.transform.position.Add(this.velocity.Mul(Time.deltaTime));
-  },
+      this.transform.position.Add(this.velocity.Mul(Time.fixedDeltaTime));
 
+    this.velocity = this.velocity.Mul(1 - this.drag);
 
-
-  Update: function() {
-    this.velocity = this.velocity.Mul(1 - this.drag * Time.deltaTime);
     if (this.useGravity) {
-      this.AddForce(Physics.gravity.Mul(this.mass*Time.deltaTime*100));
+      this.AddForce(Physics.gravity.Mul(this.mass));
     }
   },
 
