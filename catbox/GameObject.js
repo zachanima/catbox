@@ -80,6 +80,14 @@ var GameObject = Class.extend({
 
 
 
+  FixedUpdate: function() {
+    this.components.forEach(function(component) {
+      component.FixedUpdate();
+    });
+  },
+
+
+
   PhysicsUpdate: function() {
     this.components.forEach(function(component) {
       component.PhysicsUpdate();

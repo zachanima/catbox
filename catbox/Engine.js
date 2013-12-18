@@ -17,6 +17,9 @@ var Engine = {
 
     Input.init();
 
+    // Request fixed loop.
+    setInterval(Engine.FixedUpdate, 20);
+
     // Request main loop.
     window.requestAnimationFrame(Engine.Run);
   },
@@ -43,6 +46,14 @@ var Engine = {
 
     // Request main loop.
     window.requestAnimationFrame(Engine.Run);
+  },
+
+
+
+  FixedUpdate: function() {
+    Engine.gameObjects.forEach(function(gameObject) {
+      gameObject.FixedUpdate();
+    });
   },
 
 
