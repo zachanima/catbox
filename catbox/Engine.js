@@ -7,6 +7,29 @@ var Engine = {
 
 
 
+  Load: function(resources, callback, width, height, id) {
+    // Initialize canvas.
+    window.canvas = id ? document.getElementById(id) : document.getElementsByTagName('canvas')[0];
+    canvas.width = width || 300;
+    canvas.height = height || 150;
+    window.context = canvas.getContext('2d');
+
+    Input.init();
+
+    Resources.callback = callback;
+    Resources.loading = resources;
+    Resources.Preload();
+
+    // Request fixed loop.
+    setInterval(Engine.FixedUpdate, parseInt(1000 * Time.fixedDeltaTime));
+
+    // Request main loop.
+    window.requestAnimationFrame(Engine.Run);
+  },
+
+
+
+  /*
   Start: function(width, height, id) {
     // Initialize canvas.
     window.canvas = id ? document.getElementById(id) : document.getElementsByTagName('canvas')[0];
@@ -23,6 +46,7 @@ var Engine = {
     // Request main loop.
     window.requestAnimationFrame(Engine.Run);
   },
+  */
 
 
 
@@ -41,9 +65,6 @@ var Engine = {
     Engine.Render();
     // Engine.OnPostRender();
     // Engine.OnGUI();
-
-    document.getElementById('inspector').innerHTML = '';
-    document.getElementById('inspector').appendChild(Engine.gameObjects[0].Editor());
 
     // Request main loop.
     window.requestAnimationFrame(Engine.Run);

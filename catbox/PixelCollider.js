@@ -10,12 +10,9 @@ var PixelCollider = Collider.extend({
 
 
   Load: function(src) {
-    var image = new Image();
+    var image = Resources.Load(src);
     var _this = this;
-    image.onload = function() {
-      _this.Mask(image);
-    }
-    image.src = src;
+    _this.Mask(image);
   },
 
 
