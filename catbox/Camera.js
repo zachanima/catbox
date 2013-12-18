@@ -6,5 +6,5 @@ var Camera = Component.extend({
 
 
 Camera.__defineGetter__('main', function() {
-  return GameObject.FindObjectsOfType(Camera)[0];
+  return GameObject.FindObjectOfType(Camera);
 });
