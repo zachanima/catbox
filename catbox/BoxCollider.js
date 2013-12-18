@@ -3,6 +3,7 @@
 var BoxCollider = Collider.extend({
   width: 1,
   height: 1,
+  colliders: [],
 
 
 
@@ -124,8 +125,20 @@ var BoxCollider = Collider.extend({
           }
         }
 
+        var index = this.colliders.indexOf(collider);
+
         if (overlap > 0) {
-          this.gameObject.OnCollisionStay();
+          this.gameObject.OnCollisionStay(collider);
+          if (index == -1) {
+            this.colliders.push(collider);
+            this.gameObject.OnCollisionEnter(collider);
+          }
+        } else {
+          index = this.colliders.indexOf(collider);
+          if (index > -1) {
+            this.colliders.splice(index, 1);
+            this.gameObject.OnCollisionExit(collider);
+          }
         }
 
         while (overlap > 0 && iteration < 16) {

@@ -141,6 +141,22 @@ var GameObject = Class.extend({
 
     return div;
   },
+
+
+
+  OnCollisionEnter: function(collider) {
+    this.components.forEach(function(component) {
+      component.OnCollisionEnter(collider);
+    });
+  },
+
+
+
+  OnCollisionExit: function(collider) {
+    this.components.forEach(function(component) {
+      component.OnCollisionExit(collider);
+    });
+  },
 });
 
 

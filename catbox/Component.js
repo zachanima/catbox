@@ -52,4 +52,16 @@ var Component = Class.extend({
   OnCollisionStay: function() {
     // Dummy.
   },
+
+
+
+  OnCollisionEnter: function() {
+    // Dummy.
+  },
+
+
+
+  OnCollisionExit: function() {
+    // Dummy.
+  },
 });
