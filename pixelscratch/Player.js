@@ -14,16 +14,14 @@ var Player = Component.extend({
       grenade.rigidbody.AddForce(Vector2.up.Mul(50));
       grenade.transform.position.x = this.transform.position.x - 16;
       grenade.transform.position.y = this.transform.position.y;
-      
     }
 
     if (Input.GetKeyDown(KeyCode.E)) {
-      var pc = GameObject.FindObjectsOfType(PixelCollider)[0];
-      pc.SubtractMask(
-        'res/32circle.png',
-        this.transform.position.x - pc.transform.position.x + pc.canvas.width / 2 + 20,
-        this.transform.position.y - pc.transform.position.y + pc.canvas.height / 2  
-      );
+      var grenade = new GameObject('Grenade', Grenade);
+      grenade.rigidbody.AddForce(Vector2.right.Mul(100));
+      grenade.rigidbody.AddForce(Vector2.up.Mul(50));
+      grenade.transform.position.x = this.transform.position.x + 16;
+      grenade.transform.position.y = this.transform.position.y;
     }
 
     if (Input.GetKeyDown(KeyCode.S)) {
