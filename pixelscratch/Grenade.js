@@ -14,14 +14,17 @@ var Grenade = Component.extend({
 
 
 
-  OnCollisionStay: function() {
-    var pc = GameObject.FindObjectsOfType(PixelCollider)[0];
-    pc.SubtractMask(
-      this.explosion,
-      this.transform.position.x - pc.transform.position.x + pc.canvas.width / 2,
-      this.transform.position.y - pc.transform.position.y + pc.canvas.height / 2 + 12
-    );
-    Destroy(this.gameObject);
+  OnCollisionEnter: function() {
+    var _this = this;
+    setTimeout(function() {
+      var pc = GameObject.FindObjectsOfType(PixelCollider)[0];
+      pc.SubtractMask(
+        _this.explosion,
+        _this.transform.position.x - pc.transform.position.x + pc.canvas.width / 2,
+        _this.transform.position.y - pc.transform.position.y + pc.canvas.height / 2 + 12
+      );
+      Destroy(_this.gameObject);
+    }, 2000);
   },
 
 

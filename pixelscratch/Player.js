@@ -8,7 +8,7 @@ var Player = Component.extend({
 
 
   Update: function() {
-    if (Input.GetKey(KeyCode.Q)) {
+    if (Input.GetKeyDown(KeyCode.Q)) {
       var grenade = new GameObject('Grenade', Grenade);
       grenade.rigidbody.AddForce(Vector2.left.Mul(100));
       grenade.rigidbody.AddForce(Vector2.up.Mul(50));
