@@ -3,8 +3,12 @@
 var Enemy = Component.extend({
  
   Awake: function() {
-  this.transform.position.y = 10;
-  this.Add(BoxCollider);
+    this.transform.position.y = 10;
+    this.gameObject.layer = 1;
+    this.Add(Rigidbody);
+    this.rigidbody.useGravity = false;
+    this.Add(BoxCollider);
+    this.collider.layers = [1];
   },
 
 

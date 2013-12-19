@@ -3,6 +3,7 @@
 var Collider = Component.extend({
   width: 1,
   height: 1,
+  layers: [0],
 
 
 

@@ -5,7 +5,6 @@ window.onload = function() {
 
 
   Engine.Load([
-    'res/star.png',
     'res/ship.png',
     'res/shmupenemy.png'
   ], function() {
