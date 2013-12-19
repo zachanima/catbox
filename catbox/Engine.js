@@ -40,11 +40,11 @@ var Engine = {
     // Engine.OnPreRender();
     Engine.Render();
     // Engine.OnPostRender();
-    // Engine.OnGUI();
+    Engine.OnGUI();
 
     document.getElementById('inspector').innerHTML = '';
     document.getElementById('inspector').appendChild(Engine.gameObjects[0].Editor());
-
+//
     // Request main loop.
     window.requestAnimationFrame(Engine.Run);
   },
@@ -83,8 +83,8 @@ var Engine = {
 
 
   Render: function() {
-    // context.clearRect(0, 0, canvas.width, canvas.height);
-    context.fillStyle = '#8080ff';
+    //context.clearRect(0, 0, canvas.width, canvas.height);
+    context.fillStyle = '#000';
     context.fillRect(0, 0, canvas.width, canvas.height);
 
     if (Camera.main) {
@@ -102,6 +102,14 @@ var Engine = {
     if (Camera.main) {
       context.restore();
     }
+  },
+
+
+
+  OnGUI: function() {
+    Engine.gameObjects.forEach(function(gameObject) {
+      gameObject.OnGUI();
+    });
   }
 };
 
