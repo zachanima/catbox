@@ -1,13 +1,18 @@
 "use strict";
 
 var ParticleSystem = Component.extend({
-  particles: [],
   delay: 0,
   rate: 10,
   gravityMultiplier: 1,
-  startVelocity: Vector2.zero,
   lifetime: 5,
+  style: '#fff',
 
+
+
+  Awake: function() {
+    this.particles =  [];
+    this.startVelocity  = Vector2.zero;
+  },
 
   Update: function() {
     while (this.delay <= 0) {
@@ -53,6 +58,7 @@ var ParticleSystem = Component.extend({
     var particle = new Particle(new Vector2(this.transform.position.x, this.transform.position.y));
     particle.particleSystem = this;
     particle.lifetime = this.lifetime;
+    particle.style = this.style;
     particle.velocity = new Vector2(this.startVelocity.x, this.startVelocity.y);
     this.particles.push(particle);
   },
