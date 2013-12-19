@@ -12,12 +12,11 @@ window.onload = function() {
   ], function() {
     var width = 800;
     var height = 480;
+
+    //Set gravity to zero
     Physics.gravity = Vector2.zero;
 
-    for (var i = 10; 0 <= i; --i) {
-      var star = new GameObject('Star', Star);
-      star.Add(Sprite).Load('res/star.png');
-    }
+    var star = new GameObject('Star', Star);
 
     //Create enemy
     var enemy = new GameObject('Enemy', Enemy);
