@@ -4,6 +4,7 @@ var GameObject = Class.extend({
   init: function(name, Class) {
     this.name = name || "";
     this.components = [];
+    this.layer = 0;
 
     this.transform = this.Add(Transform);
 
