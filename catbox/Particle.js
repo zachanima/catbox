@@ -18,7 +18,7 @@ var Particle = Class.extend({
 
 
   Render: function() {
-    context.fillStyle = '#000';
+    context.fillStyle = '#fff';
     context.fillRect(this.position.x, this.position.y, 1, 1);
   },
 });
