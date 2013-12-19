@@ -44,6 +44,18 @@ var BoxCollider = Collider.extend({
         continue;
       }
 
+      // Discard unmasked layers.
+      var unmasked = true;
+      for (var j = this.layers.length; j--;) {
+        if (collider.layers[j] == this.gameObject.layer) {
+          unmasked = false;
+          break;
+        }
+      }
+      if (unmasked) {
+        continue;
+      }
+
       // Discard on axis separation.
       var b = collider.GetBounds();
       if (a.max.x < b.min.x || 

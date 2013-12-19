@@ -21,6 +21,16 @@ var Player = Component.extend({
     if (Input.GetKey(KeyCode.RightArrow)) {
       this.transform.position.x += 5;
     }
+
+    if (Input.GetKey(KeyCode.Space)) {
+      var bullet = new GameObject('Bullit');
+      bullet.Add(Sprite).Load('res/shmupenemy.png');
+      bullet.Add(BoxCollider).layers = [1];
+      bullet.layer = 2;
+      bullet.Add(Rigidbody).useGravity = false;
+      bullet.rigidbody.velocity.y = -64;
+      bullet.transform.position = this.transform.position.Mul(1);
+    }
   },
   
 
