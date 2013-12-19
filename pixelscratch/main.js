@@ -16,6 +16,12 @@ window.onload = function() {
     player.Add(Rigidbody);
     player.transform.position = new Vector2(width / 2, height / 2);
 
+    var rain = new GameObject('Rain', Rain);
+    rain.Add(ParticleSystem);
+    rain.particleSystem.gravityMultiplier = 0.25;
+    rain.particleSystem.rate = 60;
+    rain.particleSystem.startVelocity = new Vector2(16, 64);
+
     var terrain = new GameObject('Terrain');
     // terrain.Add(Sprite).Load('res/terrain.png');
     terrain.Add(PixelCollider).Load('res/terrain.png');
