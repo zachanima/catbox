@@ -47,6 +47,11 @@ var Component = Class.extend({
     // Dummy.
   },
 
+  
+
+  OnGUI: function() {
+    // Dummy.
+  },
 
 
   OnCollisionStay: function() {
