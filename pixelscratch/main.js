@@ -6,7 +6,8 @@ window.onload = function() {
 
   Engine.Load([
     'res/mario.png',
-    'res/terrain.png'
+    'res/terrain.png',
+    'res/32circle.png',
   ], function() {
     var camera = new GameObject('Camera', Camera);
     var player = new GameObject('Player', Player);
