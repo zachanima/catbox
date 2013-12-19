@@ -6,7 +6,8 @@ window.onload = function() {
 
   Engine.Load([
     'res/mario.png',
-    'res/terrain.png'
+    'res/terrain.png',
+    'res/32circle.png',
   ], function() {
     var camera = new GameObject('Camera', Camera);
     var player = new GameObject('Player', Player);
@@ -14,6 +15,12 @@ window.onload = function() {
     player.Add(BoxCollider);
     player.Add(Rigidbody);
     player.transform.position = new Vector2(width / 2, height / 2);
+
+    var rain = new GameObject('Rain', Rain);
+    rain.Add(ParticleSystem);
+    rain.particleSystem.gravityMultiplier = 0.25;
+    rain.particleSystem.rate = 60;
+    rain.particleSystem.startVelocity = new Vector2(16, 64);
 
     var terrain = new GameObject('Terrain');
     // terrain.Add(Sprite).Load('res/terrain.png');

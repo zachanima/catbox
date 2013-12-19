@@ -50,6 +50,13 @@ var GameObject = Class.extend({
       });
     }
 
+    if (Class === ParticleSystem) {
+      this.particleSystem = component;
+      this.components.forEach(function(_component) {
+        _component.particleSystem = component;
+      });
+    }
+
     // Maintain component crosslinks.
     component.name = this.name;
     component.collider = this.collider;
