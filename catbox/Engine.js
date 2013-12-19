@@ -51,6 +51,7 @@ var Engine = {
 
 
   Run: function(timestamp) {
+    Time.realtimeSinceStartup = timestamp / 1000;
     Time.deltaTime = (timestamp - Engine.lastTimestamp) / 1000;
     Engine.lastTimestamp = timestamp;
 
