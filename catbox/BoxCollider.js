@@ -56,12 +56,24 @@ var BoxCollider = Collider.extend({
         continue;
       }
 
+      var index = -1;
+      for (var j = this.colliders.length; j--;) {
+        if (this.colliders[j] === collider) {
+          index = j;
+          break;
+        }
+      }
+
       // Discard on axis separation.
       var b = collider.GetBounds();
       if (a.max.x < b.min.x || 
           a.min.x > b.max.x ||
           a.max.y < b.min.y || 
           a.min.y > b.max.y) {
+        if (index > -1) {
+          this.colliders.splice(index, 1);
+          this.gameObject.OnCollisionExit(collider);
+        }
         continue;
       }
 
@@ -95,6 +107,10 @@ var BoxCollider = Collider.extend({
 
         // TODO: Fire OnCollisionEnter/Exit events.
         this.gameObject.OnCollisionStay(collider);
+        if (index == -1) {
+          this.colliders.push(collider);
+          this.gameObject.OnCollisionEnter(collider);
+        }
 
 
       } else if (collider instanceof PixelCollider) {
@@ -112,11 +128,26 @@ var BoxCollider = Collider.extend({
         this.context.fillRect(0, 0, this.width, this.height);
 
         var data = this.context.getImageData(0, 0, this.canvas.width, this.canvas.height).data;
+        var collision = false;
         for (var j = data.length - 1; j >= 0; j -= 4) {
           if (data[j] > 0) {
             this.transform.position.y -= 1;
             this.rigidbody.velocity.y = 0;
+            collision = true;
             break;
+          }
+        }
+
+        if (collision) {
+          this.gameObject.OnCollisionStay(collider);
+          if (index == -1) {
+            this.colliders.push(collider);
+            this.gameObject.OnCollisionEnter(collider);
+          }
+        } else {
+          if (index > -1) {
+            this.colliders.splice(index, 1);
+            this.gameObject.OnCollisionExit(collider);
           }
         }
       }
