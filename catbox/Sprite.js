@@ -33,18 +33,14 @@ var Sprite = Component.extend({
 
 
   Load: function(src, columns, rows) {
-    this.image = new Image();
-    this.image.src = src;
+    this.image = Resources.Load(src);
     this.images = [];
 
     columns = columns || 1;
     rows = rows || 1;
 
     var _this = this;
-    this.image.onload = function() {
-      _this.Chop(columns, rows);
-    }
-    
+    _this.Chop(columns, rows);
   },
 
 
