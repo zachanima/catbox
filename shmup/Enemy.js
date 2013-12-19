@@ -9,7 +9,8 @@ var Enemy = Component.extend({
 
 
   Update: function() {
-    this.transform.position.x = 400+Math.sin(0.2*Time.realtimeSinceStartup+Math.PI/2)*(400-this.sprite.image.width/2);
-    this.transform.position.y += 0.2;
-  }
+    this.transform.position.x = 400+Math.sin((Math.PI * Time.realtimeSinceStartup) / 5 + Math.PI/2)*(400-this.sprite.image.width/2);
+    this.transform.position.y += 0.2; 
+    }
+
 });

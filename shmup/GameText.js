@@ -45,11 +45,16 @@ var GameText = Component.extend({
 
   Update: function() {
     if (this.transform.position.y < 130) {
-      this.transform.position.y += 1;
+      this.transform.position.y = -(Math.sin(Math.PI/2+Time.realtimeSinceStartup)*131);
     }
 
     if (this.goaway) {
-      this.transform.position.y += 1;
+      // this.transform.position.y = 349+Math.sin(-Math.PI/2+0.5*Time.realtimeSinceStartup-5)*222.5;
+      this.transform.position.y += Math.pow((this.transform.position.y-129)/200+1, 2.5); 
+    }
+    
+    if (this.transform.position.y > 480) {
+      Destroy(this.gameObject);
     }
   },
 
@@ -101,7 +106,7 @@ var GameText = Component.extend({
     this.context.fillRect(this.transform.position.x-120, this.transform.position.y-100, 240, 400);
 
     this.context.fillStyle = this.fadeOut;
-    this.context.globalCompositeOperation = 'source-atop';
+    this.context.globalCompositeOperation = 'destination-out';
     this.context.fillRect(this.transform.position.x-120, this.transform.position.y-100, 240, 400);
 
     window.context.drawImage(this.canvas, 0, 0);

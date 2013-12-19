@@ -21,6 +21,10 @@ var Player = Component.extend({
     if (Input.GetKey(KeyCode.RightArrow)) {
       this.transform.position.x += 5;
     }
+    
+    if (Input.GetKeyDown(KeyCode.Space) {
+      var laser = new GameObject('Laser', Laser);
+    }
   },
   
 

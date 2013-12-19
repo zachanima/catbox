@@ -6,7 +6,7 @@ var ParticleSystem = Component.extend({
   rate: 10,
   gravityMultiplier: 1,
   startVelocity: Vector2.zero,
-
+  lifetime: 5,
 
 
   Update: function() {
@@ -16,6 +16,10 @@ var ParticleSystem = Component.extend({
     }
 
     this.delay -= Time.deltaTime;
+    
+    for (var i = this.particles.length; i--;) {
+      this.particles[i].Update();
+    }
   },
 
 
@@ -48,6 +52,7 @@ var ParticleSystem = Component.extend({
   Emit: function() {
     var particle = new Particle(new Vector2(this.transform.position.x, this.transform.position.y));
     particle.particleSystem = this;
+    particle.lifetime = this.lifetime;
     particle.velocity = new Vector2(this.startVelocity.x, this.startVelocity.y);
     this.particles.push(particle);
   },

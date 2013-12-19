@@ -4,7 +4,6 @@ window.onload = function() {
 
 
 
-  //Load up engine
   Engine.Load([
     'res/star.png',
     'res/ship.png',
@@ -13,7 +12,6 @@ window.onload = function() {
     var width = 800;
     var height = 480;
 
-    //Set gravity to zero
     Physics.gravity = Vector2.zero;
 
     var star = new GameObject('Star', Star);
