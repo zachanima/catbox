@@ -3,7 +3,6 @@
 var Engine = {
   gameObjects: [],
   colliders: [],
-  components: [],
   lastTimestamp: 0,
 
 
@@ -78,10 +77,18 @@ var Engine = {
     for (var i = this.gameObjects.length; i--;) {
       var starting = this.gameObjects[i].components.starting;
       this.gameObjects[i].components.starting = [];
-      this.gameObjects[i].components.running =
-        this.gameObjects[i].components.running.concat(starting);
+
       for (var j = starting.length; j--;) {
-        starting[j].Start();
+        var component = starting[j];
+
+        if (component.enabled) {
+          component.Start();
+          this.gameObjects[i].components.running.push(component);
+
+        } else {
+          // FIXME: Pushes disabled components every frame.
+          this.gameObjects[i].components.starting.push(component);
+        }
       }
     }
   },
