@@ -108,14 +108,6 @@ var GameObject = Object.augment(function() {
 
 
 
-  this.SimulatePhysics = function() {
-    this.components.running.forEach(function(component) {
-      component.SimulatePhysics();
-    });
-  };
-
-
-
   this.LateUpdate = function() {
     this.components.forEach(function(component) {
       component.LateUpdate();

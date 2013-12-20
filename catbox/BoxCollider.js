@@ -37,8 +37,6 @@ var BoxCollider = Collider.augment(function(base) {
   this.SimulatePhysics = function() {
     this.bounds = this.GetBounds();
 
-
-
     if (!this.rigidbody) {
       return;
     }
@@ -50,6 +48,11 @@ var BoxCollider = Collider.augment(function(base) {
 
       // Discard self.
       if (this.gameObject === collider.gameObject) {
+        continue;
+      }
+
+      // Discard uninitialized colliders.
+      if (!collider.bounds) {
         continue;
       }
 

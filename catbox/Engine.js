@@ -111,7 +111,11 @@ var Engine = {
 
   SimulatePhysics: function() {
     Engine.gameObjects.forEach(function(gameObject) {
-      gameObject.SimulatePhysics();
+      gameObject.components.running.forEach(function(component) {
+        if (component.enabled) {
+          component.SimulatePhysics();
+        }
+      });
     });
   },
 
