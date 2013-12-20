@@ -1,35 +1,38 @@
 "use strict";
 
-var BoxCollider = Collider.extend({
-  colliders: [],
+var BoxCollider = Collider.augment(function(base) {
+  this.constructor = function() {
+    base.constructor.call(this);
+    this.colliders = [];
+  };
 
 
 
-  Awake: function() {
+  this.Awake = function() {
     // Canvas and context for collision.
     this.canvas = document.createElement('canvas');
     this.context = this.canvas.getContext('2d');
-  },
+  };
 
 
 
-  Update: function() { 
+  this.Update = function() { 
     if (this.sprite && this.sprite.images[0] && this.width == 1 && this.height == 1) {
       this.width = this.sprite.images[0].width;
       this.height = this.sprite.images[0].height;
     }
-  },
+  };
 
 
 
   // FIXME: Debug.
-  Render: function() {
+  this.Render = function() {
     context.strokeRect(parseInt(-this.width / 2) - 0.5, parseInt(-this.height / 2) - 0.5, this.width, this.height);
-  },
+  };
 
 
 
-  SimulatePhysics: function() {
+  this.SimulatePhysics = function() {
     if (!this.rigidbody) {
       return;
     }
@@ -152,5 +155,5 @@ var BoxCollider = Collider.extend({
         }
       }
     }
-  },
+  };
 });

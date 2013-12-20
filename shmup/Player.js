@@ -1,19 +1,20 @@
 "use strict";
 
-var Player = Component.extend({
+var Player = Component.augment(function(base) {
+  this.constructor = function() { base.constructor.call(this) };
   
 
 
-  Awake: function() {
+  this.Awake = function() {
     this.transform.position.x = 400;
     this.transform.position.y = 400;
     this.gameObject.Add(Rigidbody);
     this.gameObject.Add(BoxCollider);
-  },
+  };
   
 
 
-  Update: function() {
+  this.Update = function() {
     if (Input.GetKey(KeyCode.LeftArrow)) {
       this.transform.position.x -= 5;
     }
@@ -27,7 +28,5 @@ var Player = Component.extend({
       laser.transform.position.x = this.transform.position.x;
       laser.transform.position.y = this.transform.position.y;
     }
-  },
-  
-
+  };
 });

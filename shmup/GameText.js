@@ -1,11 +1,12 @@
 "use strict";
 
-var GameText = Component.extend({
+var GameText = Component.augment(function(base) {
+  this.constructor = function() { base.constructor.call(this) };
 
-  goaway: false,
 
 
-  Awake: function() {
+  this.Awake = function() {
+    this.goaway = false;
     //Make new canvas
     this.canvas = document.createElement('canvas');
     this.canvas.width = 800;
@@ -39,11 +40,11 @@ var GameText = Component.extend({
     setTimeout(function() {
       _this.goaway = true;
     }, 10000);
-  },
+  };
 
 
 
-  Update: function() {
+  this.Update = function() {
     if (this.transform.position.y < 130) {
       this.transform.position.y = -(Math.sin(Math.PI/2+Time.realtimeSinceStartup)*131);
     }
@@ -56,11 +57,11 @@ var GameText = Component.extend({
     if (this.transform.position.y > 480) {
       Destroy(this.gameObject);
     }
-  },
+  };
 
 
 
-  OnGUI: function() {
+  this.OnGUI = function() {
     
     this.context.clearRect(0, 0, 800, 480);
     this.context.fillStyle = '#fff';
@@ -112,5 +113,5 @@ var GameText = Component.extend({
     window.context.drawImage(this.canvas, 0, 0);
 
     this.context.globalCompositeOperation = 'source-over';
-  }
+  };
 });

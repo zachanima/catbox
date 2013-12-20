@@ -1,7 +1,7 @@
 "use strict";
 
-var GameObject = Class.extend({
-  init: function(name, Class) {
+var GameObject = Object.augment(function() {
+  this.constructor = function(name, Class) {
     this.name = name || "";
     this.components = [];
     this.layer = 0;
@@ -27,21 +27,23 @@ var GameObject = Class.extend({
     if (Class) {
       this.Add(Class);
     }
-  },
+  };
 
 
 
   // TODO: Rename to AddComponent.
-  Add: function(Class) {
+  this.Add = function(Class) {
     var component = new Class();
     component.gameObject = this;
 
     if (component instanceof Collider) {
       this.collider = component;
       for (var i in this.components) {
-        this.components[i].forEach(function(_component) {
-          _component.collider = component;
-        });
+        if (this.components.hasOwnProperty(i)) {
+          this.components[i].forEach(function(_component) {
+            _component.collider = component;
+          });
+        }
       }
       Engine.colliders.push(component);
     }
@@ -49,9 +51,11 @@ var GameObject = Class.extend({
     if (Class === Rigidbody) {
       this.rigidbody = component;
       for (var i in this.components) {
-        this.components[i].forEach(function(_component) {
-          _component.rigidbody = component;
-        });
+        if (this.components.hasOwnProperty(i)) {
+          this.components[i].forEach(function(_component) {
+            _component.rigidbody = component;
+          });
+        }
       }
     }
 
@@ -59,9 +63,11 @@ var GameObject = Class.extend({
     if (Class === Sprite) {
       this.sprite = component;
       for (var i in this.components) {
-        this.components[i].forEach(function(_component) {
-          _component.sprite = component;
-        });
+        if (this.components.hasOwnProperty(i)) {
+          this.components[i].forEach(function(_component) {
+            _component.sprite = component;
+          });
+        }
       }
     }
 
@@ -85,11 +91,11 @@ var GameObject = Class.extend({
     this.components.awakening.push(component);
 
     return component;
-  },
+  };
 
 
 
-  GetComponent: function(Class) {
+  this.GetComponent = function(Class) {
     for (var i in this.components) {
       for (var j = this.components[i].length; j--;) {
         var component = this.components[i][j];
@@ -98,27 +104,27 @@ var GameObject = Class.extend({
         }
       }
     }
-  },
+  };
 
 
 
-  SimulatePhysics: function() {
+  this.SimulatePhysics = function() {
     this.components.running.forEach(function(component) {
       component.SimulatePhysics();
     });
-  },
+  };
 
 
 
-  LateUpdate: function() {
+  this.LateUpdate = function() {
     this.components.forEach(function(component) {
       component.LateUpdate();
     });
-  },
+  };
 
 
 
-  Render: function() {
+  this.Render = function() {
     context.save();
     context.translate(parseInt(this.transform.position.x), parseInt(this.transform.position.y));
     context.rotate(this.transform.rotation);
@@ -129,49 +135,55 @@ var GameObject = Class.extend({
     });
 
     context.restore();
-  },
+  };
 
 
 
-  OnGUI: function() {
+  this.OnGUI = function() {
     this.components.running.forEach(function(component) {
       component.OnGUI();
     });
-  },
+  };
 
 
 
-  OnCollisionStay: function(collision) {
+  this.OnCollisionStay = function(collision) {
     for (var i in this.components) {
       for (var j = this.components[i].length; j--;) {
-        this.components[i][j].OnCollisionStay();
+        if (this.components[i].hasOwnProperty(j)) {
+          this.components[i][j].OnCollisionStay();
+        }
       }
     }
-  },
+  };
 
 
 
-  OnCollisionEnter: function(collision) {
+  this.OnCollisionEnter = function(collision) {
     for (var i in this.components) {
       for (var j = this.components[i].length; j--;) {
-        this.components[i][j].OnCollisionEnter(collision);
+        if (this.components[i].hasOwnProperty(j)) {
+          this.components[i][j].OnCollisionEnter(collision);
+        }
       }
     }
-  },
+  };
 
 
 
-  OnCollisionExit: function(collision) {
+  this.OnCollisionExit = function(collision) {
     for (var i in this.components) {
       for (var j = this.components[i].length; j--;) {
-        this.components[i][j].OnCollisionExit(collision);
+        if (this.components.hasOwnProperty(j)) {
+          this.components[i][j].OnCollisionExit(collision);
+        }
       }
     }
-  },
+  };
 
 
 
-  Editor: function() {
+  this.Editor = function() {
     var inspector = document.getElementById('inspector');
     inspector.innerHTML = '';
     
@@ -206,7 +218,7 @@ var GameObject = Class.extend({
         inspector.appendChild(div);
       }
     }
-  },
+  };
 });
 
 

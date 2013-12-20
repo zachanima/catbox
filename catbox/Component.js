@@ -1,29 +1,31 @@
 "use strict";
 
-var Component = Class.extend({
-  enabled: true,
+var Component = Object.augment(function() {
+  this.constructor = function() {
+    this.enabled = true;
+  };
 
 
 
   // Utility functions.
-  GetComponent: function(Class) {
+  this.GetComponent = function(Class) {
     return this.gameObject.GetGomponent(Class);
-  },
+  };
 
 
 
   // Engine functions.
-  SimulatePhysics: function() { },
-  Render: function() { },
+  this.SimulatePhysics = function() { };
+  this.Render = function() { };
 
   // Virtual functions.
-  Awake: function() { },
-  Start: function() { },
-  FixedUpdate: function() { },
-  Update: function() { },
-  LateUpdate: function() { },
-  OnGUI: function() { },
-  OnCollisionStay: function() { },
-  OnCollisionEnter: function() { }, 
-  OnCollisionExit: function() { },
+  this.Awake = function() { };
+  this.Start = function() { };
+  this.FixedUpdate = function() { };
+  this.Update = function() { };
+  this.LateUpdate = function() { };
+  this.OnGUI = function() { };
+  this.OnCollisionStay = function() { };
+  this.OnCollisionEnter = function() { }; 
+  this.OnCollisionExit = function() { };
 });

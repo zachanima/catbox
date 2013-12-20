@@ -1,22 +1,20 @@
 "use strict";
 
-var ParticleSystem = Component.extend({
-  delay: 0,
-  rate: 10,
-  gravityMultiplier: 1,
-  lifetime: 5,
-  style: '#fff',
-
-
-
-  Awake: function() {
+var ParticleSystem = Component.augment(function(base) {
+  this.constructor = function() {
+    base.constructor.call(this);
+    this.delay = 0;
+    this.rate = 10;
+    this.gravityMultiplier = 1;
+    this.lifetime = 5;
+    this.style = '#fff';
     this.particles = [];
     this.startVelocity  = Vector2.zero;
-  },
+  };
 
 
 
-  Update: function() {
+  this.Update = function() {
     while (this.delay <= 0) {
       this.Emit();
       this.delay += 1 / this.rate;
@@ -27,19 +25,19 @@ var ParticleSystem = Component.extend({
     for (var i = this.particles.length; i--;) {
       this.particles[i].Update();
     }
-  },
+  };
 
 
 
-  SimulatePhysics: function() {
+  this.SimulatePhysics = function() {
     for (var i = this.particles.length; i--;) {
       this.particles[i].SimulatePhysics();
     }
-  },
+  };
 
 
 
-  Render: function() {
+  this.Render = function() {
     var transform = this.transform;
 
     context.save();
@@ -52,16 +50,16 @@ var ParticleSystem = Component.extend({
     }
 
     context.restore();
-  },
+  };
 
 
 
-  Emit: function() {
+  this.Emit = function() {
     var particle = new Particle(new Vector2(this.transform.position.x, this.transform.position.y));
     particle.particleSystem = this;
     particle.lifetime = this.lifetime;
     particle.style = this.style;
     particle.velocity = new Vector2(this.startVelocity.x, this.startVelocity.y);
     this.particles.push(particle);
-  },
+  };
 });

@@ -1,7 +1,7 @@
 "use strict";
 
-var Circle = Shape.extend({
-  init: function(radius) {
+var Circle = Shape.augment(function() {
+  this.constructor = function(radius) {
     this.canvas = document.createElement('canvas');
     this.canvas.width = 2 * radius;
     this.canvas.height = 2 * radius;
@@ -9,5 +9,5 @@ var Circle = Shape.extend({
     this.context.beginPath();
     this.context.arc(radius, radius, radius, 0, 2 * Math.PI, true);
     this.context.fill();
-  },
+  };
 });
