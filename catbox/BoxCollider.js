@@ -92,7 +92,7 @@ var BoxCollider = Collider.extend({
           this.rigidbody.velocity.x *= 0.875;
           if (collider.rigidbody) {
             x /= 2;
-            this.rigidbody.AddForce(Vector2.left.Mul(x * 16));
+            this.rigidbody.AddForce(Vector2.left.Mul(x * 4));
           }
           this.transform.position.x -= x;
 
@@ -100,7 +100,7 @@ var BoxCollider = Collider.extend({
           this.rigidbody.velocity.y *= 0.875;
           if (collider.rigidbody) {
             y /= 2;
-            this.rigidbody.AddForce(Vector2.up.Mul(y * 16));
+            this.rigidbody.AddForce(Vector2.up.Mul(y * 4));
           }
           this.transform.position.y -= y;
         }

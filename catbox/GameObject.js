@@ -90,15 +90,14 @@ var GameObject = Class.extend({
 
 
   Get: function(Class) {
-    var result = undefined;
-
-    this.components.forEach(function(component) {
-      if (component instanceof Class) {
-        result = component;
+    for (var i in this.components) {
+      for (var j = this.components[i].length; j--;) {
+        var component = this.components[i][j];
+        if (component instanceof Class) {
+          return component;
+        }
       }
-    });
-
-    return result;
+    }
   },
 
 
@@ -142,10 +141,32 @@ var GameObject = Class.extend({
 
 
 
-  OnCollisionStay: function(collider) {
-    this.components.forEach(function(component) {
-      component.OnCollisionStay(collider);
-    });
+  OnCollisionStay: function(collision) {
+    for (var i in this.components) {
+      for (var j = this.components[i].length; j--;) {
+        this.components[i][j].OnCollisionStay();
+      }
+    }
+  },
+
+
+
+  OnCollisionEnter: function(collision) {
+    for (var i in this.components) {
+      for (var j = this.components[i].length; j--;) {
+        this.components[i][j].OnCollisionEnter(collision);
+      }
+    }
+  },
+
+
+
+  OnCollisionExit: function(collision) {
+    for (var i in this.components) {
+      for (var j = this.components[i].length; j--;) {
+        this.components[i][j].OnCollisionExit(collision);
+      }
+    }
   },
 
 
@@ -155,22 +176,6 @@ var GameObject = Class.extend({
     div.innerHTML = parseInt(this.transform.position.x);
 
     return div;
-  },
-
-
-
-  OnCollisionEnter: function(collider) {
-    this.components.forEach(function(component) {
-      component.OnCollisionEnter(collider);
-    });
-  },
-
-
-
-  OnCollisionExit: function(collider) {
-    this.components.forEach(function(component) {
-      component.OnCollisionExit(collider);
-    });
   },
 });
 

@@ -11,10 +11,8 @@ var Universe = Component.extend({
       body.Add(Sprite).Load('res/box.png');
       body.Add(Rigidbody).useGravity = false;
       body.Add(BoxCollider);
-      body.collider.width = 21;
-      body.collider.height = 21;
       body.transform.position = new Vector2(Math.random() * canvas.width, Math.random() * canvas.height);
-      body.rigidbody.velocity = new Vector2(canvas.width / 2- Math.random() * canvas.width, canvas.height / 2 - Math.random() * canvas.height).Mul(1);
+      body.rigidbody.velocity = new Vector2(canvas.width / 2- Math.random() * canvas.width, canvas.height / 2 - Math.random() * canvas.height).Mul(0.1);
       this.bodies.push(body.Get(Body));
     }
   },

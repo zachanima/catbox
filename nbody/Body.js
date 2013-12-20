@@ -6,7 +6,7 @@ var Body = Component.extend({
     var sqrMagnitude = Math.max(256, delta.Dot(delta));
     var direction = delta.Div(Math.sqrt(sqrMagnitude));
     this.rigidbody.AddForce(
-      direction.Mul(10000 / sqrMagnitude)
+      direction.Mul(1024 / sqrMagnitude)
     );
   },
 });
