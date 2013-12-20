@@ -1,29 +1,30 @@
 "use strict";
 
-var Laser = Component.extend({
+var Laser = Component.augment(function(base) {
+  this.constructor = function() { base.constructor.call(this) };
 
   
 
-  Awake: function() {
+  this.Awake = function() {
     this.gameObject.layer = 1;
-    this.Add(Rigidbody);
-    this.Add(BoxCollider);
+    this.gameObject.Add(Rigidbody);
+    this.gameObject.Add(BoxCollider);
     this.collider.layers = [1];
     this.collider.width = 10;
     this.collider.height = 10;
     this.collider.isTrigger = true;
 
-    this.Add(ParticleSystem); 
+    this.gameObject.Add(ParticleSystem); 
     this.particleSystem.lifetime = 0.02;
-    this.particleSystem.rate = 1000;
+    this.particleSystem.rate = 100;
     this.particleSystem.style = '#00ff00';
-  },
+  };
 
 
-  Update: function() {
+  this.Update = function() {
     this.transform.position.y -= 10;
     if (this.transform.position.y < -800) {
       Destroy(this.gameObject);
     }
-  },
+  };
 });

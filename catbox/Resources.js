@@ -16,8 +16,10 @@ var Resources = {
       image.onload = Resources.Preload;
       image.src = src;
       Resources.loaded[src] = image;
+
     } else {
       Resources.callback();
+      Engine.Begin();
     }
   },
 

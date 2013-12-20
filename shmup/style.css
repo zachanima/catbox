@@ -21,6 +21,11 @@ div.hierarchy h1, div.game h1, div.inspector h1 {
   padding-left: 12px;
 }
 
+div.hierarchy h2, div.game h2, div.inspector h2 {
+  font-size: 10pt;
+  background-color: #ccc;
+}
+
 div.hierarchy, div.inspector {
   background-color: #eee;
 }

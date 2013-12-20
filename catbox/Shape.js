@@ -1,4 +1,4 @@
 "use strict";
 
-var Shape = Class.extend({
+var Shape = Object.augment(function() {
 });

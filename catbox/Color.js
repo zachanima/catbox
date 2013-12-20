@@ -1,16 +1,17 @@
 "use strict";
 
-var Color = Class.extend({
-  init: function(r, g, b, a) {
+var Color = Object.augment(function() {
+  this.constructor = function(r, g, b, a) {
     this.r = r;
     this.g = g;
     this.b = b;
     this.a = a || 255;
-  },
+  };
 });
 
 
 
+// TODO: Use Object.defineProperty.
 Color.__defineGetter__('red', function() { return new Color(255, 0, 0); });
 Color.__defineGetter__('green', function() { return new Color(0, 255, 0); });
 Color.__defineGetter__('blue', function() { return new Color(0, 0, 255); });

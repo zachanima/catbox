@@ -1,72 +1,31 @@
 "use strict";
 
-var Component = Class.extend({
-  Add: function(Class) {
-    return this.gameObject.Add(Class);
-  },
+var Component = Object.augment(function() {
+  this.constructor = function() {
+    this.enabled = true;
+  };
 
 
 
-  Get: function(Class) {
-    return this.gameObject.Get(Class);
-  },
-
- 
-
-  Awake: function() { 
-    // Dummy.
-  },
+  // Utility functions.
+  this.GetComponent = function(Class) {
+    return this.gameObject.GetGomponent(Class);
+  };
 
 
 
-  FixedUpdate: function() {
-    // Dummy.
-  },
+  // Engine functions.
+  this.SimulatePhysics = function() { };
+  this.Render = function() { };
 
-
-
-  SimulatePhysics: function() {
-    // Dummy.
-  },
-
-
-
-  Update: function() {
-    // Dummy.
-  },
-
-
-
-  LateUpdate: function() {
-    // Dummy.
-  },
-
-
-
-  Render: function() {
-    // Dummy.
-  },
-
-  
-
-  OnGUI: function() {
-    // Dummy.
-  },
-
-
-  OnCollisionStay: function() {
-    // Dummy.
-  },
-
-
-
-  OnCollisionEnter: function() {
-    // Dummy.
-  },
-
-
-
-  OnCollisionExit: function() {
-    // Dummy.
-  },
+  // Virtual functions.
+  this.Awake = function() { };
+  this.Start = function() { };
+  this.FixedUpdate = function() { };
+  this.Update = function() { };
+  this.LateUpdate = function() { };
+  this.OnGUI = function() { };
+  this.OnCollisionStay = function() { };
+  this.OnCollisionEnter = function() { }; 
+  this.OnCollisionExit = function() { };
 });

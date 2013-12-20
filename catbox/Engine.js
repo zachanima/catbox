@@ -1,8 +1,8 @@
 "use strict";
 
 var Engine = {
-  gameObjects: new Array(),
-  colliders: new Array(),
+  gameObjects: [],
+  colliders: [],
   lastTimestamp: 0,
 
 
@@ -19,42 +19,28 @@ var Engine = {
     Resources.callback = callback;
     Resources.loading = resources;
     Resources.Preload();
+  },
 
+
+
+  Begin: function() {
     // Request fixed loop.
     setInterval(Engine.FixedUpdate, parseInt(1000 * Time.fixedDeltaTime));
 
     // Request main loop.
     window.requestAnimationFrame(Engine.Run);
   },
-
-
-
-  /*
-  Start: function(width, height, id) {
-    // Initialize canvas.
-    window.canvas = id ? document.getElementById(id) : document.getElementsByTagName('canvas')[0];
-    canvas.width = width;
-    canvas.height = height;
-
-    window.context = canvas.getContext('2d');
-
-    Input.init();
-
-    // Request fixed loop.
-    setInterval(Engine.FixedUpdate, parseInt(1000 * Time.fixedDeltaTime));
-
-    // Request main loop.
-    window.requestAnimationFrame(Engine.Run);
-  },
-  */
 
 
 
   Run: function(timestamp) {
+    // Update Time.
     Time.realtimeSinceStartup = timestamp / 1000;
     Time.deltaTime = (timestamp - Engine.lastTimestamp) / 1000;
     Engine.lastTimestamp = timestamp;
 
+    Engine.Awake();
+    Engine.Start();
     // Update.
     // Engine.PreUpdate();
     Engine.Update();
@@ -66,15 +52,56 @@ var Engine = {
     Engine.Render();
     // Engine.OnPostRender();
     Engine.OnGUI();
+
     // Request main loop.
     window.requestAnimationFrame(Engine.Run);
   },
 
 
 
+  Awake: function() {
+    for (var i = this.gameObjects.length; i--;) {
+      var awakening = this.gameObjects[i].components.awakening;
+      this.gameObjects[i].components.awakening = [];
+      this.gameObjects[i].components.starting =
+        this.gameObjects[i].components.starting.concat(awakening);
+      for (var j = awakening.length; j--;) {
+        awakening[j].Awake();
+      }
+    }
+  },
+
+
+
+  Start: function() {
+    for (var i = this.gameObjects.length; i--;) {
+      var starting = this.gameObjects[i].components.starting;
+      this.gameObjects[i].components.starting = [];
+
+      for (var j = starting.length; j--;) {
+        var component = starting[j];
+
+        if (component.enabled) {
+          component.Start();
+          this.gameObjects[i].components.running.push(component);
+
+        } else {
+          // FIXME: Pushes disabled components every frame.
+          this.gameObjects[i].components.starting.push(component);
+        }
+      }
+    }
+  },
+
+
+
   FixedUpdate: function() {
     Engine.gameObjects.forEach(function(gameObject) {
-      gameObject.FixedUpdate();
+      gameObject.components.running.forEach(function(component) {
+        if (component.enabled) {
+          component.FixedUpdate();
+        }
+      });
     });
 
     Engine.SimulatePhysics();
@@ -92,13 +119,20 @@ var Engine = {
 
   Update: function() {
     Engine.gameObjects.forEach(function(gameObject) {
-      gameObject.Update();
+      gameObject.components.running.forEach(function(component) {
+        if (component.enabled) {
+          component.Update();
+        }
+      });
     });
 
     Input.Update();
 
     document.getElementById('ms').innerHTML = parseInt(Time.deltaTime * 1000);
     document.getElementById('fps').innerHTML = parseInt(1 / Time.deltaTime);
+
+    // TODO: Should not be updated every frame.
+    // Engine.gameObjects[0].Editor();
   },
 
 
@@ -136,6 +170,7 @@ var Engine = {
 
 
 
+// TODO: Make static method of Component.
 var Destroy = function(gameObject) {
   var index = Engine.gameObjects.indexOf(gameObject);
   if (index > -1) {

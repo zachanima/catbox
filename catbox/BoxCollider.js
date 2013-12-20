@@ -1,35 +1,40 @@
 "use strict";
 
-var BoxCollider = Collider.extend({
-  isTrigger: false,
+var BoxCollider = Collider.augment(function(base) {
+  this.constructor = function() {
+    base.constructor.call(this);
+    this.colliders = [];
+    isTrigger: false,
+  };
 
 
-  Awake: function() {
+
+  this.Awake = function() {
     // Canvas and context for collision.
     this.canvas = document.createElement('canvas');
     this.context = this.canvas.getContext('2d');
     this.colliders = [];
-  },
+  };
 
 
 
-  Update: function() { 
+  this.Update = function() { 
     if (this.sprite && this.sprite.images[0] && this.width == 1 && this.height == 1) {
       this.width = this.sprite.images[0].width;
       this.height = this.sprite.images[0].height;
     }
-  },
+  };
 
 
 
   // FIXME: Debug.
-  Render: function() {
+  this.Render = function() {
     context.strokeRect(parseInt(-this.width / 2) - 0.5, parseInt(-this.height / 2) - 0.5, this.width, this.height);
-  },
+  };
 
 
 
-  SimulatePhysics: function() {
+  this.SimulatePhysics = function() {
     if (!this.rigidbody) {
       return;
     }
@@ -92,7 +97,7 @@ var BoxCollider = Collider.extend({
           this.rigidbody.velocity.x *= 0.875;
           if (collider.rigidbody) {
             x /= 2;
-            this.rigidbody.AddForce(Vector2.left.Mul(x * 16));
+            this.rigidbody.AddForce(Vector2.left.Mul(x * 4));
           }
           this.transform.position.x -= x;
 
@@ -100,7 +105,7 @@ var BoxCollider = Collider.extend({
           this.rigidbody.velocity.y *= 0.875;
           if (collider.rigidbody) {
             y /= 2;
-            this.rigidbody.AddForce(Vector2.up.Mul(y * 16));
+            this.rigidbody.AddForce(Vector2.up.Mul(y * 4));
           }
           this.transform.position.y -= y;
         }
@@ -152,5 +157,5 @@ var BoxCollider = Collider.extend({
         }
       }
     }
-  },
+  };
 });
