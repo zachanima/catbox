@@ -90,14 +90,6 @@ var GameObject = Class.extend({
 
 
 
-  FixedUpdate: function() {
-    this.components.forEach(function(component) {
-      component.FixedUpdate();
-    });
-  },
-
-
-
   SimulatePhysics: function() {
     this.components.forEach(function(component) {
       component.SimulatePhysics();

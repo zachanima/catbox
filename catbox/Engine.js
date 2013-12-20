@@ -53,7 +53,11 @@ var Engine = {
 
   FixedUpdate: function() {
     Engine.gameObjects.forEach(function(gameObject) {
-      gameObject.FixedUpdate();
+      gameObject.components.forEach(function(component)) {
+        if (component.enabled) {
+          component.FixedUpdate();
+        }
+      }
     });
 
     Engine.SimulatePhysics();
