@@ -9,6 +9,7 @@ var Enemy = Component.extend({
     this.rigidbody.useGravity = false;
     this.Add(BoxCollider);
     this.collider.layers = [1];
+    this.collider.isTrigger = true;
   },
 
 

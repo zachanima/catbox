@@ -1,14 +1,14 @@
 "use strict";
 
 var BoxCollider = Collider.extend({
-  colliders: [],
-
+  isTrigger: false,
 
 
   Awake: function() {
     // Canvas and context for collision.
     this.canvas = document.createElement('canvas');
     this.context = this.canvas.getContext('2d');
+    this.colliders = [];
   },
 
 
@@ -88,7 +88,7 @@ var BoxCollider = Collider.extend({
         var y = bottom < -top ? bottom : top;
 
         // Correct collision.
-        if (Math.abs(x) < Math.abs(y)) {
+        if (Math.abs(x) < Math.abs(y) && !this.isTrigger) {
           this.rigidbody.velocity.x *= 0.875;
           if (collider.rigidbody) {
             x /= 2;
@@ -96,7 +96,7 @@ var BoxCollider = Collider.extend({
           }
           this.transform.position.x -= x;
 
-        } else {
+        } else if (!this.isTrigger) {
           this.rigidbody.velocity.y *= 0.875;
           if (collider.rigidbody) {
             y /= 2;
