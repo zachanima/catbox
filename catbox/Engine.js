@@ -29,27 +29,6 @@ var Engine = {
 
 
 
-  /*
-  Start: function(width, height, id) {
-    // Initialize canvas.
-    window.canvas = id ? document.getElementById(id) : document.getElementsByTagName('canvas')[0];
-    canvas.width = width;
-    canvas.height = height;
-
-    window.context = canvas.getContext('2d');
-
-    Input.init();
-
-    // Request fixed loop.
-    setInterval(Engine.FixedUpdate, parseInt(1000 * Time.fixedDeltaTime));
-
-    // Request main loop.
-    window.requestAnimationFrame(Engine.Run);
-  },
-  */
-
-
-
   Run: function(timestamp) {
     Time.realtimeSinceStartup = timestamp / 1000;
     Time.deltaTime = (timestamp - Engine.lastTimestamp) / 1000;
@@ -136,6 +115,7 @@ var Engine = {
 
 
 
+// TODO: Make static method of Component.
 var Destroy = function(gameObject) {
   var index = Engine.gameObjects.indexOf(gameObject);
   if (index > -1) {

@@ -25,6 +25,7 @@ var GameObject = Class.extend({
 
 
 
+  // TODO: Rename to AddComponent.
   Add: function(Class) {
     var component = new Class();
     component.gameObject = this;
@@ -63,6 +64,7 @@ var GameObject = Class.extend({
     component.collider = this.collider;
     component.rigidbody = this.rigidbody;
     component.sprite = this.sprite;
+    component.particleSystem = this.particleSystem;
     component.transform = this.transform || component;
 
     this.components.push(component);
