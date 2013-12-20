@@ -13,7 +13,7 @@ var Universe = Component.extend({
       body.Add(BoxCollider);
       body.transform.position = new Vector2(Math.random() * canvas.width, Math.random() * canvas.height);
       body.rigidbody.velocity = new Vector2(canvas.width / 2- Math.random() * canvas.width, canvas.height / 2 - Math.random() * canvas.height).Mul(0.1);
-      this.bodies.push(body.Get(Body));
+      this.bodies.push(body.GetComponent(Body));
     }
   },
 

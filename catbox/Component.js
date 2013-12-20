@@ -5,9 +5,8 @@ var Component = Class.extend({
 
 
 
-  // TODO: Rename to GetComponent.
-  Get: function(Class) {
-    return this.gameObject.Get(Class);
+  GetComponent: function(Class) {
+    return this.gameObject.GetGomponent(Class);
   },
 
  

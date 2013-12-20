@@ -89,7 +89,7 @@ var GameObject = Class.extend({
 
 
 
-  Get: function(Class) {
+  GetComponent: function(Class) {
     for (var i in this.components) {
       for (var j = this.components[i].length; j--;) {
         var component = this.components[i][j];
