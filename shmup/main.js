@@ -12,7 +12,7 @@ window.onload = function() {
     var height = 480;
 
     Physics.gravity = Vector2.zero;
-
+    
     var star = new GameObject('Star', Star);
     star.Add(ParticleSystem);
 

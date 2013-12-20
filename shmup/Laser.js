@@ -10,11 +10,12 @@ var Laser = Component.augment(function(base) {
     this.gameObject.Add(Rigidbody);
     this.gameObject.Add(BoxCollider);
     this.collider.layers = [1];
-    this.collider.width = 100;
-    this.collider.height = 100;
+    this.collider.width = 10;
+    this.collider.height = 10;
+    this.collider.isTrigger = true;
 
     this.gameObject.Add(ParticleSystem); 
-    this.particleSystem.lifetime = 0.1;
+    this.particleSystem.lifetime = 0.02;
     this.particleSystem.rate = 100;
     this.particleSystem.style = '#00ff00';
   };

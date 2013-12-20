@@ -12,6 +12,7 @@ var Enemy = Component.augment(function(base) {
     this.rigidbody.useGravity = false;
     this.gameObject.Add(BoxCollider);
     this.collider.layers = [1];
+    this.collider.isTrigger = true;
   },
 
 

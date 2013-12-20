@@ -4,6 +4,7 @@ var BoxCollider = Collider.augment(function(base) {
   this.constructor = function() {
     base.constructor.call(this);
     this.colliders = [];
+    this.isTrigger = false;
   };
 
 
@@ -98,7 +99,7 @@ var BoxCollider = Collider.augment(function(base) {
         this.bounds = this.GetBounds();
 
         // Correct collision.
-        if (Math.abs(x) < Math.abs(y)) {
+        if (Math.abs(x) < Math.abs(y) && !this.isTrigger) {
           this.rigidbody.velocity.x *= 0.875;
           if (collider.rigidbody) {
             x /= 2;
@@ -106,7 +107,7 @@ var BoxCollider = Collider.augment(function(base) {
           }
           this.transform.position.x -= x;
 
-        } else {
+        } else if (!this.isTrigger) {
           this.rigidbody.velocity.y *= 0.875;
           if (collider.rigidbody) {
             y /= 2;
