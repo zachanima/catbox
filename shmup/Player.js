@@ -7,8 +7,8 @@ var Player = Component.extend({
   Awake: function() {
     this.transform.position.x = 400;
     this.transform.position.y = 400;
-    this.Add(Rigidbody);
-    this.Add(BoxCollider);
+    this.gameObject.Add(Rigidbody);
+    this.gameObject.Add(BoxCollider);
   },
   
 
