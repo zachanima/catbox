@@ -6,6 +6,12 @@ var GameObject = Class.extend({
     this.components = [];
     this.layer = 0;
 
+    this.components = {
+      awakening: [],
+      starting: [],
+      running: []
+    };
+
     this.transform = this.Add(Transform);
 
     Engine.gameObjects.push(this);
@@ -32,31 +38,40 @@ var GameObject = Class.extend({
 
     if (component instanceof Collider) {
       this.collider = component;
-      this.components.forEach(function(_component) {
-        _component.collider = component;
-      });
+      for (var i in this.components) {
+        this.components[i].forEach(function(_component) {
+          _component.collider = component;
+        });
+      }
       Engine.colliders.push(component);
     }
 
     if (Class === Rigidbody) {
       this.rigidbody = component;
-      this.components.forEach(function(_component) {
-        _component.rigidbody = component;
-      });
+      for (var i in this.components) {
+        this.components[i].forEach(function(_component) {
+          _component.rigidbody = component;
+        });
+      }
     }
 
+    // TODO: Use .renderer instead.
     if (Class === Sprite) {
       this.sprite = component;
-      this.components.forEach(function(_component) {
-        _component.sprite = component;
-      });
+      for (var i in this.components) {
+        this.components[i].forEach(function(_component) {
+          _component.sprite = component;
+        });
+      }
     }
 
     if (Class === ParticleSystem) {
       this.particleSystem = component;
-      this.components.forEach(function(_component) {
-        _component.particleSystem = component;
-      });
+      for (var i in this.components) {
+        this.components[i].forEach(function(_component) {
+          _component.particleSystem = component;
+        });
+      }
     }
 
     // Maintain component crosslinks.
@@ -67,9 +82,7 @@ var GameObject = Class.extend({
     component.particleSystem = this.particleSystem;
     component.transform = this.transform || component;
 
-    this.components.push(component);
-
-    component.Awake();
+    this.components.awakening.push(component);
 
     return component;
   },
@@ -91,16 +104,8 @@ var GameObject = Class.extend({
 
 
   SimulatePhysics: function() {
-    this.components.forEach(function(component) {
+    this.components.running.forEach(function(component) {
       component.SimulatePhysics();
-    });
-  },
-
-
-
-  Update: function() {
-    this.components.forEach(function(component) {
-      component.Update();
     });
   },
 
@@ -120,7 +125,7 @@ var GameObject = Class.extend({
     context.rotate(this.transform.rotation);
     context.scale(this.transform.scale.x, this.transform.scale.y);
 
-    this.components.forEach(function(component) {
+    this.components.running.forEach(function(component) {
       component.Render();
     });
 
@@ -130,7 +135,7 @@ var GameObject = Class.extend({
 
 
   OnGUI: function() {
-    this.components.forEach(function(component) {
+    this.components.running.forEach(function(component) {
       component.OnGUI();
     });
   },

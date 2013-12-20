@@ -19,6 +19,7 @@ var Resources = {
 
     } else {
       Resources.callback();
+      Engine.Begin();
     }
   },
 

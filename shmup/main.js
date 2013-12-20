@@ -14,6 +14,7 @@ window.onload = function() {
     Physics.gravity = Vector2.zero;
 
     var star = new GameObject('Star', Star);
+    star.Add(ParticleSystem);
 
     //Create enemy
     var enemy = new GameObject('Enemy', Enemy);

@@ -2,9 +2,13 @@
 
 var Star = Component.extend({
   Awake: function() {
-    this.Add(ParticleSystem);
     this.particleSystem.lifetime = 24;
     this.particleSystem.rate = 30;
+  },
+
+
+
+  Start: function() {
     for (var i = 0; i < 500; ++i) {
       this.transform.position.x = Math.ceil(Math.random() * 800) + 0.25;
       this.transform.position.y = Math.ceil(Math.random() * 480) + 0.25;

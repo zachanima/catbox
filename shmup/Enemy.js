@@ -1,7 +1,6 @@
 "use strict";
 
 var Enemy = Component.extend({
- 
   Awake: function() {
     this.transform.position.y = 10;
     this.gameObject.layer = 1;

@@ -10,9 +10,11 @@ var ParticleSystem = Component.extend({
 
 
   Awake: function() {
-    this.particles =  [];
+    this.particles = [];
     this.startVelocity  = Vector2.zero;
   },
+
+
 
   Update: function() {
     while (this.delay <= 0) {

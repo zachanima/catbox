@@ -8,12 +8,6 @@ var Particle = Class.extend({
   init: function(position) {
     this.position = position || Vector2.zero;
     this.velocity = Vector2.zero;
-
-
-    //var _this = this;
-    //setTimeout(function() {
-    //  _this.particleSystem.particles.splice(_this.particleSystem.particles,1);
-    //}, this.life);
   },
 
 
@@ -25,6 +19,7 @@ var Particle = Class.extend({
       this.particleSystem.particles.splice(0,1)
     }
   },
+
 
 
   SimulatePhysics: function() {

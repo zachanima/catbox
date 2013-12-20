@@ -1,8 +1,9 @@
 "use strict";
 
 var Engine = {
-  gameObjects: new Array(),
-  colliders: new Array(),
+  gameObjects: [],
+  colliders: [],
+  components: [],
   lastTimestamp: 0,
 
 
@@ -19,7 +20,11 @@ var Engine = {
     Resources.callback = callback;
     Resources.loading = resources;
     Resources.Preload();
+  },
 
+
+
+  Begin: function() {
     // Request fixed loop.
     setInterval(Engine.FixedUpdate, parseInt(1000 * Time.fixedDeltaTime));
 
@@ -30,10 +35,13 @@ var Engine = {
 
 
   Run: function(timestamp) {
+    // Update Time.
     Time.realtimeSinceStartup = timestamp / 1000;
     Time.deltaTime = (timestamp - Engine.lastTimestamp) / 1000;
     Engine.lastTimestamp = timestamp;
 
+    Engine.Awake();
+    Engine.Start();
     // Update.
     // Engine.PreUpdate();
     Engine.Update();
@@ -45,19 +53,48 @@ var Engine = {
     Engine.Render();
     // Engine.OnPostRender();
     Engine.OnGUI();
+
     // Request main loop.
     window.requestAnimationFrame(Engine.Run);
   },
 
 
 
+  Awake: function() {
+    for (var i = this.gameObjects.length; i--;) {
+      var awakening = this.gameObjects[i].components.awakening;
+      this.gameObjects[i].components.awakening = [];
+      this.gameObjects[i].components.starting =
+        this.gameObjects[i].components.starting.concat(awakening);
+      for (var j = awakening.length; j--;) {
+        awakening[j].Awake();
+      }
+    }
+  },
+
+
+
+  Start: function() {
+    for (var i = this.gameObjects.length; i--;) {
+      var starting = this.gameObjects[i].components.starting;
+      this.gameObjects[i].components.starting = [];
+      this.gameObjects[i].components.running =
+        this.gameObjects[i].components.running.concat(starting);
+      for (var j = starting.length; j--;) {
+        starting[j].Start();
+      }
+    }
+  },
+
+
+
   FixedUpdate: function() {
     Engine.gameObjects.forEach(function(gameObject) {
-      gameObject.components.forEach(function(component)) {
+      gameObject.components.running.forEach(function(component) {
         if (component.enabled) {
           component.FixedUpdate();
         }
-      }
+      });
     });
 
     Engine.SimulatePhysics();
@@ -75,7 +112,11 @@ var Engine = {
 
   Update: function() {
     Engine.gameObjects.forEach(function(gameObject) {
-      gameObject.Update();
+      gameObject.components.running.forEach(function(component) {
+        if (component.enabled) {
+          component.Update();
+        }
+      });
     });
 
     Input.Update();

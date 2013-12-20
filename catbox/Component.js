@@ -25,6 +25,10 @@ var Component = Class.extend({
 
 
 
+  Start: function() { /* Dummy. */ },
+
+
+
   FixedUpdate: function() {
     // Dummy.
   },
