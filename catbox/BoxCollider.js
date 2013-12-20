@@ -12,6 +12,7 @@ var BoxCollider = Collider.augment(function(base) {
     // Canvas and context for collision.
     this.canvas = document.createElement('canvas');
     this.context = this.canvas.getContext('2d');
+    this.bounds = this.GetBounds();
   };
 
 
@@ -33,11 +34,15 @@ var BoxCollider = Collider.augment(function(base) {
 
 
   this.SimulatePhysics = function() {
+    this.bounds = this.GetBounds();
+
+
+
     if (!this.rigidbody) {
       return;
     }
 
-    var a = this.GetBounds();
+    var a = this.bounds;
 
     for (var i = Engine.colliders.length; i--;) {
       var collider = Engine.colliders[i];
@@ -68,7 +73,7 @@ var BoxCollider = Collider.augment(function(base) {
       }
 
       // Discard on axis separation.
-      var b = collider.GetBounds();
+      var b = collider.bounds;
       if (a.max.x < b.min.x || 
           a.min.x > b.max.x ||
           a.max.y < b.min.y || 
@@ -89,6 +94,8 @@ var BoxCollider = Collider.augment(function(base) {
         var left   = a.min.x - b.max.x;
         var x = -left < right ? left : right;
         var y = bottom < -top ? bottom : top;
+
+        this.bounds = this.GetBounds();
 
         // Correct collision.
         if (Math.abs(x) < Math.abs(y)) {

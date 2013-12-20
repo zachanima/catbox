@@ -8,7 +8,7 @@ var Universe = Component.augment(function(base) {
   this.Awake = function() {
     this.bodies = [];
 
-    for (var i = 384; i--;) {
+    for (var i = 256; i--;) {
       var body = new GameObject('Body', Body);
       body.Add(Sprite);
       body.sprite.Load('res/box.png');
