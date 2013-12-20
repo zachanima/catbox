@@ -4,7 +4,7 @@ var BoxCollider = Collider.augment(function(base) {
   this.constructor = function() {
     base.constructor.call(this);
     this.colliders = [];
-    isTrigger: false,
+    this.isTrigger = false;
   };
 
 
