@@ -130,6 +130,9 @@ var Engine = {
 
     document.getElementById('ms').innerHTML = parseInt(Time.deltaTime * 1000);
     document.getElementById('fps').innerHTML = parseInt(1 / Time.deltaTime);
+
+    // TODO: Should not be updated every frame.
+    // Engine.gameObjects[0].Editor();
   },
 
 

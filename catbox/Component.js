@@ -5,70 +5,25 @@ var Component = Class.extend({
 
 
 
+  // Utility functions.
   GetComponent: function(Class) {
     return this.gameObject.GetGomponent(Class);
   },
 
- 
-
-  Awake: function() { 
-    // Dummy.
-  },
 
 
+  // Engine functions.
+  SimulatePhysics: function() { },
+  Render: function() { },
 
-  Start: function() { /* Dummy. */ },
-
-
-
-  FixedUpdate: function() {
-    // Dummy.
-  },
-
-
-
-  SimulatePhysics: function() {
-    // Dummy.
-  },
-
-
-
-  Update: function() {
-    // Dummy.
-  },
-
-
-
-  LateUpdate: function() {
-    // Dummy.
-  },
-
-
-
-  Render: function() {
-    // Dummy.
-  },
-
-  
-
-  OnGUI: function() {
-    // Dummy.
-  },
-
-
-  OnCollisionStay: function() {
-    // Dummy.
-  },
-
-
-
-  OnCollisionEnter: function() {
-    // Dummy.
-  },
-
-
-
-  OnCollisionExit: function() {
-    // Dummy.
-  },
+  // Virtual functions.
+  Awake: function() { },
+  Start: function() { },
+  FixedUpdate: function() { },
+  Update: function() { },
+  LateUpdate: function() { },
+  OnGUI: function() { },
+  OnCollisionStay: function() { },
+  OnCollisionEnter: function() { }, 
+  OnCollisionExit: function() { },
 });

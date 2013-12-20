@@ -172,10 +172,40 @@ var GameObject = Class.extend({
 
 
   Editor: function() {
-    var div = document.createElement('div');
-    div.innerHTML = parseInt(this.transform.position.x);
-
-    return div;
+    var inspector = document.getElementById('inspector');
+    inspector.innerHTML = '';
+    
+    for (var i in this.components) {
+      for (var j = this.components[i].length; j--;) {
+        var component = this.components[i][j];
+        var div = document.createElement('div');
+        var klass = Class;
+        for (var c in window) {
+          if (
+            c != 'localStorage' &&
+            c != 'sessionStorage' &&
+            window[c] !== null &&
+            typeof(window[c]) == 'function' &&
+            window[c].extend &&
+            component instanceof window[c]) {
+            klass = c;
+          };
+        }
+        div.innerHTML = '<h2>' + klass + '</h2>';
+        for (var p in component) {
+          if (
+            typeof(component[p]) !== 'undefined' &&
+            typeof(component[p]) !== 'function' &&
+            component[p] !== component &&
+            !(component[p] instanceof Component) &&
+            !(component[p] instanceof Array) &&
+            component[p] !== component.gameObject) {
+            div.innerHTML += '<p>' + p + ': ' + JSON.stringify(component[p]) + '</p>';
+          }
+        }
+        inspector.appendChild(div);
+      }
+    }
   },
 });
 
