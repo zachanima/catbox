@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Noise Test | Cat (in a) Box</title>
+    <link href="shmup/style.css" rel="stylesheet" type="text/css" />
+
+    <!-- Utilities. -->
+    <script src="catbox/augment.js"></script>
+    <script src="catbox/Color.js"></script>
+    <script src="catbox/Rect.js"></script>
+    <script src="catbox/Resources.js"></script>
+    <script src="catbox/Vector2.js"></script>
+    <script src="catbox/KeyCode.js"></script>
+    <script src="catbox/Input.js"></script>
+    <script src="catbox/Time.js"></script>
+    <script src="catbox/Particle.js"></script>
+    <script src="catbox/Physics.js"></script>
+    <script src="catbox/Noise.js"></script>
+    <script src="catbox/Shape.js"></script>
+    <script src="catbox/Circle.js"></script>
+
+    <!-- Components. -->
+    <script src="catbox/Component.js"></script>
+    <script src="catbox/Camera.js"></script>
+    <script src="catbox/Collider.js"></script>
+    <script src="catbox/BoxCollider.js"></script>
+    <script src="catbox/ParticleSystem.js"></script>
+    <script src="catbox/PixelCollider.js"></script>
+    <script src="catbox/Rigidbody.js"></script>
+    <script src="catbox/Sprite.js"></script>
+    <script src="catbox/Transform.js"></script>
+
+    <!-- Engine. -->
+    <script src="catbox/GameObject.js"></script>
+    <script src="catbox/Engine.js"></script>
+    
+    <!-- Game. -->
+    <script src="noisetest/Graph.js"></script>
+    <script src="noisetest/scene.js"></script>
+
+  </head>
+  <body>
+
+    <div class="hierarchy">
+      <h1>Hierarchy</h1>
+      <ul id="hierarchy"/>
+    </div>
+
+    <div class="inspector">
+      <h1>Inspector</h1>
+      <div id="inspector"></div>
+    </div>
+
+    <div class="game">
+      <h1>Noise Test! (<span id="ms"></span> ms | <span id="fps"></span> fps)</h1>
+      <canvas id="game"></canvas>
+    </div>
+    
+  </body>
+</html>
