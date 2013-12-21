@@ -30,7 +30,7 @@ var Particle = Object.augment(function(base) {
 
   this.Render = function() {
     var weight = 1 - this.lifetime / this.startLifetime;
-    var size = Noise.Lerp(this.size, this.particleSystem.endSize, weight);
+    var size = Mathf.Lerp(this.size, this.particleSystem.endSize, weight);
     context.fillStyle =
       Color.Lerp(this.color, this.particleSystem.endColor, weight).toString();
     context.fillRect(this.position.x, this.position.y, size, size);

@@ -26,9 +26,9 @@ Color.__defineGetter__('white', function() { return new Color(255, 255, 255); })
 
 Color.Lerp = function(a, b, w) {
   return new Color(
-    a.r * (1 - w) + b.r * w,
-    a.g * (1 - w) + b.g * w,
-    a.b * (1 - w) + b.b * w,
-    a.a * (1 - w) + b.a * w
+    Mathf.Lerp(a.r, b.r, w),
+    Mathf.Lerp(a.g, b.r, w),
+    Mathf.Lerp(a.b, b.r, w),
+    Mathf.Lerp(a.a, b.r, w)
   );
 };
