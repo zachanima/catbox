@@ -18,7 +18,7 @@ window.onload = function() {
     star.Add(ParticleSystem);
 
     //Create enemy
-    for (var i = 0; i < 256; ++i) {
+    for (var i = 0; i < 1; ++i) {
       var enemy = new GameObject('Enemy', Enemy);
       enemy.Add(Sprite).Load('res/shmupenemy.png');
     };
