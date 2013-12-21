@@ -54,8 +54,25 @@ var Noise = {
 
   Sin: function(x, octaves) {
     var signal = 0;
-    var amplitude = 1;
-    var frequency = 1 / octaves;
+    var amplitude = 1 + Noise.Coherent(x) * 0.25;
+    var frequency = 1 / octaves + Noise.Coherent(9997 + x) * 0.25 / octaves;
+    var factor = 0;
+
+    for (var i = 0; i < octaves; ++i) {
+      signal += amplitude * Math.sin(x * (frequency));
+      factor += amplitude;
+      amplitude *= 0.5 + Noise.Coherent(i) * 0.125;
+      frequency *= 2 + Noise.Coherent(i) * 0.5;
+    }
+    return signal / factor;
+  },
+
+
+
+  Sin2: function(x, y, octaves) {
+    var signal = 0;
+    var amplitude = 1 + Noise.Coherent2(x, y) * 0.125;
+    var frequency = 1 / octaves + Noise.Coherent2(x + 31337, y + 1663) * 0.25 / octaves;
     var factor = 0;
 
     for (var i = 0; i < octaves; ++i) {
