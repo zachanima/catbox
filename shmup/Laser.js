@@ -18,6 +18,7 @@ var Laser = Component.augment(function(base) {
     this.particleSystem.lifetime = 0.02;
     this.particleSystem.rate = 100;
     this.particleSystem.style = '#00ff00';
+    this.particleSystem.startSize = 3;
   };
 
 
