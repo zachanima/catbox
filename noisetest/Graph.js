@@ -6,18 +6,17 @@ var Graph = Component.augment(function(base) {
 
 
   this.Awake = function() {
-    this.seed = Math.random() * 2000000000;
+    this.seed = Math.random() * 200000;
   };
 
 
 
   this.Render = function() {
-    context.strokeStyle = 'white';
-    context.beginPath();
-    context.moveTo(canvas.width, canvas.height / 2);
-    for (var x = canvas.width; x--;) {
-      context.lineTo(x, canvas.height / 2 + canvas.height / 4 * Noise.Sin(Time.realtimeSinceStartup * 200 + this.seed + 0.25 * x, 16));
+    for (var y = canvas.height; y--;) {
+      for (var x = canvas.width; x--;) {
+        context.fillStyle = 'rgba(' + parseInt(127 + Noise.Sin2(this.seed + 31000337 + Time.realtimeSinceStartup + x * 0.1, this.seed / 123 + 1667 + y * 0.1, 2) * 127) + ', 0, 0, 255)';
+        context.fillRect(x, y, 1, 1);
+      }
     }
-    context.stroke();
   };
 });

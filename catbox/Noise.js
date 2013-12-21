@@ -46,7 +46,7 @@ var Noise = {
     var weight = x - intX;
     var noise = Noise.Lerp(n0, n1, weight);
     weight = y - intY;
-    noise += Noise.Lerp(n3,n4, weight);
+    noise += Noise.Lerp(n2,n3, weight);
     return noise / 2;
   },
 
