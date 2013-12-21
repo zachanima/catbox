@@ -7,6 +7,12 @@ var Color = Object.augment(function() {
     this.b = b;
     this.a = a || 255;
   };
+
+
+
+  this.toString = function() {
+    return 'rgba(' + parseInt(this.r) + ', ' + parseInt(this.g) + ', ' + parseInt(this.b) + ', ' + parseInt(this.a) + ')';
+  };
 });
 
 
@@ -17,3 +23,12 @@ Color.__defineGetter__('green', function() { return new Color(0, 255, 0); });
 Color.__defineGetter__('blue', function() { return new Color(0, 0, 255); });
 Color.__defineGetter__('black', function() { return new Color(0, 0, 0); });
 Color.__defineGetter__('white', function() { return new Color(255, 255, 255); });
+
+Color.Lerp = function(a, b, w) {
+  return new Color(
+    Mathf.Lerp(a.r, b.r, w),
+    Mathf.Lerp(a.g, b.r, w),
+    Mathf.Lerp(a.b, b.r, w),
+    Mathf.Lerp(a.a, b.r, w)
+  );
+};

@@ -3,25 +3,32 @@
 var ParticleSystem = Component.augment(function(base) {
   this.constructor = function() {
     base.constructor.call(this);
-    this.delay = 0;
-    this.rate = 10;
-    this.gravityMultiplier = 1;
-    this.lifetime = 5;
-    this.style = '#fff';
+    this.startDelay = 0;
+    this.emissionRate = 10;
+    this.enableEmission = true;
+    this.gravityModifier = 1;
+    this.maxParticles = 1000;
+    this.startLifetime = 5;
+    this.startColor = Color.white;
+    this.endColor = Color.white;
     this.particles = [];
-    this.startVelocity = Vector2.zero;
+    this.startSpeed = 5;
     this.startSize = 1;
+    this.endSize = 1;
+    this.simulationSpace = 'world';
   };
 
 
 
   this.Update = function() {
-    while (this.delay <= 0) {
-      this.Emit();
-      this.delay += 1 / this.rate;
-    }
+    if (this.enableEmission) {
+      while (this.startDelay <= 0) {
+        this.Emit(1); // TODO: Emit all at once.
+        this.startDelay += 1 / this.emissionRate;
+      }
 
-    this.delay -= Time.deltaTime;
+      this.startDelay -= Time.deltaTime;
+    }
     
     for (var i = this.particles.length; i--;) {
       this.particles[i].Update();
@@ -41,27 +48,39 @@ var ParticleSystem = Component.augment(function(base) {
   this.Render = function() {
     var transform = this.transform;
 
-    context.save();
-    context.translate(-parseInt(transform.position.x), -parseInt(transform.position.y));
-    context.rotate(-transform.rotation);
-    context.scale(1 / transform.scale.x, 1 / transform.scale.y);
+    if (this.simulationSpace == 'world') {
+      context.save();
+      context.scale(1 / transform.scale.x, 1 / transform.scale.y);
+      context.rotate(-transform.rotation);
+      context.translate(-parseInt(transform.position.x), -parseInt(transform.position.y));
+    }
 
     for (var i = this.particles.length; i--;) {
       this.particles[i].Render();
     }
 
-    context.restore();
+    if (this.simulationSpace == 'world') {
+      context.restore();
+    }
   };
 
 
 
-  this.Emit = function() {
-    var particle = new Particle(new Vector2(this.transform.position.x, this.transform.position.y));
-    particle.particleSystem = this;
-    particle.lifetime = this.lifetime;
-    particle.style = this.style;
-    particle.size = this.startSize;
-    particle.velocity = new Vector2(this.startVelocity.x, this.startVelocity.y);
-    this.particles.push(particle);
+  this.Emit = function(count) {
+    while (count--) {
+      if (this.particles.length < this.maxParticles) {
+        var particle = new Particle();
+        if (this.simulationSpace == 'world') {
+          particle.position = new Vector2(this.transform.position.x, this.transform.position.y);
+        }
+        particle.particleSystem = this;
+        particle.lifetime = this.startLifetime;
+        particle.velocity = new Vector2(Math.cos(-Math.PI / 2 + this.transform.rotation), Math.sin(-Math.PI / 2 + this.transform.rotation)).Mul(this.startSpeed);
+        particle.color = this.startColor;
+        particle.size = this.startSize;
+        particle.startLifetime = this.startLifetime;
+        this.particles.push(particle);
+      }
+    }
   };
 });
