@@ -1,12 +1,13 @@
 "use strict";
 
 var Enemy = Component.augment(function(base) {
-  this.constructor = function() { base.constructor.call(this) };
+  this.constructor = function() { base.constructor.call(this); };
 
 
 
   this.Awake = function() {
-    this.transform.position.y = 10;
+    this.transform.position.y = -100;
+    this.gameObject.AddComponent(Sprite).Load('res/shmupenemy.png');
     this.gameObject.layer = 2;
     this.gameObject.AddComponent(Rigidbody);
     this.rigidbody.useGravity = false;

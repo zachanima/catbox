@@ -15,10 +15,7 @@ window.onload = function() {
     star.AddComponent(ParticleSystem);
 
     //Create enemy
-    for (var i = 0; i < 1; ++i) {
-      var enemy = new GameObject('Enemy', Enemy);
-      enemy.AddComponent(Sprite).Load('res/shmupenemy.png');
-    };
+    var waves = new GameObject('Waves', Waves);
 
     var enemy2 = new GameObject('Enemy2', Enemy2);
     enemy2.AddComponent(Sprite).Load('res/enemy2.png');
@@ -34,6 +31,8 @@ window.onload = function() {
     var gametext = new GameObject('GameText', GameText);
     gametext.transform.position.x = 400;
     gametext.transform.position.y = -100;
+
+    var ui = new GameObject('UI', UI);
 
   }, width, height);
 };
