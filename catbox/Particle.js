@@ -33,6 +33,14 @@ var Particle = Object.augment(function(base) {
     var size = Mathf.Lerp(this.size, this.particleSystem.endSize, weight);
     context.fillStyle =
       Color.Lerp(this.color, this.particleSystem.endColor, weight).toString();
-    context.fillRect(this.position.x, this.position.y, size, size);
+
+    context.save();
+    context.translate(parseInt(this.position.x) + 0.5, parseInt(this.position.y) + 0.5);
+    // context.rotate
+    context.scale(size, size);
+
+    context.fillRect(-0.5, -0.5, 1, 1);
+
+    context.restore();
   };
 });
