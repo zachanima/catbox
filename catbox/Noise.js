@@ -10,6 +10,13 @@ var Noise = {
     return 1.0 - (nn / 1073741824.0);
   },
 
+
+
+  Random2: function(x, y) {
+    x = (x >> 13) ^ x;
+    var nn = (x * (y * x * 60493 + 19990303) + 1376312589) & 0x7fffffff;
+    return 1.0 - (nn / 1073741824.0);
+  },
   
 
   Lerp: function(a, b, w) {
@@ -29,6 +36,22 @@ var Noise = {
 
 
   
+  Coherent2: function(x, y) {
+    var intX = parseInt(x);
+    var intY = parseInt(y);
+    var n0 = Noise.Random2(intX, intY);
+    var n1 = Noise.Random2(intX + 1, intY);
+    var n2 = Noise.Random2(intX, intY + 1);
+    var n3 = Noise.Random2(intX + 1, intY + 1);
+    var weight = x - intX;
+    var noise = Noise.Lerp(n0, n1, weight);
+    weight = y - intY;
+    noise += Noise.Lerp(n3,n4, weight);
+    return noise / 2;
+  },
+
+
+
   Sin: function(x, octaves) {
     var signal = 0;
     var amplitude = 1;
