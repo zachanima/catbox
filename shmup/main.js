@@ -17,12 +17,18 @@ window.onload = function() {
     star.Add(ParticleSystem);
 
     //Create enemy
-    var enemy = new GameObject('Enemy', Enemy);
-    enemy.Add(Sprite).Load('res/shmupenemy.png');
+    for (var i = 0; i < 256; ++i) {
+      var enemy = new GameObject('Enemy', Enemy);
+      enemy.Add(Sprite).Load('res/shmupenemy.png');
+    };
+
+    var exhaust = new GameObject('Exhaust', ParticleSystem);
 
     //Create player
     var player = new GameObject('Player', Player);
     player.Add(Sprite).Load('res/ship.png');
+    player.GetComponent(Player).exhaust = exhaust;
+    
 
     //Create text
     var gametext = new GameObject('GameText', GameText);
