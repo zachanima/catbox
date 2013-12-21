@@ -8,8 +8,8 @@ var Player = Component.augment(function(base) {
   this.Awake = function() {
     this.transform.position.x = 400;
     this.transform.position.y = 400;
-    this.gameObject.Add(Rigidbody);
-    this.gameObject.Add(BoxCollider);
+    this.gameObject.AddComponent(Rigidbody);
+    this.gameObject.AddComponent(BoxCollider);
     
     this.exhaust.transform.rotation = Math.PI;
     this.exhaust.particleSystem.startLifetime = 0.2;

@@ -8,9 +8,9 @@ var Enemy = Component.augment(function(base) {
   this.Awake = function() {
     this.transform.position.y = 10;
     this.gameObject.layer = 2;
-    this.gameObject.Add(Rigidbody);
+    this.gameObject.AddComponent(Rigidbody);
     this.rigidbody.useGravity = false;
-    this.gameObject.Add(BoxCollider);
+    this.gameObject.AddComponent(BoxCollider);
     this.collider.layers = [1];
     this.collider.isTrigger = true;
     this.seed = Math.random() * 200000000;
