@@ -6,7 +6,8 @@ window.onload = function() {
 
   Engine.Load([
     'res/ship.png',
-    'res/shmupenemy.png'
+    'res/shmupenemy.png',
+    'res/enemy2.png'
   ], function() {
     var width = 800;
     var height = 480;
@@ -17,10 +18,13 @@ window.onload = function() {
     star.Add(ParticleSystem);
 
     //Create enemy
-    for (var i = 0; i < 256; ++i) {
+    for (var i = 0; i < 1; ++i) {
       var enemy = new GameObject('Enemy', Enemy);
       enemy.Add(Sprite).Load('res/shmupenemy.png');
     };
+
+    var enemy2 = new GameObject('Enemy2', Enemy2);
+    enemy2.Add(Sprite).Load('res/enemy2.png');
 
     var exhaust = new GameObject('Exhaust', ParticleSystem);
 
