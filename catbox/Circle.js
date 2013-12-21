@@ -6,6 +6,10 @@ var Circle = Graphic.augment(function(base) {
     this.radius = radius;
     this.stroke = false;
     this.fill = true;
+
+    // TODO: Compute these at access-time.
+    this.width = 2 * radius;
+    this.height = 2 * radius;
   };
 
 
@@ -37,9 +41,9 @@ var Circle = Graphic.augment(function(base) {
     }
 
     context.beginPath();
-    context.arc(this.radius, this.radius, this.radius, 0, 2 * Math.PI, false);
-    if (this.stroke) { context.stroke(); }
+    context.arc(0, 0, this.radius, 0, 2 * Math.PI, false);
     if (this.fill)   { context.fill(); }
+    if (this.stroke) { context.stroke(); }
 
     context.strokeStyle = strokeStyle;
     context.fillStyle = fillStyle;

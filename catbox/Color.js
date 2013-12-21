@@ -5,13 +5,13 @@ var Color = Object.augment(function() {
     this.r = r;
     this.g = g;
     this.b = b;
-    this.a = a || 255;
+    this.a = a || 1;
   };
 
 
 
   this.toString = function() {
-    return 'rgba(' + parseInt(this.r) + ', ' + parseInt(this.g) + ', ' + parseInt(this.b) + ', ' + parseInt(this.a) + ')';
+    return 'rgba(' + parseInt(this.r) + ', ' + parseInt(this.g) + ', ' + parseInt(this.b) + ', ' + this.a + ')';
   };
 });
 
@@ -27,8 +27,8 @@ Color.__defineGetter__('white', function() { return new Color(255, 255, 255); })
 Color.Lerp = function(a, b, w) {
   return new Color(
     Mathf.Lerp(a.r, b.r, w),
-    Mathf.Lerp(a.g, b.r, w),
-    Mathf.Lerp(a.b, b.r, w),
-    Mathf.Lerp(a.a, b.r, w)
+    Mathf.Lerp(a.g, b.g, w),
+    Mathf.Lerp(a.b, b.b, w),
+    Mathf.Lerp(a.a, b.a, w)
   );
 };

@@ -8,6 +8,12 @@ var Vector2 = Object.augment(function() {
 
 
 
+  this.Copy = function() {
+    return new Vector2(this.x, this.y);
+  };
+
+
+
   this.Add = function(other) {
     return new Vector2(this.x + other.x, this.y + other.y);
   };
@@ -35,9 +41,29 @@ var Vector2 = Object.augment(function() {
   this.Div = function(scalar) {
     return new Vector2(this.x / scalar, this.y / scalar);
   };
+
+
+
+  this.SqrMagnitude = function() {
+    return this.Dot(this);
+  };
+
+
+
+  this.Magnitude = function() {
+    return Math.sqrt(this.SqrMagnitude());
+  };
+
+
+
+  this.Normalized = function() {
+    return this.Div(this.Magnitude());
+  };
 });
 
 
+
+Vector2.Distance = function(a, b) { return a.Sub(b).Magnitude(); }
 
 // TODO: Use Object.defineProperty.
 Vector2.__defineGetter__('zero', function() { return new Vector2(0, 0); });

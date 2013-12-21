@@ -1,7 +1,9 @@
 "use strict";
 
-var PhysicMaterial = Class.extend({
-  staticFriction: 0,
-  dynamicFriction: 0,
-  bounciness: 0, 
+var PhysicMaterial = Object.augment(function() {
+  this.constructor = function() {
+    this.staticFriction = 0;
+    this.dynamicFriction = 0;
+    this.bounciness = 0;
+  }
 });
