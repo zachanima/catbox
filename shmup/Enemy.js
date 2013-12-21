@@ -7,7 +7,7 @@ var Enemy = Component.augment(function(base) {
 
   this.Awake = function() {
     this.transform.position.y = 10;
-    this.gameObject.layer = 1;
+    this.gameObject.layer = 2;
     this.gameObject.Add(Rigidbody);
     this.rigidbody.useGravity = false;
     this.gameObject.Add(BoxCollider);
@@ -29,6 +29,7 @@ var Enemy = Component.augment(function(base) {
 
 
   this.OnCollisionEnter = function() {
-    // console.log('hit!');
+    Destroy(this.gameObject);
+    console.log('hit');
   };
 });
