@@ -31,8 +31,11 @@ var Particle = Object.augment(function(base) {
   this.Render = function() {
     var weight = 1 - this.lifetime / this.startLifetime;
     var size = Mathf.Lerp(this.size, this.particleSystem.endSize, weight);
-    context.fillStyle =
-      Color.Lerp(this.color, this.particleSystem.endColor, weight).toString();
+
+    if (this.color != this.particleSystem.endColor) {
+      context.fillStyle =
+        Color.Lerp(this.color, this.particleSystem.endColor, weight).toString();
+    }
 
     context.save();
     context.translate(parseInt(this.position.x) + 0.5, parseInt(this.position.y) + 0.5);

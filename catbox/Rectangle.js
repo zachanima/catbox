@@ -11,25 +11,45 @@ var Rectangle = Graphic.augment(function(base) {
 
 
 
+  this.Cache = function() {
+    var canvas = document.createElement('canvas');
+    canvas.width = this.width;
+    canvas.height = this.height;
+    var context = canvas.getContext('2d');
+    context.translate(this.width / 2, this.height / 2);
+    this.canvas = null;
+    this.Render(context);
+    this.canvas = canvas;
+
+    return this;
+  };
+
+
+
   this.Render = function(context) {
-    var strokeStyle = context.strokeStyle;
-    var fillStyle = context.fillStyle;
+    if (this.canvas) {
+      context.drawImage(this.canvas, -this.width / 2, -this.height / 2);
 
-    if (this.strokeColor) {
-      context.strokeStyle = this.strokeColor.toString();
-    }
-    if (this.fillColor) {
-      context.fillStyle = this.fillColor.toString();
-    }
+    } else {
+      var strokeStyle = context.strokeStyle;
+      var fillStyle = context.fillStyle;
 
-    if (this.stroke) {
-      context.strokeRect(-this.width / 2, -this.height / 2, this.width, this.height);
-    }
-    if (this.fill) {
-      context.fillRect(-this.width / 2, -this.height / 2, this.width, this.height);
-    }
+      if (this.strokeColor) {
+        context.strokeStyle = this.strokeColor.toString();
+      }
+      if (this.fillColor) {
+        context.fillStyle = this.fillColor.toString();
+      }
 
-    context.strokeStyle = strokeStyle;
-    context.fillStyle = fillStyle;
+      if (this.stroke) {
+        context.strokeRect(-this.width / 2, -this.height / 2, this.width, this.height);
+      }
+      if (this.fill) {
+        context.fillRect(-this.width / 2, -this.height / 2, this.width, this.height);
+      }
+
+      context.strokeStyle = strokeStyle;
+      context.fillStyle = fillStyle;
+    }
   };
 });
