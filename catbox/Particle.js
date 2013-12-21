@@ -30,6 +30,6 @@ var Particle = Object.augment(function(base) {
 
   this.Render = function() {
     context.fillStyle = this.style;
-    context.fillRect(this.position.x, this.position.y, 1, 1);
+    context.fillRect(this.position.x, this.position.y, this.size, this.size);
   };
 });
