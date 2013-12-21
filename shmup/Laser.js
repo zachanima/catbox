@@ -15,9 +15,10 @@ var Laser = Component.augment(function(base) {
     this.collider.isTrigger = true;
 
     this.gameObject.Add(ParticleSystem); 
-    this.particleSystem.lifetime = 0.02;
-    this.particleSystem.rate = 100;
-    this.particleSystem.style = '#00ff00';
+    this.particleSystem.startLifetime = 0.2;
+    this.particleSystem.startColor = new Color(0x00, 0xff, 0x00);
+    this.particleSystem.endColor = new Color(0x00, 0xff, 0x00);
+    this.particleSystem.emissionRate = 100;
     this.particleSystem.startSize = 3;
   };
 
