@@ -6,6 +6,45 @@ Javascript 2D game engine.
 
 ## Progress
 
+* Game Object
+  * Variables
+    * Active in Hierarchy
+    * Active Self
+    * Animation
+    * Audio
+    * Camera
+    * Collider
+    * Constant Force
+    * GUI Text
+    * GUI Texture
+    * Hinge Joint
+    * Is Static?
+    * Layer
+    * Light
+    * Network View
+    * Particle System
+    * Renderer
+    * Rigidbody
+    * Tag
+    * Transform
+  * Constructors
+    * Game Object
+  * Functions
+    * Add Component
+    * Broadcast Message
+    * Compare Tag
+    * Get Component
+    * Get Component in Children
+    * Get Components
+    * Get Components in Children
+    * Sample Animation
+    * Send Message
+    * Send Message Upwards
+  * Static Functions
+    * Create Primitive?
+    * Find
+    * Find Game Objects with Tag
+    * Find with Tag
 * Component / Behaviour
   * Variables
     * Enabled
