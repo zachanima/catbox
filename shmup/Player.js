@@ -30,7 +30,7 @@ var Player = Component.augment(function(base) {
       this.transform.position.x += 5;
     }
     
-    if (Input.GetKeyDown(KeyCode.Space)) {
+    if (Input.GetKey(KeyCode.Space)) {
       var laser = new GameObject('Laser', Laser);
       laser.transform.position.x = this.transform.position.x;
       laser.transform.position.y = this.transform.position.y;
