@@ -7,7 +7,7 @@ window.onload = function() {
 
 
   Engine.Load([], function() {
-    for (var i = 384; i--;) {
+    for (var i = 192; i--;) {
       var ball = new GameObject("Ball", Ball);
       ball.transform.position.x = Math.random() * width;
       ball.transform.position.y = Math.random() * height;
