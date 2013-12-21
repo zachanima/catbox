@@ -10,6 +10,21 @@ var Circle = Graphic.augment(function(base) {
 
 
 
+  this.Cache = function() {
+    var canvas = document.createElement('canvas');
+    canvas.width = this.radius;
+    canvas.height = this.radius;
+    var context = canvas.getContext('2d');
+    context.translate(this.radius / 2, this.radius / 2);
+    this.canvas = null;
+    this.Render(context);
+    this.canvas = canvas;
+
+    return this;
+  };
+
+
+
   this.Render = function(context) {
     var strokeStyle = context.strokeStyle;
     var fillStyle = context.fillStyle;
