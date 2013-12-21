@@ -59,6 +59,48 @@ Javascript 2D game engine.
         * On Render Object
         * On Will Render Object
     * Collider
+      * Variables
+        * Attached Rigidbody
+        * Bounds
+        * Enabled
+        * Is Trigger
+        * Material (Physic Material)
+          * Variables
+            * Bounce Combine
+            * Bounciness
+            * Dynamic Friction
+            * Friction Combine
+            * Static Friction
+          * Constructors
+            * Physic Material
+      * Functions
+        * Closest Point on Bounds
+        * Raycast
+      * Messages
+        * On Collision Enter
+        * On Collision Exit
+        * On Collision Stay
+        * On Trigger Enter
+        * On Trigger Exit
+        * On Trigger Stay
+      * Derivatives
+        * Box Collider (AABB when possible)
+          * Center
+          * Size
+        * Circle Collider
+          * Center
+          * Radius
+        * Capsule Collider
+          * Center
+          * Direction
+          * Height
+          * Radius
+        * Mesh Collider
+          * Convex
+          * Mesh
+          * Smooth Circle Collisions
+        * Pixel Collider
+          * Update Bounds
     * Constant Force
     * Game Object
     * GUI Text
@@ -68,6 +110,53 @@ Javascript 2D game engine.
     * Network View
     * Particle System
     * Renderer
+      * Variables
+        * Bounds
+        * Cast Shadows
+        * Enabled
+        * Is Part of Static Batch
+        * Is Visible
+        * Local to World Matrix
+        * Material
+        * Materials
+        * Receive Shadows
+        * World to Local Matrix
+      * Functions
+        * Set Property Block
+      * Messages
+        * On Became Invisible
+        * On Became Visible
+      * Derivatives
+        * Cloth Renderer
+          * Pause when not Visible
+        * Line Renderer
+          * Use World Space
+          * Set Colors?
+          * Set Position?
+          * Set Vertex Count?
+          * Set Width?
+        * Mesh Renderer
+        * Particle System Renderer
+          * Camera Velocity Scale
+          * Length Scale
+          * Max Particle Size
+          * Mesh
+          * Render Mode
+          * Velocity Scale
+        * Sprite Renderer
+          * Color
+          * Sprite
+            * Bounds
+            * Packed
+            * Packing Mode
+            * Packing Rotation
+            * Rect
+            * Create
+        * Trail Renderer
+          * Autodestruct
+          * End Width
+          * Start Width
+          * Time
     * Rigidbody
       * Variables
         * Angular Drag
