@@ -15,7 +15,7 @@ var Star = Component.augment(function(base) {
 
 
   this.Start = function() {
-    this.particleSystem.maxParticles = 50000;
+    this.particleSystem.maxParticles = 5000;
     this.transform.rotation = Math.PI;
     for (var i = 0; i < 768; ++i) {
       this.transform.position.x = Math.ceil(Math.random() * 800) + 0.25;
