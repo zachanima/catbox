@@ -9,7 +9,8 @@ var ParticleSystem = Component.augment(function(base) {
     this.lifetime = 5;
     this.style = '#fff';
     this.particles = [];
-    this.startVelocity  = Vector2.zero;
+    this.startVelocity = Vector2.zero;
+    this.startSize = 1;
   };
 
 
@@ -59,6 +60,7 @@ var ParticleSystem = Component.augment(function(base) {
     particle.particleSystem = this;
     particle.lifetime = this.lifetime;
     particle.style = this.style;
+    particle.size = this.startSize;
     particle.velocity = new Vector2(this.startVelocity.x, this.startVelocity.y);
     this.particles.push(particle);
   };

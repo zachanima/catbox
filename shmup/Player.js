@@ -14,7 +14,7 @@ var Player = Component.augment(function(base) {
     this.exhaust.particleSystem.lifetime = 0.2;
     this.exhaust.particleSystem.rate = 120;
     this.exhaust.particleSystem.style = '#5555ff';
-    this.exhaust.particleSystem.scale = new Vector2(100,100);
+    this.exhaust.particleSystem.startSize = 3;
   };
   
 
