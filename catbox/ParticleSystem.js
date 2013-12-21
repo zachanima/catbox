@@ -9,6 +9,7 @@ var ParticleSystem = Component.augment(function(base) {
     this.gravityModifier = 1;
     this.maxParticles = 1000;
     this.startLifetime = 5;
+    this.graphic = new Rectangle(1, 1);
     this.startColor = Color.white;
     this.endColor = Color.white;
     this.particles = [];
@@ -78,6 +79,7 @@ var ParticleSystem = Component.augment(function(base) {
         particle.velocity = new Vector2(Math.cos(-Math.PI / 2 + this.transform.rotation), Math.sin(-Math.PI / 2 + this.transform.rotation)).Mul(this.startSpeed);
         particle.color = this.startColor;
         particle.size = this.startSize;
+        particle.graphic = this.graphic;
         particle.startLifetime = this.startLifetime;
         this.particles.push(particle);
       }

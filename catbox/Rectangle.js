@@ -1,9 +1,10 @@
 "use strict";
 
-var Circle = Graphic.augment(function(base) {
-  this.constructor = function(radius) {
+var Rectangle = Graphic.augment(function(base) {
+  this.constructor = function(width, height) {
     base.constructor.call(this);
-    this.radius = radius;
+    this.width = width;
+    this.height = height;
     this.stroke = false;
     this.fill = true;
   };
@@ -21,10 +22,12 @@ var Circle = Graphic.augment(function(base) {
       context.fillStyle = this.fillColor.toString();
     }
 
-    context.beginPath();
-    context.arc(this.radius, this.radius, this.radius, 0, 2 * Math.PI, false);
-    if (this.stroke) { context.stroke(); }
-    if (this.fill)   { context.fill(); }
+    if (this.stroke) {
+      context.strokeRect(-this.width / 2, -this.height / 2, this.width, this.height);
+    }
+    if (this.fill) {
+      context.fillRect(-this.width / 2, -this.height / 2, this.width, this.height);
+    }
 
     context.strokeStyle = strokeStyle;
     context.fillStyle = fillStyle;

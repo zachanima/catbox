@@ -39,7 +39,7 @@ var Particle = Object.augment(function(base) {
     // context.rotate
     context.scale(size, size);
 
-    context.fillRect(-0.5, -0.5, 1, 1);
+    this.graphic.Render(context);
 
     context.restore();
   };
