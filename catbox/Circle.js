@@ -11,8 +11,8 @@ var Circle = Graphic.augment(function(base) {
 
 
   this.Render = function(context) {
-    var strokeStyle = context.strokeColor;
-    var fillStyle = context.fillColor;
+    var strokeStyle = context.strokeStyle;
+    var fillStyle = context.fillStyle;
 
     if (this.strokeColor) {
       context.strokeStyle = this.strokeColor.toString();
