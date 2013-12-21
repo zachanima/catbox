@@ -8,6 +8,8 @@ var Star = Component.augment(function(base) {
   this.Awake = function() {
     this.particleSystem.startLifetime = 24;
     this.particleSystem.emissionRate = 60;
+    this.particleSystem.startColor = Color.white;
+    this.particleSystem.endColor = Color.white;
   };
 
 
