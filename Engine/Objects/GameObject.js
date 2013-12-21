@@ -2,37 +2,23 @@
 
 var GameObject = Object.augment(function() {
   this.constructor = function(name, Class) {
-    this.name = name || "";
-    this.components = [];
-    this.layer = 0;
-
     this.components = {
       awakening: [],
       starting: [],
       running: []
     };
-
-    this.transform = this.Add(Transform);
+    this.layer = 0;
+    this.name = name || "";
+    this.transform = this.AddComponent(Transform);
 
     Engine.gameObjects.push(this);
 
-    // Refresh hierarchy.
-    document.getElementById('hierarchy').innerHTML = '';
-    Engine.gameObjects.forEach(function(gameObject) {
-      var li = document.createElement('li');
-      li.innerHTML = gameObject.name;
-      document.getElementById('hierarchy').appendChild(li);
-    });
-
-    if (Class) {
-      this.Add(Class);
-    }
+    Class && this.AddComponent(Class);
   };
 
 
 
-  // TODO: Rename to AddComponent.
-  this.Add = function(Class) {
+  this.AddComponent = function(Class) {
     var component = new Class();
     component.gameObject = this;
 
@@ -120,10 +106,14 @@ var GameObject = Object.augment(function() {
 
 
 
-  this.LateUpdate = function() {
-    this.components.forEach(function(component) {
-      component.LateUpdate();
-    });
+  // TODO: Take `enabled` into account.
+  // TODO: Take `awaking`/`starting`/`running` component into account.
+  this.SendMessage = function(methodName, value) {
+    var running = this.components.running;
+    for (var i = running.length; i--;) {
+      var component = running[i];
+      component[methodName] && component[methodName](value);
+    }
   };
 
 
@@ -134,94 +124,9 @@ var GameObject = Object.augment(function() {
     context.rotate(this.transform.rotation);
     context.scale(this.transform.scale.x, this.transform.scale.y);
 
-    this.components.running.forEach(function(component) {
-      component.Render();
-    });
+    this.SendMessage('Render');
 
     context.restore();
-  };
-
-
-
-  this.OnGUI = function() {
-    this.components.running.forEach(function(component) {
-      component.OnGUI();
-    });
-  };
-
-
-
-  this.OnCollisionStay = function(collision) {
-    for (var i in this.components) {
-      for (var j = this.components[i].length; j--;) {
-        if (this.components[i].hasOwnProperty(j)) {
-          this.components[i][j].OnCollisionStay();
-        }
-      }
-    }
-  };
-
-
-
-  this.OnCollisionEnter = function(collision) {
-    for (var i in this.components) {
-      for (var j = this.components[i].length; j--;) {
-        if (this.components[i].hasOwnProperty(j)) {
-          this.components[i][j].OnCollisionEnter(collision);
-        }
-      }
-    }
-  };
-
-
-
-  this.OnCollisionExit = function(collision) {
-    for (var i in this.components) {
-      for (var j = this.components[i].length; j--;) {
-        if (this.components.hasOwnProperty(j)) {
-          this.components[i][j].OnCollisionExit(collision);
-        }
-      }
-    }
-  };
-
-
-
-  this.Editor = function() {
-    var inspector = document.getElementById('inspector');
-    inspector.innerHTML = '';
-    
-    for (var i in this.components) {
-      for (var j = this.components[i].length; j--;) {
-        var component = this.components[i][j];
-        var div = document.createElement('div');
-        var klass = Class;
-        for (var c in window) {
-          if (
-            c != 'localStorage' &&
-            c != 'sessionStorage' &&
-            window[c] !== null &&
-            typeof(window[c]) == 'function' &&
-            window[c].extend &&
-            component instanceof window[c]) {
-            klass = c;
-          };
-        }
-        div.innerHTML = '<h2>' + klass + '</h2>';
-        for (var p in component) {
-          if (
-            typeof(component[p]) !== 'undefined' &&
-            typeof(component[p]) !== 'function' &&
-            component[p] !== component &&
-            !(component[p] instanceof Component) &&
-            !(component[p] instanceof Array) &&
-            component[p] !== component.gameObject) {
-            div.innerHTML += '<p>' + p + ': ' + JSON.stringify(component[p]) + '</p>';
-          }
-        }
-        inspector.appendChild(div);
-      }
-    }
   };
 });
 

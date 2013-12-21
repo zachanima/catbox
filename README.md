@@ -37,7 +37,6 @@ Javascript 2D game engine.
     * Get Component in Children
     * Get Components
     * Get Components in Children
-    * Sample Animation
     * Send Message
     * Send Message Upwards
   * Static Functions

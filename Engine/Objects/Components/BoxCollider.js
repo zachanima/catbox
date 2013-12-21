@@ -84,7 +84,7 @@ var BoxCollider = Collider.augment(function(base) {
           a.min.y > b.max.y) {
         if (index > -1) {
           this.colliders.splice(index, 1);
-          this.gameObject.OnCollisionExit(collider);
+          this.gameObject.SendMessage('OnCollisionExit', collider);
         }
         continue;
       }
@@ -120,10 +120,10 @@ var BoxCollider = Collider.augment(function(base) {
         }
 
         // TODO: Fire OnCollisionEnter/Exit events.
-        this.gameObject.OnCollisionStay(collider);
+        this.gameObject.SendMessage('OnCollisionStay', collider);
         if (index == -1) {
           this.colliders.push(collider);
-          this.gameObject.OnCollisionEnter(collider);
+          this.gameObject.SendMessage('OnCollisionEnter', collider);
         }
 
 
