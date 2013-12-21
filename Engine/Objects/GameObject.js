@@ -71,6 +71,17 @@ var GameObject = Object.augment(function() {
       }
     }
 
+    if (Class === Renderer) {
+      this.renderer = component;
+      for (var i in this.components) {
+        if (this.components.hasOwnProperty(i)) {
+          this.components[i].forEach(function(_component) {
+            _component.renderer = component;
+          });
+        }
+      }
+    }
+
     if (Class === ParticleSystem) {
       this.particleSystem = component;
       for (var i in this.components) {
@@ -86,6 +97,7 @@ var GameObject = Object.augment(function() {
     component.rigidbody = this.rigidbody;
     component.sprite = this.sprite;
     component.particleSystem = this.particleSystem;
+    component.renderer = this.renderer;
     component.transform = this.transform || component;
 
     this.components.awakening.push(component);

@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Shmup | Cat (in a) Box</title>
-    <link href="shmup/style.css" rel="stylesheet" type="text/css" />
+    <title>Collide | Cat (in a) Box</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
 
     <script src="Engine/System/augment.js"></script>
     <script src="Engine/System/Mathf.js"></script>
@@ -24,6 +24,7 @@
     <script src="Engine/Objects/Components/Collider.js"></script>
     <script src="Engine/Objects/Components/BoxCollider.js"></script>
     <script src="Engine/Objects/Components/ParticleSystem.js"></script>
+    <script src="Engine/Objects/Components/CircleCollider.js"></script>
     <script src="Engine/Objects/Components/PixelCollider.js"></script>
     <script src="Engine/Objects/Components/Renderer.js"></script>
     <script src="Engine/Objects/Components/Rigidbody.js"></script>
@@ -38,13 +39,8 @@
 
     <script src="Engine/Engine.js"></script>
     
-    <script src="shmup/Laser.js"></script>
-    <script src="shmup/Star.js"></script>
-    <script src="shmup/Enemy.js"></script>
-    <script src="shmup/Enemy2.js"></script>
-    <script src="shmup/Player.js"></script>
-    <script src="shmup/GameText.js"></script>
-    <script src="shmup/main.js"></script>
+    <script src="collide/Ball.js"></script>
+    <script src="collide/scene.js"></script>
 
   </head>
   <body>
@@ -60,7 +56,7 @@
     </div>
 
     <div class="game">
-      <h1>Shmup! (<span id="ms"></span> ms | <span id="fps"></span> fps)</h1>
+      <h1>Collide (<span id="ms"></span> ms | <span id="fps"></span> fps)</h1>
       <canvas id="game"></canvas>
     </div>
     

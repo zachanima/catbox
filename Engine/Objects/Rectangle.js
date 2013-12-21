@@ -41,11 +41,11 @@ var Rectangle = Graphic.augment(function(base) {
         context.fillStyle = this.fillColor.toString();
       }
 
-      if (this.stroke) {
-        context.strokeRect(-this.width / 2, -this.height / 2, this.width, this.height);
-      }
       if (this.fill) {
         context.fillRect(-this.width / 2, -this.height / 2, this.width, this.height);
+      }
+      if (this.stroke) {
+        context.strokeRect(-this.width / 2, -this.height / 2, this.width, this.height);
       }
 
       context.strokeStyle = strokeStyle;

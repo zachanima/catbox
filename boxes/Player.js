@@ -1,22 +1,23 @@
 "use strict";
 
-var Player = Component.extend({ 
-  grounded: false,
+var Player = Component.augment(function(base) { 
+  this.constructor = function() { base.constructor.call(this) };
 
 
 
-  Awake: function() {
-    this.Add(Sprite).Load('res/mario.png');
+  this.Awake = function() {
+    this.grounded = false;
+    this.gameObject.Add(Sprite).Load('res/mario.png');
     this.sprite.period = 0.7;
     this.transform.position = new Vector2(300, 180);
-    this.Add(Rigidbody);
-    this.Add(BoxCollider);
+    this.gameObject.Add(Rigidbody);
+    this.gameObject.Add(BoxCollider);
     this.rigidbody.mass = 1;
-  },
+  };
 
 
 
-  Update: function() {
+  this.Update = function() {
     // Camera.main.transform.position = this.transform.position;
 
     this.rigidbody.velocity.x = 0;
@@ -42,9 +43,9 @@ var Player = Component.extend({
 
 
 
-  OnCollisionStay: function(collider) {
-    if (collider.transform.position.y + collider.height >= this.transform.position.y) {
+  this.OnCollisionStay = function(collider) {
+    // if (collider.transform.position.y + collider.height >= this.transform.position.y) {
       this.grounded = true;
-    }
-  },
+    // }
+  };
 });
