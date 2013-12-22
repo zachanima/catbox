@@ -43,8 +43,7 @@ var Player = Component.augment(function(base) {
     if (Input.GetKeyDown(KeyCode.X)) {
       var missile = new GameObject('Missile', Missile);
       missile.AddComponent(Rigidbody);
-      missile.rigidbody.velocity = new Vector2(0,-1);
-      missile.rigidbody.velocity.y = 20;
+      missile.rigidbody.velocity.y = 80;
       missile.transform.position = this.transform.position.Copy();
       missile.AddComponent(Sprite).Load('res/missile.png');
     }
