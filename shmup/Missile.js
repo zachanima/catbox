@@ -33,5 +33,8 @@ var Missile = Component.augment(function(base) {
     this.exhaust.transform.position.y = this.transform.position.y+Math.cos(this.transform.rotation)*7.5;
     this.exhaust.transform.position.x = this.transform.position.x-Math.sin(this.transform.rotation)*7;
     this.time += Math.PI/32;
+    if (this.transform.position.y < -200) {
+    Destroy(this.gameObject);
+    }
   };
 });
