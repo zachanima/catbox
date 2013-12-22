@@ -25,6 +25,7 @@ var Player = Component.augment(function(base) {
     this.exhaust.transform.position = this.transform.position.Add(Vector2.down.Mul(32));
     this.exhaust.transform.rotation = Math.PI + 0.5 * (Math.random() - 0.5);
     this.exhaust.particleSystem.startSpeed = 200+50*Math.random();
+
     if (Input.GetKey(KeyCode.LeftArrow)) {
       this.transform.position.x -= 5;
     }
@@ -33,10 +34,20 @@ var Player = Component.augment(function(base) {
       this.transform.position.x += 5;
     }
     
-    if (Input.GetKeyDown(KeyCode.Space)) {
+    if (Input.GetKeyDown(KeyCode.Z)) {
       var laser = new GameObject('Laser', Laser);
       laser.transform.position.x = this.transform.position.x;
       laser.transform.position.y = this.transform.position.y - 10;
     }
+
+    if (Input.GetKeyDown(KeyCode.X)) {
+      var missile = new GameObject('Missile', Missile);
+      missile.AddComponent(Rigidbody);
+      missile.rigidbody.velocity = new Vector2(0,-1);
+      missile.rigidbody.velocity.y = 20;
+      missile.transform.position = this.transform.position.Copy();
+      missile.AddComponent(Sprite).Load('res/missile.png');
+    }
+
   };
 });

@@ -7,7 +7,8 @@ window.onload = function() {
   Engine.Load([
     'res/ship.png',
     'res/shmupenemy.png',
-    'res/enemy2.png'
+    'res/enemy2.png',
+    'res/missile.png'
   ], function() {
     Physics.gravity = Vector2.zero;
     
