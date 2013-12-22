@@ -36,13 +36,13 @@ var Player = Component.augment(function(base) {
       this.transform.position.x += 5;
     }
     
-    if (Input.GetKeyDown(KeyCode.Z)) {
+    if (Input.GetKey(KeyCode.Z)) {
       var laser = new GameObject('Laser', Laser);
       laser.transform.position.x = this.transform.position.x;
       laser.transform.position.y = this.transform.position.y - 10;
     }
 
-    if (!this.leftlauncher && Input.GetKeyDown(KeyCode.X)) {
+    if (!this.leftlauncher && Input.GetKey(KeyCode.X)) {
       var missile = new GameObject('Missile', Missile);
       missile.GetComponent(Missile).startPoint = -Math.PI/2;
       missile.AddComponent(Rigidbody);
@@ -52,7 +52,7 @@ var Player = Component.augment(function(base) {
       missile.transform.position.x += 30;
       missile.AddComponent(Sprite).Load('res/missile.png');
       this.leftlauncher = true;
-    } else if (Input.GetKeyDown(KeyCode.X) && this.leftlauncher) {
+    } else if (Input.GetKey(KeyCode.X) && this.leftlauncher) {
       var missile = new GameObject('Missile', Missile);
       missile.GetComponent(Missile).startPoint = Math.PI/2;
       missile.AddComponent(Rigidbody);

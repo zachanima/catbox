@@ -163,19 +163,18 @@ var Engine = {
 var Destroy = function(gameObject) {
   var index = Engine.gameObjects.indexOf(gameObject);
   if (index > -1) {
-    Engine.gameObjects.splice(index, 1);
     for (var i in gameObject.components) {
       var components = gameObject.components[i];
       for (var j = components.length; j--;) {
         var component = components[j];
         if (component instanceof Collider) {
-          index = Engine.colliders.indexOf(component);
-          if (index > -1) {
-            Engine.colliders.splice(index, 1);
-            console.log('destroyed');
+          var _index = Engine.colliders.indexOf(component);
+          if (_index > -1) {
+            Engine.colliders.splice(_index, 1);
           }
         }
       }
     }
+    Engine.gameObjects.splice(index, 1);
   }
 }
