@@ -254,6 +254,7 @@ Javascript 2D game engine.
         * Lossy Scale
         * Parent
         * Position
+          * Z
         * Right
         * Root
         * Rotation
@@ -347,16 +348,16 @@ Javascript 2D game engine.
     * Instantiate
 * Physics
   * Static Variables
-    * All Layers
-    * Bounce Threshold
-    * Default Raycast Layers
-    * Gravity
-    * Ignore Raycast Layer
-    * Max Angular Velocity
-    * Min Penetration For Penalty
-    * Sleep Angular Velocity
-    * Sleep Velocity
-    * Solver Iteration Count
+    * 100% | All Layers
+    * 50% | Bounce Threshold
+    * 100% | Default Raycast Layers
+    * 100% | Gravity
+    * 100% | Ignore Raycast Layer
+    * 50% | Max Angular Velocity
+    * 50% Min Penetration For Penalty
+    * 50% Sleep Angular Velocity
+    * 50% Sleep Velocity
+    * 50% Solver Iteration Count
   * Static Functions
     * Capsule Cast
     * Capsule Cast All
@@ -366,7 +367,7 @@ Javascript 2D game engine.
     * Ignore Collision
     * Ignore Layer Collision
     * Linecast
-    * Overlap Sphere
+    * Overlap Circle
     * Raycast
     * Raycast All
     * Circle Cast

@@ -30,6 +30,18 @@ var GameObject = Object.augment(function() {
         }
       }
       Engine.colliders.push(component);
+      Physics.colliders.push(component);
+    }
+
+    if (component instanceof Renderer) {
+      this.renderer = component;
+      for (var i in this.components) {
+        if (this.components.hasOwnProperty(i)) {
+          this.components[i].forEach(function(_component) {
+            _component.renderer = component;
+          });
+        }
+      }
     }
 
     if (Class === Rigidbody) {
@@ -41,6 +53,7 @@ var GameObject = Object.augment(function() {
           });
         }
       }
+      Physics.rigidbodies.push(component);
     }
 
     // TODO: Use .renderer instead.
