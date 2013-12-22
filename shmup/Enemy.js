@@ -12,7 +12,7 @@ var Enemy = Component.augment(function(base) {
     this.gameObject.AddComponent(Rigidbody);
     this.rigidbody.useGravity = false;
     this.gameObject.AddComponent(BoxCollider);
-    this.collider.layers = [1];
+    this.collider.layers = [1,3];
     this.collider.isTrigger = true;
     this.seed = Math.random() * 200000000;
   },

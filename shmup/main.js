@@ -34,11 +34,6 @@ window.onload = function() {
     gametext.transform.position.x = 400;
     gametext.transform.position.y = -100;
 
-    var missile = new GameObject('Missile', Missile);
-    missile.AddComponent(Rigidbody);
-    missile.rigidbody.velocity.y = 20;
-    missile.transform.position = new Vector2(400, 400);
-    missile.AddComponent(Sprite).Load('res/missile.png');
 
     var ui = new GameObject('UI', UI);
 
