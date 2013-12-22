@@ -93,7 +93,7 @@ var BoxCollider = Collider.augment(function(base) {
           return;
         }
 
-        var e = 0.875; // Restitution. TODO: Use object's restitution.
+        var e = 0.9375; // Restitution. TODO: Use object's restitution.
 
         var j = -(1 + e) * velAlongNormal;
         var totalInverseMass = 1 / this.rigidbody.mass + (collider.rigidbody ? 1 / collider.rigidbody.mass : 0);

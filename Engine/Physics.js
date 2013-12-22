@@ -25,12 +25,14 @@ var Physics = {
     var colliders = [];
 
     // layerMask = layerMask === 'undefined' ? Physics.DefaultRaycastLayers : layerMask;
+    layer = typeof layer === 'undefined' ? 0 : layer;
 
     for (var i = Physics.colliders.length; i--;) {
       var collider = Physics.colliders[i];
 
       // Skip if collider's layer is not in layer mask.
       if (collider.gameObject.layer != layer) {
+        console.log(collider.gameObject.layer);
         continue;
       }
 
@@ -128,7 +130,7 @@ var Physics = {
   SimulateGravity: function() {
     for (var i = Physics.rigidbodies.length; i--;) {
       var rigidbody = Physics.rigidbodies[i];
-      rigidbody.AddForce(Physics.gravity.Mul(rigidbody.mass * Time.fixedDeltaTime));
+      rigidbody.AddForce(Physics.gravity.Mul(rigidbody.mass));
     }
   },
 
