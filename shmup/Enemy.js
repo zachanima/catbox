@@ -1,17 +1,17 @@
 "use strict";
 
 var Enemy = Component.augment(function(base) {
-  this.constructor = function() { base.constructor.call(this) };
+  this.constructor = function() { base.constructor.call(this); };
 
 
 
   this.Awake = function() {
-    this.transform.position.y = 10;
+    this.transform.position.y = -100;
     this.gameObject.layer = 2;
     this.gameObject.AddComponent(Rigidbody);
     this.rigidbody.useGravity = false;
     this.gameObject.AddComponent(BoxCollider);
-    this.collider.layers = [1];
+    this.collider.layers = [1,3];
     this.collider.isTrigger = true;
     this.seed = Math.random() * 200000000;
   },
