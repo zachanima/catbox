@@ -14,22 +14,23 @@ var Physics = {
   sleepVelocity: 0.15, // TODO: Convert to pixels.
   solverIterationCount: 7,
   velocityIterations: 7, // TODO: Look up sane default.
+  pixelsPerMeter: 16,
 
   colliders: [],
   rigidbodies: [],
 
 
 
-  OverlapAreaAll: function(a, b, layerMask) {
+  OverlapAreaAll: function(a, b, layer) {
     var colliders = [];
 
-    layerMask = layerMask || Physics.DefaultRaycastLayers;
+    // layerMask = layerMask === 'undefined' ? Physics.DefaultRaycastLayers : layerMask;
 
     for (var i = Physics.colliders.length; i--;) {
       var collider = Physics.colliders[i];
 
       // Skip if collider's layer is not in layer mask.
-      if ((0x1 << collider.gameObject.layer) & layerMask == 0x0) {
+      if (collider.gameObject.layer != layer) {
         continue;
       }
 
@@ -101,7 +102,7 @@ var Physics = {
         collider.rigidbody.position.y + collider.center.y + collider.size.y / 2
       );
 
-      var _colliders = Physics.OverlapAreaAll(a, b);
+      var _colliders = Physics.OverlapAreaAll(a, b, collider.gameObject.layer);
       var _length = _colliders.length;
 
       if (_length > 1) {
@@ -127,7 +128,7 @@ var Physics = {
   SimulateGravity: function() {
     for (var i = Physics.rigidbodies.length; i--;) {
       var rigidbody = Physics.rigidbodies[i];
-      rigidbody.AddForce(Physics.gravity.Mul(rigidbody.mass * 0.02));
+      rigidbody.AddForce(Physics.gravity.Mul(rigidbody.mass * Time.fixedDeltaTime));
     }
   },
 
@@ -136,7 +137,7 @@ var Physics = {
   SimulateVelocity: function() {
     for (var i = Physics.rigidbodies.length; i--;) {
       var rigidbody = Physics.rigidbodies[i];
-      rigidbody.position = rigidbody.position.Add(rigidbody.velocity);
+      rigidbody.position = rigidbody.position.Add(rigidbody.velocity.Mul(Time.fixedDeltaTime));
     }
   },
 };

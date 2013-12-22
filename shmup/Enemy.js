@@ -7,7 +7,7 @@ var Enemy = Component.augment(function(base) {
 
   this.Awake = function() {
     this.transform.position.y = -100;
-    this.gameObject.layer = 2;
+    this.gameObject.layer = 3;
     this.gameObject.AddComponent(Rigidbody);
     this.rigidbody.useGravity = false;
     this.gameObject.AddComponent(BoxCollider);
