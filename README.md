@@ -19,14 +19,14 @@ Javascript 2D game engine.
     * GUI Texture
     * Hinge Joint
     * Is Static?
-    * Layer
+    * 100% | Layer
     * Light
     * Network View
     * Particle System
     * Renderer
     * Rigidbody
-    * Tag
-    * Transform
+    * 100% | Tag
+    * 100% | Transform
   * Constructors
     * Game Object
   * Functions
@@ -37,8 +37,9 @@ Javascript 2D game engine.
     * Get Component in Children
     * Get Components
     * Get Components in Children
-    * Send Message
+    * 100% | Send Message
     * Send Message Upwards
+    * Set Active
   * Static Functions
     * Create Primitive?
     * Find
@@ -189,13 +190,13 @@ Javascript 2D game engine.
             * Packing Mode
             * Packing Rotation
             * Rect
-            * Create
+            * CreaDte
         * Trail Renderer
           * Autodestruct
-          * End Width
+          * End Wid[MaDth
           * Start Width
           * Time
-    * Rigidbody
+    * Rigidbody[Ma
       * Variables
         * Angular Drag
         * Angular Velocity
@@ -253,6 +254,7 @@ Javascript 2D game engine.
         * Lossy Scale
         * Parent
         * Position
+          * Z
         * Right
         * Root
         * Rotation
@@ -344,3 +346,29 @@ Javascript 2D game engine.
     * Find Object of Type
     * Find Objects of Type
     * Instantiate
+* Physics
+  * Static Variables
+    * 100% | All Layers
+    * 50% | Bounce Threshold
+    * 100% | Default Raycast Layers
+    * 100% | Gravity
+    * 100% | Ignore Raycast Layer
+    * 50% | Max Angular Velocity
+    * 50% Min Penetration For Penalty
+    * 50% Sleep Angular Velocity
+    * 50% Sleep Velocity
+    * 50% Solver Iteration Count
+  * Static Functions
+    * Capsule Cast
+    * Capsule Cast All
+    * Check Capsule
+    * Check Circle
+    * Get Ignore Layer Collision
+    * Ignore Collision
+    * Ignore Layer Collision
+    * Linecast
+    * Overlap Circle
+    * Raycast
+    * Raycast All
+    * Circle Cast
+    * Circle Cast All

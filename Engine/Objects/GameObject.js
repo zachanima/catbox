@@ -2,15 +2,13 @@
 
 var GameObject = Object.augment(function() {
   this.constructor = function(name, Class) {
-    this.components = {
-      awakening: [],
-      starting: [],
-      running: []
-    };
+    this.components = { awakening: [], starting: [], running: [] };
     this.layer = 0;
-    this.name = name || "";
+    this.name = name || '';
+    this.tag = null; // TODO: Define get/set.
     this.transform = this.AddComponent(Transform);
 
+    // TODO: Add this to hierarchy.
     Engine.gameObjects.push(this);
 
     Class && this.AddComponent(Class);
@@ -32,6 +30,18 @@ var GameObject = Object.augment(function() {
         }
       }
       Engine.colliders.push(component);
+      Physics.colliders.push(component);
+    }
+
+    if (component instanceof Renderer) {
+      this.renderer = component;
+      for (var i in this.components) {
+        if (this.components.hasOwnProperty(i)) {
+          this.components[i].forEach(function(_component) {
+            _component.renderer = component;
+          });
+        }
+      }
     }
 
     if (Class === Rigidbody) {
@@ -43,6 +53,7 @@ var GameObject = Object.augment(function() {
           });
         }
       }
+      Physics.rigidbodies.push(component);
     }
 
     // TODO: Use .renderer instead.
@@ -106,13 +117,11 @@ var GameObject = Object.augment(function() {
 
 
 
-  // TODO: Take `enabled` into account.
-  // TODO: Take `awaking`/`starting`/`running` component into account.
   this.SendMessage = function(methodName, value) {
     var running = this.components.running;
     for (var i = running.length; i--;) {
       var component = running[i];
-      component[methodName] && component[methodName](value);
+      component.enabled && component[methodName] && component[methodName](value);
     }
   };
 

@@ -8,7 +8,6 @@ var Missile = Component.augment(function(base) {
   this.Awake = function() {
     this.gameObject.layer = 3;
     this.gameObject.AddComponent(BoxCollider);
-    this.collider.layers = [2];
 
     this.time = 0;
 

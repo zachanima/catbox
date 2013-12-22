@@ -5,15 +5,22 @@ var BoxCollider = Collider.augment(function(base) {
     base.constructor.call(this);
     this.colliders = [];
     this.isTrigger = false;
+    this.center = Vector2.zero;
+    this.size = Vector2.one;
   };
 
 
 
   this.Awake = function() {
-    // Canvas and context for collision.
+    // Canvas and context for pixel collision.
     this.canvas = document.createElement('canvas');
     this.context = this.canvas.getContext('2d');
     this.bounds = this.GetBounds();
+
+    // TODO: Use renderer.bounds.size instead of sprite.width.
+    if (this.sprite && this.sprite.images[0] && this.size.x == 1 && this.size.y == 1) {
+      this.size = this.sprite && new Vector2(this.sprite.images[0].width, this.sprite.images[0].height) || this.size;
+    }
   };
 
 
@@ -23,6 +30,9 @@ var BoxCollider = Collider.augment(function(base) {
       this.width = this.sprite.images[0].width;
       this.height = this.sprite.images[0].height;
     }
+
+    this.size.x = this.width;
+    this.size.y = this.height;
   };
 
 
@@ -30,6 +40,82 @@ var BoxCollider = Collider.augment(function(base) {
   // FIXME: Debug.
   this.Render = function() {
     context.strokeRect(parseInt(-this.width / 2) - 0.5, parseInt(-this.height / 2) - 0.5, this.width, this.height);
+  };
+
+
+
+  // Bounding box is already assumed to be overlapping.
+  this.Detect = function() { return true; };
+
+
+
+  // TODO: Don't assume BoxCollider.
+  this.Respond = function(collider) {
+    var normal = null; 
+    var penetration = null;
+
+    var other = (collider.rigidbody || collider.transform);
+    var n = other.position.Sub(this.rigidbody.position);
+    var aExtent = this.size.x / 2;
+    var bExtent = collider.size.x / 2;
+
+    var xOverlap = aExtent + bExtent - Math.abs(n.x);
+
+    if (xOverlap > 0) {
+      aExtent = this.size.y / 2;
+      bExtent = collider.size.y / 2;
+
+      var yOverlap = aExtent + bExtent - Math.abs(n.y);
+
+      if (yOverlap > 0) {
+        if (xOverlap < yOverlap) {
+          if (n.x < 0) {
+            normal = Vector2.left;
+          } else {
+            normal = Vector2.right; // Or zero?
+          }
+          penetration = xOverlap;
+
+        } else {
+          if (n.y > 0) {
+            normal = Vector2.down;
+          } else {
+            normal = Vector2.up;
+          }
+          penetration = yOverlap;
+        }
+
+        // Resolve.
+        var rv = (other.velocity || Vector2.zero).Sub(this.rigidbody.velocity);
+        var velAlongNormal = rv.Dot(normal);
+
+        if (velAlongNormal > 0) {
+          return;
+        }
+
+        var e = 0.9375; // Restitution. TODO: Use object's restitution.
+
+        var j = -(1 + e) * velAlongNormal;
+        var totalInverseMass = 1 / this.rigidbody.mass + (collider.rigidbody ? 1 / collider.rigidbody.mass : 0);
+        j /= 1 / this.rigidbody.mass + (collider.rigidbody ? 1 / collider.rigidbody.mass : 0);
+
+        // Apply impulse.
+        var impulse = normal.Mul(j);
+        this.rigidbody.velocity = this.rigidbody.velocity.Add(impulse.Mul(-1 / this.rigidbody.mass));
+
+        if (collider.rigidbody) {
+          collider.rigidbody.velocity = collider.rigidbody.velocity.Add(impulse.Mul(1 / collider.rigidbody.mass));
+        }
+
+        var percent = 0.8;
+        var slop = 0.01;
+        var correction = normal.Mul((Math.max(penetration - slop, 0) / totalInverseMass) * percent);
+        this.transform.position = this.transform.position.Sub(correction.Mul(1 / this.rigidbody.mass));
+        if (collider.rigidbody) {
+          collider.transform.position = collider.transform.position.Add(correction.Mul(1 / collider.rigidbody.mass));
+        }
+      }
+    }
   };
 
 

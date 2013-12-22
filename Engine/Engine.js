@@ -25,7 +25,7 @@ var Engine = {
 
   Begin: function() {
     // Request fixed loop.
-    setInterval(Engine.FixedUpdate, parseInt(1000 * Time.fixedDeltaTime));
+    setInterval(Engine.Simulate, parseInt(1000 * Time.fixedDeltaTime));
 
     // Request main loop.
     window.requestAnimationFrame(Engine.Run);
@@ -41,17 +41,30 @@ var Engine = {
 
     Engine.Awake();
     Engine.Start();
-    // Update.
-    // Engine.PreUpdate();
-    Engine.Update();
-    // Engine.LateUpdate();
-    // Engine.PostUpdate(); // Engine frame cleanup (input, etc.).
+    // On Enable.
 
-    // Render.
-    // Engine.OnPreRender();
+    // OnApplicationPause.
+
+    // Rigidbody interpolation for transform position, rotation.
+    // On Mouse Down/Up Events.
+
+    Engine.Update();
+    // Advance animations.
+    // Late Update.
+
+    // On Pre Cull.
+    // On Became Visible/Invisible.
+    // On Will Render Object.
+    // On Pre Render.
     Engine.Render();
-    // Engine.OnPostRender();
-    Engine.OnGUI();
+    // On Render Object.
+    // On Post Render.
+    // On Render Image.
+    Engine.OnGUI(); // TODO: Layout, Repaint, Layout, Keyboard, Mouse
+
+    // On Destroy.
+    // On Application Quit.
+    // On Disable.
 
     // Request main loop.
     window.requestAnimationFrame(Engine.Run);
@@ -95,17 +108,51 @@ var Engine = {
 
 
 
-  FixedUpdate: function() {
+  Simulate: function() {
     Engine.gameObjects.forEach(function(gameObject) {
       gameObject.SendMessage('FixedUpdate');
     });
 
-    Engine.SimulatePhysics();
+    Physics.Simulate();
+
+    // On Trigger Enter/Exit/Stay.
+    // On Collision Enter/Exit/Stay.
+  },
+
+
+
+  CollisionUpdate: function() {
+    // FIXME: Only checks visible rigidbodies for collisions.
+    var a = new Vector2(canvas.width / 4, canvas.height / 4);
+    var b = new Vector2(canvas.width - canvas.width / 4, canvas.height - canvas.height / 4);
+    var colliders = Physics.OverlapAreaAll(a, b);
+
+    var length = colliders.length;
+    for (var i = length; i--;) {
+      var collider = colliders[i];
+
+      if (!collider.rigidbody) {
+        continue;
+      }
+
+      var a = new Vector2(
+        collider.transform.position.x + collider.center.x - collider.size.x / 2,
+        collider.transform.position.y + collider.center.y - collider.size.y / 2
+      );
+      var b = new Vector2(
+        collider.transform.position.x + collider.center.x + collider.size.x / 2,
+        collider.transform.position.y + collider.center.y + collider.size.y / 2
+      );
+
+      var _colliders = Physics.OverlapAreaAll(a, b);
+    }
   },
 
 
 
   SimulatePhysics: function() {
+    Engine.CollisionUpdate();
+
     Engine.gameObjects.forEach(function(gameObject) {
       gameObject.SendMessage('SimulatePhysics');
     });
