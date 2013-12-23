@@ -167,8 +167,8 @@ var Engine = {
 
     Input.Update();
 
-    document.getElementById('ms').innerHTML = parseInt(Time.deltaTime * 1000);
-    document.getElementById('fps').innerHTML = parseInt(1 / Time.deltaTime);
+    document.getElementsByTagName('title')[0].innerHTML =
+      parseInt(Time.deltaTime * 1000) + 'ms | ' + parseInt(1 / Time.deltaTime) + ' fps';
   },
 
 

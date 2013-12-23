@@ -7,11 +7,11 @@ var Player = Component.augment(function(base) {
 
   this.Awake = function() {
     this.grounded = false;
-    this.gameObject.Add(Sprite).Load('res/mario.png');
+    this.gameObject.AddComponent(Sprite).Load('res/mario.png');
     this.sprite.period = 0.7;
     this.transform.position = new Vector2(300, 180);
-    this.gameObject.Add(Rigidbody);
-    this.gameObject.Add(BoxCollider);
+    this.gameObject.AddComponent(Rigidbody);
+    this.gameObject.AddComponent(BoxCollider);
     this.rigidbody.mass = 1;
   };
 

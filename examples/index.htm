@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Examples | Cat (in a) Box</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+    <script src="../catbox/System/augment.js"></script>
+    <script src="../catbox/System/Mathf.js"></script>
+    <script src="../catbox/System/Noise.js"></script>
+
+    <script src="../catbox/Objects/Vector2.js"></script>
+    <script src="../catbox/Objects/Color.js"></script>
+    <script src="../catbox/Objects/Rect.js"></script>
+    <script src="../catbox/Objects/Graphic.js"></script>
+    <script src="../catbox/Objects/Rectangle.js"></script>
+    <script src="../catbox/Objects/PhysicMaterial.js"></script>
+    <script src="../catbox/Objects/Circle.js"></script>
+    <script src="../catbox/Objects/Particle.js"></script>
+    <script src="../catbox/Objects/Circle.js"></script>
+    <script src="../catbox/Objects/GameObject.js"></script>
+
+    <script src="../catbox/Objects/Components/Component.js"></script>
+    <script src="../catbox/Objects/Components/Camera.js"></script>
+    <script src="../catbox/Objects/Components/Collider.js"></script>
+    <script src="../catbox/Objects/Components/BoxCollider.js"></script>
+    <script src="../catbox/Objects/Components/ParticleSystem.js"></script>
+    <script src="../catbox/Objects/Components/PixelCollider.js"></script>
+    <script src="../catbox/Objects/Components/Renderer.js"></script>
+    <script src="../catbox/Objects/Components/Rigidbody.js"></script>
+    <script src="../catbox/Objects/Components/Sprite.js"></script>
+    <script src="../catbox/Objects/Components/Transform.js"></script>
+
+    <script src="../catbox/Resources.js"></script>
+    <script src="../catbox/KeyCode.js"></script>
+    <script src="../catbox/Input.js"></script>
+    <script src="../catbox/Time.js"></script>
+    <script src="../catbox/Physics.js"></script>
+
+    <script src="../catbox/Engine.js"></script>
+
+    <script>
+
+function require(array) {
+  var load = function() {
+    if (array.length > 0) {
+      $.getScript(window.example + '/' + array.shift() + '.js', function() {
+        load();
+      });
+    }
+  }
+  load();
+}
+
+jQuery(function() {
+  $('a').click(function() {
+    $('body').html('<canvas></canvas>');
+    window.example = $(this).attr('href').substring(1);
+    require(window[example]());
+  });
+
+  $('[href=#boxes]').click(function() {
+  });
+});
+
+function boxes() { return ['Player', 'Platform', 'scene']; };
+
+function shmup() {
+  return ['Laser', 'Missile', 'UI', 'Star', 'Waves', 'Enemy', 'Enemy2',
+    'Player', 'GameText', 'main'];
+}
+
+    </script>
+  </head>
+  <body>
+
+    <h1>Cat (in a) Box</h1>
+    <h2>JavaScript 2D game engine.</h2>
+
+    <p><a href="#boxes">Boxes</a></p>
+    <p><a href="#shmup">Shmup</a></p>
+    
+  </body>
+</html>
