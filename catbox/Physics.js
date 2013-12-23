@@ -32,7 +32,6 @@ var Physics = {
 
       // Skip if collider's layer is not in layer mask.
       if (collider.gameObject.layer != layer) {
-        console.log(collider.gameObject.layer);
         continue;
       }
 
