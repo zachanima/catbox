@@ -58,16 +58,17 @@ jQuery(function() {
     window.example = $(this).attr('href').substring(1);
     require(window[example]());
   });
-
-  $('[href=#boxes]').click(function() {
-  });
 });
 
-function boxes() { return ['Player', 'Platform', 'scene']; };
+function boxes() { return ['Player', 'Platform', 'scene']; }
 
 function shmup() {
   return ['Laser', 'Missile', 'UI', 'Star', 'Waves', 'Enemy', 'Enemy2',
     'Player', 'GameText', 'main'];
+}
+
+function collision2d() {
+  return ['scene'];
 }
 
     </script>
@@ -79,6 +80,7 @@ function shmup() {
 
     <p><a href="#boxes">Boxes</a></p>
     <p><a href="#shmup">Shmup</a></p>
+    <p><a href="#collision2d">Collision2D</a></p>
     
   </body>
 </html>
