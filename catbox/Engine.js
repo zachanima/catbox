@@ -179,7 +179,6 @@ GameObject.Instantiate = function(prefab, position, rotation) {
     var components = prefab.components[i];
     for (var j in components) {
       var component = components[j];
-
       var _component = gameObject.AddComponent(component.constructor);
 
       for (var k in component) {
