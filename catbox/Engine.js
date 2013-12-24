@@ -121,45 +121,6 @@ var Engine = {
 
 
 
-  CollisionUpdate: function() {
-    // FIXME: Only checks visible rigidbodies for collisions.
-    var a = new Vector2(canvas.width / 4, canvas.height / 4);
-    var b = new Vector2(canvas.width - canvas.width / 4, canvas.height - canvas.height / 4);
-    var colliders = Physics.OverlapAreaAll(a, b);
-
-    var length = colliders.length;
-    for (var i = length; i--;) {
-      var collider = colliders[i];
-
-      if (!collider.rigidbody) {
-        continue;
-      }
-
-      var a = new Vector2(
-        collider.transform.position.x + collider.center.x - collider.size.x / 2,
-        collider.transform.position.y + collider.center.y - collider.size.y / 2
-      );
-      var b = new Vector2(
-        collider.transform.position.x + collider.center.x + collider.size.x / 2,
-        collider.transform.position.y + collider.center.y + collider.size.y / 2
-      );
-
-      var _colliders = Physics.OverlapAreaAll(a, b);
-    }
-  },
-
-
-
-  SimulatePhysics: function() {
-    Engine.CollisionUpdate();
-
-    Engine.gameObjects.forEach(function(gameObject) {
-      gameObject.SendMessage('SimulatePhysics');
-    });
-  },
-
-
-
   Update: function() {
     Engine.gameObjects.forEach(function(gameObject) {
       gameObject.SendMessage('Update');
