@@ -24,17 +24,35 @@ var GameText = Component.augment(function(base) {
     this.grad.addColorStop(4 / 6, 'aqua');
     this.grad.addColorStop(5 / 6, 'blue');
     this.grad.addColorStop(1, 'purple');
+    this.gradCanvas = document.createElement('canvas');
+    this.gradCanvas.width = 800;
+    this.gradCanvas.height = 480;
+    this.gradContext = this.gradCanvas.getContext('2d');
+    this.gradContext.fillStyle = this.grad;
+    this.gradContext.fillRect(0, 0, 800, 480);
 
     //Make second gradient (fade in)
     this.whiteOverlay = this.context.createLinearGradient(0, 0, 0, 130);
     this.whiteOverlay.addColorStop(0, 'black');
     this.whiteOverlay.addColorStop(1, 'rgba(0,0,0,0)');
+    this.whiteCanvas = document.createElement('canvas');
+    this.whiteCanvas.width = 800;
+    this.whiteCanvas.height = 800;
+    this.whiteContext = this.gradCanvas.getContext('2d');
+    this.whiteContext.fillStyle = this.whiteOverlay;
+    this.whiteContext.fillRect(0, 0, 800, 480);
 
     //Make third gradient (fade out)
     this.fadeOut = this.context.createLinearGradient(0, 300, 0, 480);
     this.fadeOut.addColorStop(0, 'rgba(0,0,0,0)');
     this.fadeOut.addColorStop(1 / 2, 'black');
     this.fadeOut.addColorStop(1, 'black');
+    this.fadeCanvas = document.createElement('canvas');
+    this.fadeCanvas.width = 800;
+    this.fadeCanvas.height = 800;
+    this.fadeContext = this.gradCanvas.getContext('2d');
+    this.fadeContext.fillStyle = this.fadeOut;
+    this.fadeContext.fillRect(0, 0, 800, 480);
 
     var _this = this;
     setTimeout(function() {
@@ -62,7 +80,6 @@ var GameText = Component.augment(function(base) {
 
 
   this.OnGUI = function() {
-    
     this.context.clearRect(0, 0, 800, 480);
     this.context.fillStyle = '#fff';
 
@@ -99,16 +116,19 @@ var GameText = Component.augment(function(base) {
 
 
     this.context.globalCompositeOperation = 'source-in';
-    this.context.fillStyle = this.grad;
-    this.context.fillRect(this.transform.position.x-120, this.transform.position.y-100, 240, 400);
+    // this.context.fillStyle = this.grad;
+    // this.context.fillRect(this.transform.position.x-120, this.transform.position.y-100, 240, 400);
+    this.context.drawImage(this.gradCanvas, 0, 0);
 
-    this.context.fillStyle = this.whiteOverlay;
+    // this.context.fillStyle = this.whiteOverlay;
     this.context.globalCompositeOperation = 'source-atop';
-    this.context.fillRect(this.transform.position.x-120, this.transform.position.y-100, 240, 400);
+    // this.context.fillRect(this.transform.position.x-120, this.transform.position.y-100, 240, 400);
+    this.context.drawImage(this.whiteCanvas, 0, 0);
 
-    this.context.fillStyle = this.fadeOut;
+    // this.context.fillStyle = this.fadeOut;
     this.context.globalCompositeOperation = 'destination-out';
-    this.context.fillRect(this.transform.position.x-120, this.transform.position.y-100, 240, 400);
+    // this.context.fillRect(this.transform.position.x-120, this.transform.position.y-100, 240, 400);
+    this.context.drawImage(this.fadeCanvas, 0, 0);
 
     window.context.drawImage(this.canvas, 0, 0);
 
