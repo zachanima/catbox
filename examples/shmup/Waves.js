@@ -1,25 +1,22 @@
 "use strict";
 
-
-
 window.wave = null;
 
 var Waves = Component.augment(function(base) {
   this.constructor = function() { base.constructor.call(this); };
 
   this.Awake = function() {
-    this.phase = 0;
     window.wave = this; 
+    this.phase = 0;
     setTimeout(this.Wave1, 1000);
   };
 
 
 
   this.Wave1 = function() {
-    var enemy = new GameObject('Enemy', Enemy);
-    enemy.AddComponent(Sprite).Load('res/shmupenemy.png');
-    ++wave.phase;
-    if (wave.phase <= 9) {
+    Instantiate(wave.enemy, Vector2.up.Mul(250));
+
+    if (++wave.phase < 10) {
       setTimeout(wave.Wave1, 1000);
     }
   };

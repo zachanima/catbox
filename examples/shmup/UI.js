@@ -7,5 +7,4 @@ var UI = Component.augment(function(base) {
 
   this.OnGUI = function() {
   }
-
 });

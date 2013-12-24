@@ -47,8 +47,7 @@ Engine.Load([
   player.missile.gameObject.AddComponent(BoxCollider);
   player.missile.rigidbody.velocity.y = -80;
   player.missile.gameObject.layer = 3;
-  player.missile.exhaust =
-    new GameObject('Exhaust', ParticleSystem).GetComponent(ParticleSystem);
+  player.missile.exhaust = new GameObject('Exhaust', ParticleSystem).GetComponent(ParticleSystem);
   player.missile.exhaust.emissionRate = 60;
   player.missile.exhaust.startSpeed = 0;
   player.missile.exhaust.maxParticles = 18;
@@ -56,11 +55,40 @@ Engine.Load([
   player.missile.exhaust.startSize = 3;
   player.missile.exhaust.startColor = new Color(0xff, 0xdd, 0x88);
   player.missile.exhaust.endColor = new Color(0xff, 0x00, 0x00);
+
+  // Enemy2.
+  var enemy2 = new GameObject('Enemy2', Enemy2).GetComponent(Enemy2);
+  enemy2.gameObject.AddComponent(Sprite).Load('res/enemy2.png');
+  enemy2.transform.rotation = Math.PI / 2;
+  enemy2.explosion = new GameObject('Explosion', ParticleSystem).GetComponent(ParticleSystem);
+  enemy2.explosion.graphic = new Circle(3);
+  enemy2.explosion.emissionRate = 60;
+  enemy2.explosion.maxParticles = 10;
+  enemy2.explosion.startSpeed = 190;
+  enemy2.explosion.startColor = new Color(0xff, 0xcc, 0x66);
+  enemy2.explosion.endColor = new Color(0xff, 0x00, 0x00);
+  enemy2.explosion.endSize = 0.1;
+  enemy2.explosion.startLifetime = 1;
+
+  // Waves.
+  var waves = new GameObject('Waves', Waves).GetComponent(Waves);
+  waves.enemy = new GameObject('Enemy', Enemy);
+  waves.enemy.AddComponent(Sprite).Load('res/shmupenemy.png');
+  waves.enemy.AddComponent(Rigidbody);
+  waves.enemy.AddComponent(BoxCollider);
+  waves.enemy.layer = 3;
+  waves.enemy.collider.isTrigger = true;
   
+  // Star.
+  var star = new GameObject('Star', Star).AddComponent(ParticleSystem);
+  star.transform.rotation = Math.PI;
+  star.startLifetime = 24;
+  star.emissionRate = 40;
+  star.maxParticles = 1400;
+  star.startColor = Color.white;
+  star.endColor = Color.white;
+
   new GameObject('Main Camera', Camera).tag = 'MainCamera';
-  new GameObject('Star', Star).AddComponent(ParticleSystem);
-  new GameObject('Waves', Waves);
-  new GameObject('Enemy2', Enemy2).AddComponent(Sprite).Load('res/enemy2.png');
   new GameObject('GameText', GameText).transform.position = new Vector2(400, -100);
   new GameObject('UI', UI);
 
