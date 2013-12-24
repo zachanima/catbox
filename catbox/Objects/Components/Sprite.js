@@ -1,6 +1,6 @@
 "use strict";
 
-var Sprite = Component.augment(function(base) {
+var Sprite = Renderer.augment(function(base) {
   this.constructor = function() {
     base.constructor.call(this);
     this.period = 1;

@@ -6,11 +6,9 @@ var Player = Component.augment(function(base) {
 
 
   this.Awake = function() {
-    this.leftlauncher = false;
+    this.leftLauncher = false;
     this.cooldown = false;
-
-    this.transform.position.x = 400;
-    this.transform.position.y = 400;
+    this.transform.position.y = 120;
     this.gameObject.AddComponent(Rigidbody);
     this.gameObject.AddComponent(BoxCollider);
     
@@ -43,7 +41,7 @@ var Player = Component.augment(function(base) {
       laser.transform.position.y = this.transform.position.y - 10;
     }
 
-    if (!this.leftlauncher && Input.GetKeyDown(KeyCode.X)) {
+    if (!this.leftLauncher && Input.GetKeyDown(KeyCode.X)) {
       var missile = new GameObject('Missile', Missile);
       missile.GetComponent(Missile).startPoint = -Math.PI/2;
       missile.AddComponent(Rigidbody);
@@ -52,8 +50,8 @@ var Player = Component.augment(function(base) {
       missile.transform.position.y += 30;
       missile.transform.position.x += 30;
       missile.AddComponent(Sprite).Load('res/missile.png');
-      this.leftlauncher = true;
-    } else if (Input.GetKeyDown(KeyCode.X) && this.leftlauncher) {
+      this.leftLauncher = true;
+    } else if (Input.GetKeyDown(KeyCode.X) && this.leftLauncher) {
       var missile = new GameObject('Missile', Missile);
       missile.GetComponent(Missile).startPoint = Math.PI/2;
       missile.AddComponent(Rigidbody);
@@ -62,7 +60,7 @@ var Player = Component.augment(function(base) {
       missile.transform.position.y += 30;
       missile.transform.position.x -= 30;
       missile.AddComponent(Sprite).Load('res/missile.png');
-      this.leftlauncher = false;
+      this.leftLauncher = false;
     }
   };
 });

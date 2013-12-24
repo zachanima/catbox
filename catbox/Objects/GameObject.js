@@ -33,6 +33,17 @@ var GameObject = Object.augment(function() {
       Physics.colliders.push(component);
     }
 
+    if (component instanceof Camera) {
+      this.camera = component;
+      for (var i in this.components) {
+        if (this.components.hasOwnProperty(i)) {
+          this.components[i].forEach(function(_component) {
+            _component.camera = component;
+          });
+        }
+      }
+    }
+
     if (component instanceof Renderer) {
       this.renderer = component;
       for (var i in this.components) {
@@ -89,7 +100,7 @@ var GameObject = Object.augment(function() {
     }
 
     // Maintain component crosslinks.
-    component.name = this.name;
+    component.camera = this.camera;
     component.collider = this.collider;
     component.rigidbody = this.rigidbody;
     component.sprite = this.sprite;
@@ -155,15 +166,20 @@ GameObject.FindObjectOfType = function(Class) {
 
 
 
+// SLOOOW.
 GameObject.FindObjectsOfType = function(Class) {
   var result = [];
 
   for (var i in Engine.gameObjects) {
     var gameObject = Engine.gameObjects[i];
     for (var j in gameObject.components) {
-      var component = gameObject.components[j];
-      if (component instanceof Class) {
-        result.push(component);
+      var components = gameObject.components[j];
+      for (var k in components) {
+        var component = components[k];
+
+        if (component instanceof Class) {
+          result.push(component);
+        }
       }
     }
   }

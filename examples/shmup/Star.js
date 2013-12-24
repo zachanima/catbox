@@ -18,18 +18,18 @@ var Star = Component.augment(function(base) {
     this.particleSystem.maxParticles = 1400;
     this.transform.rotation = Math.PI;
     for (var i = 0; i < 400; ++i) {
-      this.transform.position.x = Math.ceil(Math.random() * 800) + 0.25;
-      this.transform.position.y = Math.ceil(Math.random() * 480) + 0.25;
+      this.transform.position.x = Math.ceil(Math.random() * 800) - 400.25;
+      this.transform.position.y = Math.ceil(Math.random() * 480) - 240.25;
       this.particleSystem.startSpeed = (20 + Math.random() * 100);
       this.particleSystem.Emit(1);
     }
-    this.transform.position.y = -1;
+    this.transform.position.y = -240.25;
   };
 
 
 
   this.Update = function() { 
-    this.transform.position.x = Math.ceil(Math.random() * 800) + 0.25;
+    this.transform.position.x = Math.ceil(Math.random() * 800) - 400.25;
     this.particleSystem.startSpeed = 20 + Math.random() * 100;
   };
 });

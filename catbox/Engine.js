@@ -135,25 +135,7 @@ var Engine = {
 
 
   Render: function() {
-    //context.clearRect(0, 0, canvas.width, canvas.height);
-    context.fillStyle = '#000';
-    context.fillRect(0, 0, canvas.width, canvas.height);
-
-    if (Camera.main) {
-      var transform = Camera.main.transform;
-      context.save();
-      context.translate(parseInt(-transform.position.x + canvas.width / 2), parseInt(-transform.position.y + canvas.height / 2));
-      context.rotate(transform.rotation);
-      context.scale(transform.scale.x, transform.scale.y);
-    }
-
-    Engine.gameObjects.forEach(function(gameObject) {
-      gameObject.Render();
-    });
-
-    if (Camera.main) {
-      context.restore();
-    }
+    Camera.main.Render();
   },
 
 

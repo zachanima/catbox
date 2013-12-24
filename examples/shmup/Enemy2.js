@@ -4,8 +4,8 @@ var Enemy2 = Component.augment(function(base) {
   this.constructor = function() { base.constructor.call(this); };
 
   this.Awake = function() {
-    this.transform.position.y = 200;
-    this.transform.position.x = 400;
+    this.transform.position.y = 0;
+    this.transform.position.x = 0;
     this.transform.rotation = Math.PI/2;
     
     this.explosion = new GameObject('Explosion', ParticleSystem);
