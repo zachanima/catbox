@@ -37,7 +37,7 @@ var GameText = Component.augment(function(base) {
     this.whiteOverlay.addColorStop(1, 'rgba(0,0,0,0)');
     this.whiteCanvas = document.createElement('canvas');
     this.whiteCanvas.width = 800;
-    this.whiteCanvas.height = 800;
+    this.whiteCanvas.height = 480;
     this.whiteContext = this.gradCanvas.getContext('2d');
     this.whiteContext.fillStyle = this.whiteOverlay;
     this.whiteContext.fillRect(0, 0, 800, 480);
@@ -49,7 +49,7 @@ var GameText = Component.augment(function(base) {
     this.fadeOut.addColorStop(1, 'black');
     this.fadeCanvas = document.createElement('canvas');
     this.fadeCanvas.width = 800;
-    this.fadeCanvas.height = 800;
+    this.fadeCanvas.height = 480;
     this.fadeContext = this.gradCanvas.getContext('2d');
     this.fadeContext.fillStyle = this.fadeOut;
     this.fadeContext.fillRect(0, 0, 800, 480);
