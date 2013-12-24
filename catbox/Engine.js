@@ -192,11 +192,16 @@ GameObject.Instantiate = function(prefab, position, rotation) {
             continue;
           }
 
+
           if (property == null || typeof property != 'object') {
             _component[k] = property;
 
           } else if (property instanceof Component) {
-            // ????
+            if (property.gameObject == original) {
+              continue;
+            }
+
+            _component[k] = Instantiate(property);
 
           } else if (property instanceof GameObject) {
             _component[k] = Instantiate(property);
@@ -226,7 +231,7 @@ GameObject.Instantiate = function(prefab, position, rotation) {
     }
   }
 
-  gameObject.transform.position = position || Vector2.zero;
+  gameObject.transform.position = (position && position.Copy())|| Vector2.zero;
   gameObject.transform.rotation = rotation || 0;
 
   if (prefab instanceof Component) {
