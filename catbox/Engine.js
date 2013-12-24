@@ -39,6 +39,7 @@ var Engine = {
     Time.deltaTime = (timestamp - Engine.lastTimestamp) / 1000;
     Engine.lastTimestamp = timestamp;
 
+
     Engine.Awake();
     Engine.Start();
     // On Enable.
@@ -73,11 +74,11 @@ var Engine = {
 
 
   Awake: function() {
-    for (var i = this.gameObjects.length; i--;) {
-      var awakening = this.gameObjects[i].components.awakening;
-      this.gameObjects[i].components.awakening = [];
-      this.gameObjects[i].components.starting =
-        this.gameObjects[i].components.starting.concat(awakening);
+    for (var i = Engine.gameObjects.length; i--;) {
+      var awakening = Engine.gameObjects[i].components.awakening;
+      Engine.gameObjects[i].components.awakening = [];
+      Engine.gameObjects[i].components.starting =
+        Engine.gameObjects[i].components.starting.concat(awakening);
       for (var j = awakening.length; j--;) {
         awakening[j].Awake();
       }
@@ -168,3 +169,68 @@ var Destroy = function(gameObject) {
     Engine.gameObjects.splice(index, 1);
   }
 }
+
+
+
+GameObject.Instantiate = function(prefab, position, rotation) {
+  var gameObject = new GameObject(prefab.name + " (clone)");
+
+  for (var i in prefab.components) {
+    var components = prefab.components[i];
+    for (var j in components) {
+      var component = components[j];
+
+      var _component = gameObject.AddComponent(component.constructor);
+
+      for (var k in component) {
+        if (component.hasOwnProperty(k)) {
+          var property = component[k];
+
+          if (property == prefab) { // Avoid circular instantiation.
+            continue;
+          }
+
+          if (property == null || typeof property != 'object') {
+            _component[k] = property;
+
+          } else if (property instanceof Component) {
+            // ????
+
+          } else if (property instanceof GameObject) {
+            _component[k] = Instantiate(property);
+
+          } else if (property instanceof Array) {
+            _component[k] = [];
+            for (var l = 0, length = property.length; l < length; ++l) {
+                _component[k][l] = property[l]; // TODO: Clone property member.
+            }
+
+          } else if (property instanceof Object) {
+            _component[k] = {};
+            for (var l in property) {
+              if (property.hasOwnProperty(l)) {
+                _component[k][l] = property[l]; // TODO: Clone property member.
+              }
+            }
+
+          } else {
+            console.log("Uncopyable property " + k + ": " + property + ".");
+          }
+        }
+      }
+    }
+  }
+
+  gameObject.transform.position = position || Vector2.zero;
+  gameObject.transform.rotation = rotation || 0;
+
+  if (prefab instanceof Component) {
+    return gameObject.GetComponent(prefab.constructor);
+  } else {
+    return gameObject;
+  }
+};
+
+
+
+var Instantiate = GameObject.Instantiate;

@@ -7,6 +7,7 @@ var GameObject = Object.augment(function() {
     this.name = name || '';
     this.tag = null; // TODO: Define get/set.
     this.transform = this.AddComponent(Transform);
+    this.gameObject = this;
 
     // TODO: Add this to hierarchy.
     Engine.gameObjects.push(this);
