@@ -6,7 +6,7 @@ var Player = Component.augment(function(base) {
 
 
   this.Awake = function() {
-    this.leftlauncher = false;
+    this.leftLauncher = false;
     this.cooldown = false;
 
     this.transform.position.x = 400;
@@ -43,7 +43,27 @@ var Player = Component.augment(function(base) {
       laser.transform.position.y = this.transform.position.y - 10;
     }
 
-    if (!this.leftlauncher && Input.GetKeyDown(KeyCode.X)) {
+    if (Input.GetKeyDown(KeyCode.X)) {
+      var missile = new GameObject('Missile', Missile);
+      missile.AddComponent(Sprite).Load('res/missile.png');
+      missile.AddComponent(Rigidbody);
+      missile.rigidbody.velocity.y = -80;
+      missile.transform.position = this.transform.position.Copy();
+      missile.transform.position.y += 30;
+
+      if (this.leftLauncher) {
+        missile.transform.position.x += 30;
+        missile.GetComponent(Missile).startPoint = -Math.PI/2;
+      } else {
+        missile.transform.position.x -= 30;
+        missile.GetComponent(Missile).startPoint = Math.PI/2;
+      }
+
+      this.leftLauncher = !this.leftLauncher;
+    }
+
+    /*
+    if (Input.GetKeyDown(KeyCode.X) && !this.leftlauncher) {
       var missile = new GameObject('Missile', Missile);
       missile.GetComponent(Missile).startPoint = -Math.PI/2;
       missile.AddComponent(Rigidbody);
@@ -64,5 +84,6 @@ var Player = Component.augment(function(base) {
       missile.AddComponent(Sprite).Load('res/missile.png');
       this.leftlauncher = false;
     }
+    */
   };
 });
