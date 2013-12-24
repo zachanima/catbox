@@ -173,10 +173,13 @@ var Destroy = function(gameObject) {
 
 
 GameObject.Instantiate = function(prefab, position, rotation) {
-  var gameObject = new GameObject(prefab.name + " (clone)");
+  var original = prefab.gameObject;
+  var gameObject = new GameObject(original.name + " (clone)");
+  gameObject.layer = original.layer;
+  gameObject.tag = original.tag;
 
-  for (var i in prefab.components) {
-    var components = prefab.components[i];
+  for (var i in original.components) {
+    var components = original.components[i];
     for (var j in components) {
       var component = components[j];
       var _component = gameObject.AddComponent(component.constructor);
@@ -185,7 +188,7 @@ GameObject.Instantiate = function(prefab, position, rotation) {
         if (component.hasOwnProperty(k)) {
           var property = component[k];
 
-          if (property == prefab) { // Avoid circular instantiation.
+          if (property == original) { // Avoid circular instantiation.
             continue;
           }
 
@@ -197,6 +200,9 @@ GameObject.Instantiate = function(prefab, position, rotation) {
 
           } else if (property instanceof GameObject) {
             _component[k] = Instantiate(property);
+
+          } else if (property instanceof Vector2) {
+            _component[k] = property.Copy();
 
           } else if (property instanceof Array) {
             _component[k] = [];

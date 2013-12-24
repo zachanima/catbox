@@ -11,9 +11,18 @@ Engine.Load([
 ], function() {
   Physics.gravity = Vector2.zero;
 
-  var player = new GameObject('Player', Player);
-  player.AddComponent(Sprite).Load('res/ship.png');
-  player.GetComponent(Player).exhaust = new GameObject('Exhaust', ParticleSystem);
+  var player = new GameObject('Player', Player).GetComponent(Player);
+  player.gameObject.AddComponent(Sprite).Load('res/ship.png');
+  player.gameObject.AddComponent(Rigidbody);
+  player.gameObject.AddComponent(BoxCollider);
+  player.transform.position.y = 120;
+
+  player.exhaust = new GameObject('Exhaust', ParticleSystem).GetComponent(ParticleSystem);
+  player.exhaust.startLifetime = 0.2;
+  player.exhaust.emissionRate = 60;
+  player.exhaust.startSize = 3;
+
+  player.laser = new GameObject('Laser', Laser).GetComponent(Laser);
   
   new GameObject('Main Camera', Camera).tag = 'MainCamera';
   new GameObject('Star', Star).AddComponent(ParticleSystem);
