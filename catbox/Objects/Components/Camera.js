@@ -11,10 +11,13 @@ var Camera = Component.augment(function(base) {
   this.Render = function() {
     var width = context.canvas.width;
     var height = context.canvas.height;
+    var fillStyle = context.fillStyle;
 
-    context.clearRect(0, 0, width, height);
     context.fillStyle = this.backgroundColor.toString();
+    context.clearRect(0, 0, width, height);
     context.fillRect(0, 0, width, height);
+
+    context.fillStyle = fillStyle;
 
     context.save();
     context.translate(
@@ -24,7 +27,7 @@ var Camera = Component.augment(function(base) {
     context.rotate(this.transform.rotation);
     // context.scale using orthographicSize.
     
-    for (var i = Engine.gameObjects.length; i--;) {
+    for (var i = 0, length = Engine.gameObjects.length; i < length; ++i) {
       var gameObject = Engine.gameObjects[i];
 
       context.save();

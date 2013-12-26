@@ -17,6 +17,7 @@ var ParticleSystem = Component.augment(function(base) {
     this.startSize = 1;
     this.endSize = 1;
     this.simulationSpace = 'world';
+    this.angle = Math.PI / 4;
   };
 
 
@@ -33,14 +34,6 @@ var ParticleSystem = Component.augment(function(base) {
     
     for (var i = this.particles.length; i--;) {
       this.particles[i].Update();
-    }
-  };
-
-
-
-  this.SimulatePhysics = function() {
-    for (var i = this.particles.length; i--;) {
-      this.particles[i].SimulatePhysics();
     }
   };
 
@@ -76,7 +69,10 @@ var ParticleSystem = Component.augment(function(base) {
         }
         particle.particleSystem = this;
         particle.lifetime = this.startLifetime;
-        particle.velocity = new Vector2(Math.cos(-Math.PI / 2 + this.transform.rotation), Math.sin(-Math.PI / 2 + this.transform.rotation)).Mul(this.startSpeed);
+        particle.velocity = new Vector2(
+          Math.cos(-Math.PI / 2 + this.transform.rotation + Math.random() * this.angle - this.angle / 2),
+          Math.sin(-Math.PI / 2 + this.transform.rotation + Math.random() * this.angle - this.angle / 2)
+        ).Mul(this.startSpeed);
         particle.color = this.startColor;
         particle.size = this.startSize;
         particle.graphic = this.graphic;

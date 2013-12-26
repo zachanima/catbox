@@ -16,8 +16,8 @@ var Engine = {
 
     Input.init();
 
-    Resources.callback = callback;
-    Resources.loading = resources;
+    Resources.loading = resources instanceof Array && resources || [];
+    Resources.callback = resources instanceof Function && resources || callback;
     Resources.Preload();
   },
 

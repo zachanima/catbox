@@ -14,16 +14,10 @@ var Particle = Object.augment(function(base) {
     this.position.y += this.velocity.y * Time.deltaTime;
     this.velocity.x += Physics.gravity.x * this.particleSystem.gravityModifier;
     this.velocity.y += Physics.gravity.y * this.particleSystem.gravityModifier;
-    //Destroy after some time
     this.lifetime -= Time.deltaTime;
     if (this.lifetime <= 0) {
       this.particleSystem.particles.splice(0,1)
     }
-  };
-
-
-
-  this.SimulatePhysics = function() {
   };
 
 
@@ -38,14 +32,15 @@ var Particle = Object.augment(function(base) {
     }
 
     context.save();
-    context.translate(parseInt(this.position.x) + 0.5, parseInt(this.position.y) + 0.5);
     // context.rotate
     context.scale(size, size);
 
     if (this.graphic) {
+      context.translate(Math.floor(this.position.x) + 0.5, Math.floor(this.position.y) + 0.5);
       this.graphic.Render(context);
-    } else {
-      context.fillRect(-0.5, -0.5, 1, 1);
+
+    } else { // Default is pixel particle.
+      context.fillRect(Math.floor(this.position.x), Math.floor(this.position.y), 1, 1);
     }
 
     context.restore();
