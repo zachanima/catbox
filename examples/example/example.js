@@ -12,8 +12,14 @@ function example() {
     rectangle.renderer.graphic = new Rectangle(64, 64);
 
     // Particle System.
-    var glitter = new GameObject('Glitter', ParticleSystem);
-    glitter.particleSystem.startColor = Color.white;
-    glitter.particleSystem.gravityModifier = 0;
+    var glitter = new GameObject('Glitter', ParticleSystem).particleSystem;
+    glitter.startColor = Color.white;
+    glitter.gravityModifier = 0;
+    glitter.startSize = 2;
+    glitter.emissionRate = 200;
+    glitter.emissionBursts = { 0.0: 1000, 2.5: 1000 };
+    glitter.maxParticles = 3000;
+    glitter.angle = 2 * Math.PI;
+    glitter.startSpeed = 25;
   });
 }

@@ -21,9 +21,13 @@ var Color = Object.augment(function() {
 Color.__defineGetter__('red', function() { return new Color(255, 0, 0); });
 Color.__defineGetter__('green', function() { return new Color(0, 255, 0); });
 Color.__defineGetter__('blue', function() { return new Color(0, 0, 255); });
+Color.__defineGetter__('cyan', function() { return new Color(0, 255, 255); });
+Color.__defineGetter__('magenta', function() { return new Color(255, 0, 255); });
+Color.__defineGetter__('yellow', function() { return new Color(255, 255, 0); });
 Color.__defineGetter__('black', function() { return new Color(0, 0, 0); });
 Color.__defineGetter__('white', function() { return new Color(255, 255, 255); });
 
+// FIXME: Doesn't work for 0 alpha.
 Color.Lerp = function(a, b, w) {
   return new Color(
     Mathf.Lerp(a.r, b.r, w),

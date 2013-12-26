@@ -31,18 +31,25 @@ var Particle = Object.augment(function(base) {
         Color.Lerp(this.color, this.particleSystem.endColor, weight).toString();
     }
 
-    context.save();
-    // context.rotate
-    context.scale(size, size);
 
     if (this.graphic) {
-      context.translate(Math.floor(this.position.x) + 0.5, Math.floor(this.position.y) + 0.5);
+      context.save();
+      context.rotate(this.rotation);
+      context.scale(size, size);
+      context.translate(
+        1 / size * (Math.floor(this.position.x) + 0.5),
+        1 / size * (Math.floor(this.position.y) + 0.5)
+      );
+
       this.graphic.Render(context);
 
+      context.restore();
+
     } else { // Default is pixel particle.
-      context.fillRect(Math.floor(this.position.x), Math.floor(this.position.y), 1, 1);
+      context.fillRect(
+        Math.floor(this.position.x - size / 2),
+        Math.floor(this.position.y - size / 2), size, size);
     }
 
-    context.restore();
   };
 });

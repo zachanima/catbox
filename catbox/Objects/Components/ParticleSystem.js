@@ -3,6 +3,8 @@
 var ParticleSystem = Component.augment(function(base) {
   this.constructor = function() {
     base.constructor.call(this);
+    this.duration = 5;
+    this.looping = true;
     this.startDelay = 0;
     this.emissionRate = 10;
     this.enableEmission = true;
@@ -16,20 +18,34 @@ var ParticleSystem = Component.augment(function(base) {
     this.startSpeed = 5;
     this.startSize = 1;
     this.endSize = 1;
-    this.simulationSpace = 'world';
+    this.simulationSpace = 'local';
+    this.startRotation = 0;
     this.angle = Math.PI / 4;
+    this.time = 5;
   };
 
 
 
   this.Update = function() {
     if (this.enableEmission) {
-      while (this.startDelay <= 0) {
-        this.Emit(1); // TODO: Emit all at once.
-        this.startDelay += 1 / this.emissionRate;
+      if (this.startDelay <= -1 / this.emissionRate) {
+        this.Emit(Math.floor(-this.startDelay * this.emissionRate));
+        this.startDelay += Math.floor(-this.startDelay * this.emissionRate) / this.emissionRate; // Is `ceil` correct?
+      }
+
+      for (var t in this.emissionBursts) {
+        if (this.time <= this.duration - t && this.time >= this.duration - t - Time.deltaTime) {
+          console.log(this.emissionBursts[t]);
+          this.Emit(this.emissionBursts[t]);
+        }
       }
 
       this.startDelay -= Time.deltaTime;
+      this.time -= Time.deltaTime;
+
+      if (this.time < 0) {
+        this.time += this.duration;
+      }
     }
     
     for (var i = this.particles.length; i--;) {
@@ -63,6 +79,7 @@ var ParticleSystem = Component.augment(function(base) {
   this.Emit = function(count) {
     while (count--) {
       if (this.particles.length < this.maxParticles) {
+        var angle = Math.random() * this.angle - this.angle / 2;
         var particle = new Particle();
         if (this.simulationSpace == 'world') {
           particle.position = new Vector2(this.transform.position.x, this.transform.position.y);
@@ -70,13 +87,14 @@ var ParticleSystem = Component.augment(function(base) {
         particle.particleSystem = this;
         particle.lifetime = this.startLifetime;
         particle.velocity = new Vector2(
-          Math.cos(-Math.PI / 2 + this.transform.rotation + Math.random() * this.angle - this.angle / 2),
-          Math.sin(-Math.PI / 2 + this.transform.rotation + Math.random() * this.angle - this.angle / 2)
+          Math.cos(-Math.PI / 2 + this.transform.rotation + angle),
+          Math.sin(-Math.PI / 2 + this.transform.rotation + angle)
         ).Mul(this.startSpeed);
         particle.color = this.startColor;
         particle.size = this.startSize;
         particle.graphic = this.graphic;
         particle.startLifetime = this.startLifetime;
+        particle.rotation = this.startRotation;
         this.particles.push(particle);
       }
     }
