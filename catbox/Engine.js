@@ -24,6 +24,11 @@ var Engine = {
 
 
   Begin: function() {
+    // Spawn Camera if it does not already exist.
+    if (!Camera.main) {
+      new GameObject('Main Camera', Camera).tag = 'MainCamera';
+    }
+
     // Request fixed loop.
     setInterval(Engine.Simulate, parseInt(1000 * Time.fixedDeltaTime));
 
