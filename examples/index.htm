@@ -39,37 +39,21 @@
 
     <script src="../catbox/Engine.js"></script>
 
+    <script src="scorch/scorch.js"></script>
+    <script src="scorch/Terrain.js"></script>
+
     <script>
 
-function require(array) {
-  var load = function() {
-    if (array.length > 0) {
-      $.getScript(window.example + '/' + array.shift() + '.js', function() {
-        load();
-      });
-    }
-  }
-  load();
-}
-
 jQuery(function() {
+  if (window.location.hash) {
+    $('body').html('<canvas></canvas>');
+    window[window.location.hash.substring(1)]();
+  }
   $('a').click(function() {
     $('body').html('<canvas></canvas>');
-    window.example = $(this).attr('href').substring(1);
-    require(window[example]());
+    window[$(this).attr('href').substring(1)]();
   });
 });
-
-function boxes() { return ['Player', 'Platform', 'scene']; }
-
-function shmup() {
-  return ['Laser', 'Missile', 'UI', 'Star', 'Waves', 'Enemy', 'Enemy2',
-    'Player', 'GameText', 'main'];
-}
-
-function collision2d() {
-  return ['scene'];
-}
 
     </script>
   </head>
@@ -78,9 +62,7 @@ function collision2d() {
     <h1>Cat (in a) Box</h1>
     <h2>JavaScript 2D game engine.</h2>
 
-    <p><a href="#boxes">Boxes</a></p>
-    <p><a href="#shmup">Shmup</a></p>
-    <p><a href="#collision2d">Collision2D</a></p>
+    <p><a href="#scorch">Scorch</a></p>
     
   </body>
 </html>
